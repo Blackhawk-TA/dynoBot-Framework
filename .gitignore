@@ -1,0 +1,12 @@
+# IDE
+typescript-wrapper-poc.iml
+.idea
+
+# Node
+node_modules
+
+# Compiled TypeScript
+src/bot-api-wrappers/**/*.js
+src/bot-api-wrappers/**/*.map
+src/apiWrapper.js
+src/apiWrapper.js.map
