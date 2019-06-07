@@ -1,7 +1,7 @@
-// const DiscordWrapper = require("./build/bot-api-wrappers/DiscordWrapper");
 const BotFramework = require("./build/BotFramework");
+const Discord = require("./build/wrappers/common/common/Discord");
 
-// const wrapper = new DiscordWrapper();
-const bot = new BotFramework("Discord");
+const bot = new BotFramework(new Discord());
 
-bot.sendMessage("Test");
+bot.message.send("OK");
+console.log(bot.server.getId());

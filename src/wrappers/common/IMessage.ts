@@ -1,3 +1,3 @@
 export interface IMessage {
-	sendMessage(msg: string): void;
+	send(msg: string): void;
 }

@@ -1,7 +1,7 @@
 import {IMessage} from "./common/IMessage";
 
 export class MessageSlack implements IMessage {
-	sendMessage(msg: string) {
+	send(msg: string) {
 		console.log("Slack: " + msg);
 	}
 }
