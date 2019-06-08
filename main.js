@@ -1,5 +1,5 @@
 const BotFramework = require("./build/BotFramework");
-const Discord = require("./build/wrappers/common/common/Discord");
+const Discord = require("./build/wrappers/messengers/Discord");
 
 const bot = new BotFramework(new Discord());
 
