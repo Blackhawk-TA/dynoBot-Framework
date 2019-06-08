@@ -1,7 +1,9 @@
-const BotFramework = require("./build/BotFramework");
-const Discord = require("./build/messengers/Discord");
+const DiscordBot = require("./build/DiscordBot");
 
-const bot = new BotFramework(new Discord());
+const bot = new DiscordBot();
 
+bot.client.login("NTg2OTgwMjg0NjE3MTk1NTIx.XPv6GQ.okpOpqwdr0tSu1O8O3Pi_lCj8js");
+bot.client.on("message").then(msg => {
+	console.log(msg)
+});
 bot.message.send("OK");
-console.log(bot.server.getId());

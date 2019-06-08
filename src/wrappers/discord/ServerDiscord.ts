@@ -1,7 +1,7 @@
-import {IServer} from "./common/IServer";
+import {IServer} from "../common/IServer";
 
 export class ServerDiscord implements IServer {
-	getId() {
+	getId(): number {
 		return 1;
 	}
 }
