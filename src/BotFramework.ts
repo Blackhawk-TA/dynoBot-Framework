@@ -3,7 +3,6 @@ import {IMessage} from "./wrappers/common/IMessage";
 import {IServer} from "./wrappers/common/IServer";
 
 module.exports = class BotFramework {
-
 	private _wrapper: IMessenger;
 	private readonly _message: IMessage;
 	private readonly _server: IServer;
