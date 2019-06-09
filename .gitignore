@@ -1,9 +1,12 @@
 # IDE
 typescript-wrapper-poc.iml
-.idea
+.idea/
 
 # Node
-node_modules
+node_modules/
+
+# Testing
+cfg/
 
 # Compiled TypeScript
-build
+build/

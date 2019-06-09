@@ -1,3 +1,6 @@
+import {IUser} from "./IUser";
+
 export interface IMessage {
-	send(msg: string): void;
+	_message: any;
+	isMentioned(User: IUser): boolean;
 }
