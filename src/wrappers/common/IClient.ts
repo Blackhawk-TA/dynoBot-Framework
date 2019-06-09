@@ -1,4 +1,9 @@
+import {EventEmitter} from "events";
+import {IUser} from "./IUser";
+
 export interface IClient {
-	on(eventName: string): any;
+	_events: EventEmitter;
+	_user: IUser;
+	registerEvent(name: string): void
 	login(token: string): void;
 }

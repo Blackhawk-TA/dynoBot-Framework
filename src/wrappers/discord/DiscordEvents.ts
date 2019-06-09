@@ -1,6 +1,7 @@
 import {DiscordMessage} from "./DiscordMessage";
 import {IEvents} from "../common/IEvents";
 
+//TODO rename
 export class DiscordEvents implements IEvents {
 	_events: object;
 

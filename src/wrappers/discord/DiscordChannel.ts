@@ -1,7 +1,7 @@
 import {IChannel} from "../common/IChannel";
 
 export class DiscordChannel implements IChannel {
-	_channel: any;
+	private _channel: any;
 
 	constructor(channel: object) {
 		this._channel = channel;
