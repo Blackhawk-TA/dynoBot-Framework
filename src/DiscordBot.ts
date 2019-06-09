@@ -1,18 +1,20 @@
 import {IBot} from "./common/IBot";
-import {IMessage} from "./wrappers/common/IMessage";
 import {IServer} from "./wrappers/common/IServer";
 import {DiscordServer} from "./wrappers/discord/DiscordServer";
 import {IClient} from "./wrappers/common/IClient";
 import {DiscordClient} from "./wrappers/discord/DiscordClient";
 
-module.exports = class DiscordBot implements IBot {
-	readonly _message: IMessage;
-	readonly _server: IServer;
-	readonly _client: IClient;
+const Discord = require("discord.js");
+const client = new Discord.Client();
 
-	constructor() {
+module.exports = class DiscordBot implements IBot {
+	private readonly _server: IServer;
+	private readonly _client: IClient;
+
+	constructor(token: string) {
 		this._server = new DiscordServer();
-		this._client = new DiscordClient();
+		this._client = new DiscordClient(client);
+		client.login(token);
 	}
 
 	public get server(): IServer {

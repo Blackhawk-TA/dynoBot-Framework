@@ -1,8 +1,6 @@
 const DiscordBot = require("./build/DiscordBot");
 const security = require("./cfg/security");
-const bot = new DiscordBot();
-
-bot.client.login(security.token);
+const bot = new DiscordBot(security.token);
 
 bot.client.registerEvent("message");
 bot.client.events.on("message", (msg) => {

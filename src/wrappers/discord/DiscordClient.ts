@@ -1,19 +1,17 @@
 import {IClient} from "../common/IClient";
-import {DiscordEvents} from "./DiscordEvents";
+import {DiscordEvent} from "./DiscordEvent";
 import {EventEmitter} from "events";
 import {IUser} from "../common/IUser";
 import {DiscordUser} from "./DiscordUser";
 
-const Discord = require("discord.js");
-const Client = new Discord.Client();
-
 export class DiscordClient implements IClient {
-	readonly _events: EventEmitter;
-	readonly _user: IUser;
-
-	constructor() {
+	private readonly _events: EventEmitter;
+	private readonly _user: IUser;
+	private _client: any;
+	constructor(client: any) {
 		this._events = new EventEmitter();
-		this._user = new DiscordUser(Client);
+		this._user = new DiscordUser(client);
+		this._client = client;
 	}
 
 	get events(): EventEmitter {
@@ -25,20 +23,10 @@ export class DiscordClient implements IClient {
 	}
 
 	registerEvent(name: string): void {
-		Client.on(name, (object) => {
-			let Events = new DiscordEvents(object);
-			let WrappedObject = Events.getEvent(name);
-			let EventParameter = WrappedObject ? WrappedObject : new Error(`Unknown event '${name}'`); //TODO error catch doesnt work
-
-			this._events.emit(name, EventParameter);
+		let Event = new DiscordEvent(name);
+		this._client.on(name, (object) => {
+			let WrappedObject = Event.getWrappedObject(object);
+			this._events.emit(name, WrappedObject);
 		});
-	}
-
-	/**
-	 * Init the bot
-	 * @param token
-	 */
-	login(token: string): void {
-		Client.login(token);
 	}
 }
