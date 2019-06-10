@@ -8,6 +8,7 @@ export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
 	private readonly _user: IUser;
 	private _client: any;
+
 	constructor(client: any) {
 		this._events = new EventEmitter();
 		this._user = new DiscordUser(client);
@@ -26,7 +27,11 @@ export class DiscordClient implements IClient {
 		let Event = new DiscordEvent(name);
 		this._client.on(name, (object) => {
 			let WrappedObject = Event.getWrappedObject(object);
-			this._events.emit(name, WrappedObject);
+			if (WrappedObject) {
+				this._events.emit(name, WrappedObject);
+			} else {
+				this._events.emit(name);
+			}
 		});
 	}
 }
