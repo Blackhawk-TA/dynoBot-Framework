@@ -11,7 +11,7 @@ export class DiscordClient implements IClient {
 
 	constructor(client: any) {
 		this._events = new EventEmitter();
-		this._user = new DiscordUser(client);
+		this._user = new DiscordUser(client.user);
 		this._client = client;
 	}
 

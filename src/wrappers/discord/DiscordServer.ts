@@ -8,6 +8,6 @@ export class DiscordServer implements IServer {
 	}
 
 	getId(): number {
-		return 1;
+		return this._server.id;
 	}
 }
