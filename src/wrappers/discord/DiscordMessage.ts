@@ -47,4 +47,14 @@ export class DiscordMessage implements IMessage {
 
 		return mentioned;
 	}
+
+	delete(): Promise<IMessage|Error> {
+		return new Promise<IMessage|Error>((resolve, reject) => {
+			this._message.delete().then(message => {
+				resolve(new DiscordMessage(message));
+			}).catch(error => {
+				reject(error);
+			});
+		})
+	}
 }

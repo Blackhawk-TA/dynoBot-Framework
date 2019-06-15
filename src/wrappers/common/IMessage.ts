@@ -40,4 +40,10 @@ export interface IMessage {
 	 * @return {boolean} - True if the user was mentioned, else false
 	 */
 	isMentioned(User: IUser): boolean;
+
+	/**
+	 * Deletes the message
+	 * @return {IMessage|Error} - The deleted message or an error message if the deletion was not possible
+	 */
+	delete(): Promise<IMessage|Error>;
 }
