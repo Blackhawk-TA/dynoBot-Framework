@@ -1,8 +1,11 @@
 import {IClient} from "../common/IClient";
-import {DiscordEvent} from "./DiscordEvent";
 import {EventEmitter} from "events";
 import {IUser} from "../common/IUser";
 import {DiscordUser} from "./DiscordUser";
+import {IServer} from "../common/IServer";
+import {DiscordServer} from "./DiscordServer";
+import {IEvent} from "../common/IEvent";
+import {DiscordEvent} from "./DiscordEvent";
 
 export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
@@ -23,8 +26,18 @@ export class DiscordClient implements IClient {
 		return this._user;
 	}
 
+	getServers(): IServer[] {
+		let servers: object[] = this._client.guilds.array();
+		let wrappedServers: IServer[] = [];
+		servers.forEach(server => {
+			wrappedServers.push(new DiscordServer(server));
+		});
+
+		return wrappedServers;
+	}
+
 	registerEvent(name: string): void {
-		let Event = new DiscordEvent(name);
+		let Event: IEvent = new DiscordEvent(name);
 		this._client.on(name, (object) => {
 			let WrappedObject = Event.getWrappedObject(object);
 			if (WrappedObject) {

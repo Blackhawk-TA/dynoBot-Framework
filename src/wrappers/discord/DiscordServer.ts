@@ -10,4 +10,8 @@ export class DiscordServer implements IServer {
 	getId(): number {
 		return this._server.id;
 	}
+
+	getName(): string {
+		return this._server.name
+	}
 }
