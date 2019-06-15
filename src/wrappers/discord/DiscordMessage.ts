@@ -15,12 +15,15 @@ export class DiscordMessage implements IMessage {
 	}
 
 	isMentioned(User: IUser): boolean {
-		let mentionedUsers = this._message.mentions.users;
+		let mentionedUsers = this._message.mentions.users,
+			mentioned = false;
+
 		mentionedUsers.forEach(user => {
 			if (User.getId() === user.id) {
-				return true;
+				mentioned = true;
 			}
 		});
-		return false;
+
+		return mentioned;
 	}
 }

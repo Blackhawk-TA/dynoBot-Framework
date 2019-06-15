@@ -7,7 +7,7 @@ import {DiscordUser} from "./DiscordUser";
 export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
 	private readonly _user: IUser;
-	private _client: any;
+	private readonly _client: any;
 
 	constructor(client: any) {
 		this._events = new EventEmitter();

@@ -9,7 +9,7 @@ bot.client.events.on("ready", () => {
 	console.log("Bot started");
 
 	bot.client.events.on("message", (msg) => {
-		if (msg.isMentioned(bot.client.user)) { //TODO user outdated
+		if (msg.isMentioned(bot.client.user)) {
 			msg.channel.send("OK");
 		}
 	});

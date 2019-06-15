@@ -15,7 +15,6 @@ module.exports = class DiscordBot implements IBot {
 		client.login(token).then(() => {
 			this._client = new DiscordClient(client);
 		});
-
 	}
 
 	public get client(): IClient {
