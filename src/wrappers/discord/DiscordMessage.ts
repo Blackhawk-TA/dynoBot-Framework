@@ -5,6 +5,8 @@ import {IUser} from "../common/IUser";
 import {DiscordUser} from "./DiscordUser";
 import {IRole} from "../common/IRole";
 import {DiscordRole} from "./DiscordRole";
+import {IServer} from "../common/IServer";
+import {DiscordServer} from "./DiscordServer";
 
 export class DiscordMessage implements IMessage {
 	_message: any;
@@ -48,6 +50,10 @@ export class DiscordMessage implements IMessage {
 		return new DiscordChannel(this._message.channel);
 	}
 
+	getServer(): IServer {
+		return new DiscordServer(this._message.guild);
+	}
+
 	isMentioned(User: IUser): boolean {
 		let mentionedUsers = this._message.mentions.users,
 			mentioned = false;
@@ -61,6 +67,10 @@ export class DiscordMessage implements IMessage {
 		return mentioned;
 	}
 
+	isDeletable(): boolean {
+		return this._message.deletable;
+	}
+
 	delete(): Promise<IMessage | Error> {
 		return new Promise<IMessage | Error>((resolve, reject) => {
 			this._message.delete().then(message => {
@@ -69,5 +79,9 @@ export class DiscordMessage implements IMessage {
 				reject(error);
 			});
 		})
+	}
+
+	getCreationDate(): Date {
+		return this._message.createdAt;
 	}
 }

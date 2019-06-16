@@ -1,6 +1,7 @@
 import {IUser} from "./IUser";
 import {IChannel} from "./IChannel";
 import {IRole} from "./IRole";
+import {IServer} from "./IServer";
 
 export interface IMessage {
 	_message: any;
@@ -42,6 +43,12 @@ export interface IMessage {
 	getChannel(): IChannel;
 
 	/**
+	 * Get the server the message was sent on
+	 * @return {IServer} - The server the message was sent on
+	 */
+	getServer(): IServer;
+
+	/**
 	 * Check if a user was mentioned within the message
 	 * @param User - The user to check for mentions
 	 * @return {boolean} - True if the user was mentioned, else false
@@ -49,8 +56,20 @@ export interface IMessage {
 	isMentioned(User: IUser): boolean;
 
 	/**
+	 * Check if the message is deletable by the user
+	 * @return {boolean} - True if the message is deletable
+	 */
+	isDeletable(): boolean;
+
+	/**
 	 * Deletes the message
 	 * @return {IMessage|Error} - The deleted message or an error message if the deletion was not possible
 	 */
 	delete(): Promise<IMessage|Error>;
+
+	/**
+	 * The date on which the message was created at
+	 * @return {Date} - The date the message was created at
+	 */
+	getCreationDate(): Date;
 }
