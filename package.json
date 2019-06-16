@@ -1,7 +1,7 @@
 {
-	"name": "typescript-poc",
+	"name": "chatbot-api-wrapper",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A TypeScript API wrapper for chat bots such as discord or slack.",
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {
 		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",
