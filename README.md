@@ -23,14 +23,14 @@ It should look like this:
 Now you can use the framework by adding following line:
 
 ```javascript
-const {DiscordBot} = require("./build/src/DiscordBot");
+const {DiscordBot} = require("chatbot-api-wrapper");
 ```
 
 ### Implementation
 
 Here is an example for a simple bot:
 ```javascript
-const {DiscordBot} = require("./build/src/DiscordBot");
+const {DiscordBot} = require("chatbot-api-wrapper");
 const Bot = new DiscordBot("<discord-token>");
 
 Bot.client.registerEvent("ready");
