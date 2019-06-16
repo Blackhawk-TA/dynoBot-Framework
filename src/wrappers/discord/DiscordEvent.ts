@@ -1,6 +1,6 @@
 import {IEvent} from "../common/IEvent";
 import {DiscordMessage} from "./DiscordMessage";
-import {DiscordServerMember} from "./DiscordServerMember";
+import {DiscordUser} from "./DiscordUser";
 
 export class DiscordEvent implements IEvent {
 	private readonly _name: string;
@@ -10,11 +10,11 @@ export class DiscordEvent implements IEvent {
 			isWrapped: false
 		},
 		guildMemberAdd: {
-			returnClass: DiscordServerMember,
+			returnClass: DiscordUser,
 			isWrapped: true
 		},
 		guildMemberRemove: {
-			returnClass: DiscordServerMember,
+			returnClass: DiscordUser,
 			isWrapped: true
 		},
 		message: {
