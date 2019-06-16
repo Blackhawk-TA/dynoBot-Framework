@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "mocha -r ts-node/register tests/**/*.ts",
+		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",
 		"build": "tsc"
 	},
 	"keywords": [
