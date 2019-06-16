@@ -2,7 +2,7 @@
 
 import {DiscordClient} from "../../src/wrappers/discord/DiscordClient";
 
-const DiscordBot = require("../../src/DiscordBot");
+const {DiscordBot} = require("../../src/DiscordBot");
 const botConfig = require("../../../test-resources/bot-config");
 const Discord = require("discord.js");
 const assert = require("assert");

@@ -2,7 +2,7 @@
 	"name": "typescript-poc",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "./build/src/DiscordBot.js",
 	"scripts": {
 		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",
 		"build": "tsc"
