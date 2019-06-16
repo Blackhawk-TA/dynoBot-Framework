@@ -5,10 +5,10 @@ import {DiscordClient} from "./wrappers/discord/DiscordClient";
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-module.exports = class DiscordBot implements IBot {
+export class DiscordBot implements IBot {
 	_client: IClient;
 
-	constructor(token: string) {
+	public constructor(token: string) {
 		this._client = new DiscordClient(client);
 
 		//Update client once it is logged in
@@ -20,4 +20,4 @@ module.exports = class DiscordBot implements IBot {
 	public get client(): IClient {
 		return this._client;
 	}
-};
+}

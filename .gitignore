@@ -5,5 +5,8 @@ typescript-wrapper-poc.iml
 # Node
 node_modules/
 
+# Testing
+bot.js
+
 # Compiled TypeScript
 build/
