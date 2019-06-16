@@ -1,5 +1,5 @@
-const DiscordBot = require("./build/DiscordBot");
-const security = require("./cfg/security");
+const DiscordBot = require("./build/src/DiscordBot");
+const security = require("./test-resources/bot-config");
 const bot = new DiscordBot(security.token);
 
 bot.client.registerEvent("ready");

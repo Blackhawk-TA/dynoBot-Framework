@@ -1,5 +1,6 @@
 import {IUser} from "./IUser";
 import {IChannel} from "./IChannel";
+import {IRole} from "./IRole";
 
 export interface IMessage {
 	_message: any;
@@ -27,6 +28,12 @@ export interface IMessage {
 	 * @return {IUser} - The author of the message
 	 */
 	getAuthor(): IUser;
+
+	/**
+	 * Get the roles of the author
+	 * @return {IRole[]} - The roles of the author
+	 */
+	getAuthorRoles(): IRole[];
 
 	/**
 	 * Get the channel the message was sent on

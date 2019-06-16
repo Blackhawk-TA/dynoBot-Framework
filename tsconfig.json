@@ -4,10 +4,12 @@
 		"target": "es6",
 		"sourceMap": true,
 		"outDir":  "build",
-		"allowJs": true
+		"declaration": true
 	},
 	"include": [
-		"src"
+		"src",
+		"tests",
+		"test-resources"
 	],
 	"exclude": [
 		"node_modules"

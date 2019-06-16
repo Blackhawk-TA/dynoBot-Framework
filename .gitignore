@@ -5,8 +5,5 @@ typescript-wrapper-poc.iml
 # Node
 node_modules/
 
-# Testing
-cfg/
-
 # Compiled TypeScript
 build/

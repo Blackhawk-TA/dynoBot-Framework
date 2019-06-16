@@ -3,6 +3,8 @@ import {DiscordChannel} from "./DiscordChannel";
 import {IChannel} from "../common/IChannel";
 import {IUser} from "../common/IUser";
 import {DiscordUser} from "./DiscordUser";
+import {IRole} from "../common/IRole";
+import {DiscordRole} from "./DiscordRole";
 
 export class DiscordMessage implements IMessage {
 	_message: any;
@@ -28,7 +30,18 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthor(): IUser {
-		return new DiscordUser(this._message.author)
+		return new DiscordUser(this._message.author);
+	}
+
+	getAuthorRoles(): IRole[] {
+		let roles = this._message.member.roles.array(),
+			Roles: IRole[] = [];
+
+		roles.forEach(role => {
+			Roles.push(new DiscordRole(role));
+		});
+
+		return Roles;
 	}
 
 	getChannel(): IChannel {
@@ -48,8 +61,8 @@ export class DiscordMessage implements IMessage {
 		return mentioned;
 	}
 
-	delete(): Promise<IMessage|Error> {
-		return new Promise<IMessage|Error>((resolve, reject) => {
+	delete(): Promise<IMessage | Error> {
+		return new Promise<IMessage | Error>((resolve, reject) => {
 			this._message.delete().then(message => {
 				resolve(new DiscordMessage(message));
 			}).catch(error => {
