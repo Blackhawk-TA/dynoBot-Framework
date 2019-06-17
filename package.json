@@ -1,7 +1,7 @@
 {
-	"name": "chatbot-api-wrapper",
-	"version": "1.0.0-beta-4",
-	"description": "A TypeScript API wrapper for chat bots such as discord or slack.",
+	"name": "dynobot-framework",
+	"version": "1.0.0-beta-5",
+	"description": "A TypeScript framework which works as an API wrapper for chat bots such as discord or slack.",
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {
 		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",

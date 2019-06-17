@@ -11,8 +11,8 @@ export class DiscordChannel implements IChannel {
 		this._channel = channel;
 	}
 
-	send(msg: string): void {
-		this._channel.send(msg);
+	send(message?: string, options?: any): void {
+		this._channel.send(message, options);
 	}
 
 	getId(): number {

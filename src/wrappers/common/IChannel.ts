@@ -4,9 +4,10 @@ import {IMessage} from "./IMessage";
 export interface IChannel {
 	/**
 	 * Send a message to the channel
-	 * @param {string} msg - The message to send
+	 * @param {string} [message] - The message to send
+	 * @param {*} [options] - Options for the message, can also be just a RichEmbed or Attachment
 	 */
-	send(msg: string): void; //TODO allow more than a string as msg
+	send(message?: string, options?: any);
 
 	/**
 	 * Get the channel id
