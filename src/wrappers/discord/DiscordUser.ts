@@ -13,4 +13,14 @@ export class DiscordUser implements IUser {
 	getName(): string {
 		return this._user.username;
 	}
+
+	createDM(): Promise<any> {
+		return new Promise<any>((resolve, reject) => {
+			this._user.createDM().then(result => {
+				resolve(result) //TODO wrap
+			}).catch(reason => {
+				reject(reason);
+			});
+		});
+	}
 }
