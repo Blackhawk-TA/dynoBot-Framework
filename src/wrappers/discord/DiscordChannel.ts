@@ -75,4 +75,14 @@ export class DiscordChannel implements IChannel {
 			}
 		});
 	}
+
+	awaitMessages(filter: any, options?: object): Promise<IMessage[]> {
+		return new Promise<IMessage[]>((resolve, reject) => {
+			this._channel.awaitMessages(filter, options).then(messages => {
+				resolve(messages.array());
+			}).catch(reason => {
+				reject(reason);
+			})
+		});
+	}
 }
