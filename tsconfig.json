@@ -7,8 +7,7 @@
 	},
 	"include": [
 		"src",
-		"tests",
-		"test-resources"
+		"tests"
 	],
 	"exclude": [
 		"node_modules"

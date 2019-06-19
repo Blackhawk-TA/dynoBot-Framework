@@ -46,4 +46,11 @@ export interface IChannel {
 	 * @param {IMessage[]} messages - The messages which shall be deleted
 	 */
 	deleteMessageArray(messages: IMessage[]): Promise<IMessage[]>;
+
+	/**
+	 * Resolves with a collection of messages that pass the specified filter
+	 * @param {*} filter - The filter used to select which messages shall be collected
+	 * @param {object} options - Optional options to pass to the internal collector
+	 */
+	awaitMessages(filter: any, options?: object): Promise<IMessage[]>;
 }

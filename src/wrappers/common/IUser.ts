@@ -1,3 +1,5 @@
+import {DiscordChannel} from "../discord/DiscordChannel";
+
 export interface IUser {
 	/**
 	 * Get the id of the user
@@ -10,4 +12,10 @@ export interface IUser {
 	 * @return {string} - The username
 	 */
 	getName(): string;
+
+	/**
+	 * Create a private message channel
+	 * @return {Promise<DiscordChannel>} - The channel for private messages
+	 */
+	createDM(): Promise<DiscordChannel>;
 }

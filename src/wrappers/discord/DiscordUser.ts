@@ -1,4 +1,5 @@
 import {IUser} from "../common/IUser";
+import {DiscordChannel} from "./DiscordChannel";
 
 export class DiscordUser implements IUser {
 	private _user: any;
@@ -12,5 +13,15 @@ export class DiscordUser implements IUser {
 
 	getName(): string {
 		return this._user.username;
+	}
+
+	createDM(): Promise<DiscordChannel> {
+		return new Promise<DiscordChannel>((resolve, reject) => {
+			this._user.createDM().then(channel => {
+				resolve(new DiscordChannel(channel));
+			}).catch(reason => {
+				reject(reason);
+			});
+		});
 	}
 }

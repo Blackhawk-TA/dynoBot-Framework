@@ -1,4 +1,4 @@
-# Chat bot api wrapper
+# dynoBot-Framework
 
 ### Overview
 1. [dynoBot-Framework](#dynobot-framework)
