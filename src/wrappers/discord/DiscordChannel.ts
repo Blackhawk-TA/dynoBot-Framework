@@ -79,7 +79,11 @@ export class DiscordChannel implements IChannel {
 	awaitMessages(filter: any, options?: object): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
 			this._channel.awaitMessages(filter, options).then(messages => {
-				resolve(messages.array());
+				let Messages: IMessage[] = [];
+				messages.array().forEach(message => {
+					Messages.push(new DiscordMessage(message));
+				});
+				resolve(Messages);
 			}).catch(reason => {
 				reject(reason);
 			})

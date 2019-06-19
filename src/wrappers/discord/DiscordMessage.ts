@@ -46,10 +46,6 @@ export class DiscordMessage implements IMessage {
 		return Roles;
 	}
 
-	getChannel(): IChannel {
-		return new DiscordChannel(this._message.channel);
-	}
-
 	getServer(): IServer {
 		return new DiscordServer(this._message.guild);
 	}

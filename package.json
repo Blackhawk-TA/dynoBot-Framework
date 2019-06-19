@@ -1,6 +1,6 @@
 {
 	"name": "dynobot-framework",
-	"version": "1.0.0-beta-6",
+	"version": "1.0.0",
 	"description": "A TypeScript framework which works as an API wrapper for chat bots such as discord or slack.",
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {

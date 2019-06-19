@@ -1,5 +1,4 @@
 import {IUser} from "./IUser";
-import {IChannel} from "./IChannel";
 import {IRole} from "./IRole";
 import {IServer} from "./IServer";
 
@@ -35,12 +34,6 @@ export interface IMessage {
 	 * @return {IRole[]} - The roles of the author
 	 */
 	getAuthorRoles(): IRole[];
-
-	/**
-	 * Get the channel the message was sent on
-	 * @return {IChannel} - The channel the message was sent on
-	 */
-	getChannel(): IChannel;
 
 	/**
 	 * Get the server the message was sent on
