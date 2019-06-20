@@ -1,25 +1,25 @@
 export interface IRole {
 	/**
 	 * Get the role id
-	 * @return {number} - The role id
+	 * @return The role id
 	 */
 	getId(): number;
 
 	/**
 	 * Get the role name
-	 * @return {string} - The role name
+	 * @return The role name
 	 */
 	getName(): string;
 
 	/**
 	 * Get the role color
-	 * @return {number} - The role color
+	 * @return The role color
 	 */
 	getColor(): number;
 
 	/**
 	 * Get the role permissions
-	 * @return {number} - The role permissions
+	 * @return The role permissions
 	 */
 	getPermissions(): number;
 

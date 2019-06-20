@@ -1,5 +1,5 @@
-import {IBot} from "./common/IBot";
-import {IClient} from "./wrappers/common/IClient";
+import {IBot} from "./interfaces/IBot";
+import {IClient} from "./wrappers/interfaces/IClient";
 import {DiscordClient} from "./wrappers/discord/DiscordClient";
 
 const Discord = require("discord.js");

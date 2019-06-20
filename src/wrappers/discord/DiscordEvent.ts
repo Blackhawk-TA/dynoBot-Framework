@@ -1,4 +1,4 @@
-import {IEvent} from "../common/IEvent";
+import {IEvent} from "../interfaces/IEvent";
 import {DiscordMessage} from "./DiscordMessage";
 import {DiscordUser} from "./DiscordUser";
 
@@ -36,7 +36,7 @@ export class DiscordEvent implements IEvent {
 		if (this._events.hasOwnProperty(name)) {
 			this._name = this._events[name].name;
 		} else {
-			throw new Error(`The event '${name}' is not supported.`);
+			throw "Unsupported event";
 		}
 	}
 

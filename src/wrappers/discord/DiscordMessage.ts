@@ -1,11 +1,11 @@
-import {IMessage} from "../common/IMessage";
+import {IMessage} from "../interfaces/IMessage";
 import {DiscordChannel} from "./DiscordChannel";
-import {IChannel} from "../common/IChannel";
-import {IUser} from "../common/IUser";
+import {IChannel} from "../interfaces/IChannel";
+import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IRole} from "../common/IRole";
+import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
-import {IServer} from "../common/IServer";
+import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 
 export class DiscordMessage implements IMessage {

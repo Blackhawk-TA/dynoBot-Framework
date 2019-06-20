@@ -1,10 +1,10 @@
-import {IClient} from "../common/IClient";
+import {IClient} from "../interfaces/IClient";
 import {EventEmitter} from "events";
-import {IUser} from "../common/IUser";
+import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IServer} from "../common/IServer";
+import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
-import {IEvent} from "../common/IEvent";
+import {IEvent} from "../interfaces/IEvent";
 import {DiscordEvent} from "./DiscordEvent";
 
 export class DiscordClient implements IClient {

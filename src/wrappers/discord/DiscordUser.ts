@@ -1,4 +1,4 @@
-import {IUser} from "../common/IUser";
+import {IUser} from "../interfaces/IUser";
 import {DiscordChannel} from "./DiscordChannel";
 
 export class DiscordUser implements IUser {
@@ -18,6 +18,16 @@ export class DiscordUser implements IUser {
 	createDM(): Promise<DiscordChannel> {
 		return new Promise<DiscordChannel>((resolve, reject) => {
 			this._user.createDM().then(channel => {
+				resolve(new DiscordChannel(channel));
+			}).catch(reason => {
+				reject(reason);
+			});
+		});
+	}
+
+	deleteDM(): Promise<DiscordChannel> {
+		return new Promise<DiscordChannel>((resolve, reject) => {
+			this._user.deleteDM().then(channel => {
 				resolve(new DiscordChannel(channel));
 			}).catch(reason => {
 				reject(reason);

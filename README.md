@@ -33,11 +33,11 @@ Bot.client.registerEvent("<event-name>");
 ```
 
 Supported events:
-- error (returns Error object)
-- serverMemberAdd (returns User object)
-- serverMemberRemove (returns User object)
-- message (returns Message object)
-- ready (no return value)
+- `error` - returns Error object
+- `serverMemberAdd` - returns User object
+- `serverMemberRemove` - returns User object
+- `message` - returns Message object
+- `ready` - no return value
 
 Once a event is registered, it can be used like this:
 

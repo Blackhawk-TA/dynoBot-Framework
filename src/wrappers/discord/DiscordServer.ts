@@ -1,9 +1,9 @@
-import {IServer} from "../common/IServer";
-import {IUser} from "../common/IUser";
+import {IServer} from "../interfaces/IServer";
+import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IChannel} from "../common/IChannel";
+import {IChannel} from "../interfaces/IChannel";
 import {DiscordChannel} from "./DiscordChannel";
-import {IRole} from "../common/IRole";
+import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
 
 export class DiscordServer implements IServer {
