@@ -18,11 +18,11 @@ export class DiscordClient implements IClient {
 		this._client = client;
 	}
 
-	get events(): EventEmitter {
+	getEvents(): EventEmitter {
 		return this._events;
 	}
 
-	get user(): IUser {
+	getUser(): IUser {
 		return this._user;
 	}
 

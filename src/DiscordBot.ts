@@ -6,7 +6,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 
 export class DiscordBot implements IBot {
-	_client: IClient;
+	private _client: IClient;
 
 	public constructor(token: string) {
 		this._client = new DiscordClient(client);
@@ -17,7 +17,7 @@ export class DiscordBot implements IBot {
 		});
 	}
 
-	public get client(): IClient {
+	public getClient(): IClient {
 		return this._client;
 	}
 }

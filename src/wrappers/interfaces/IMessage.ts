@@ -1,25 +1,33 @@
 import {IUser} from "./IUser";
 import {IRole} from "./IRole";
 import {IServer} from "./IServer";
+import {IChannel} from "./IChannel";
 
 export interface IMessage {
 	_message: any;
 
+
 	/**
-	 * Get the content of the message
+	 * Get the channel the message was sent in.
+	 * @return The wrapped channel object
+	 */
+	getChannel(): IChannel;
+
+	/**
+	 * Get the content of the message.
 	 * @return The message content
 	 */
 	getContent(): string;
 
 	/**
-	 * Get the content of the message as an array
+	 * Get the content of the message as an array.
 	 * @return The message split into an array
 	 */
 	getContentArray(): string[];
 
 	/**
 	 * Get the regex groups of a message
-	 * @param regexPattern - The pattern which shall be applied on the message
+	 * @param regexPattern - The pattern which shall be applied on the message.
 	 */
 	getRegexGroups(regexPattern: RegExp): string[];
 
@@ -30,38 +38,44 @@ export interface IMessage {
 	getAuthor(): IUser;
 
 	/**
-	 * Get the roles of the author
+	 * Get the roles of the author. Can only be used on messages sent on servers.
 	 * @return The roles of the author
 	 */
 	getAuthorRoles(): IRole[];
 
 	/**
-	 * Get the server the message was sent on
+	 * Checks whether the message was sent on a server
+	 * @return True if the message was sent on a server, else false
+	 */
+	hasServer(): boolean;
+
+	/**
+	 * Get the server the message was sent on, not every message has was sent on a server.
 	 * @return The server the message was sent on
 	 */
 	getServer(): IServer;
 
 	/**
-	 * Check if a user was mentioned within the message
+	 * Check if a user was mentioned within the message.
 	 * @param User - The user to check for mentions
 	 * @return True if the user was mentioned, else false
 	 */
 	isMentioned(User: IUser): boolean;
 
 	/**
-	 * Check if the message is deletable by the user
+	 * Check if the message is deletable by the user.
 	 * @return True if the message is deletable
 	 */
 	isDeletable(): boolean;
 
 	/**
-	 * Deletes the message
+	 * Deletes the message.
 	 * @return The deleted message or an error message if the deletion was not possible
 	 */
 	delete(): Promise<IMessage|Error>;
 
 	/**
-	 * The date on which the message was created at
+	 * The date on which the message was created at.
 	 * @return The date the message was created at
 	 */
 	getCreationDate(): Date;

@@ -7,6 +7,7 @@ import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordMessage implements IMessage {
 	_message: any;
@@ -15,7 +16,7 @@ export class DiscordMessage implements IMessage {
 		this._message = message;
 	}
 
-	get channel(): IChannel {
+	getChannel(): IChannel {
 		return new DiscordChannel(this._message.channel);
 	}
 
@@ -36,18 +37,32 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthorRoles(): IRole[] {
-		let roles = this._message.member.roles.array(),
-			Roles: IRole[] = [];
+		if (this._message.member && this._message.member.roles) {
+			let roles = this._message.member.roles.array(),
+				Roles: IRole[] = [];
 
-		roles.forEach(role => {
-			Roles.push(new DiscordRole(role));
-		});
+			roles.forEach(role => {
+				Roles.push(new DiscordRole(role));
+			});
 
-		return Roles;
+			return Roles;
+		} else {
+			new ErrorHandler("There are no roles in this channel.").log();
+			return null;
+		}
+	}
+
+	hasServer(): boolean {
+		return !!this._message.guild;
 	}
 
 	getServer(): IServer {
-		return new DiscordServer(this._message.guild);
+		if (this._message.guild) {
+			return new DiscordServer(this._message.guild);
+		} else {
+			new ErrorHandler("The message was not sent on a server.").log();
+			return null;
+		}
 	}
 
 	isMentioned(User: IUser): boolean {

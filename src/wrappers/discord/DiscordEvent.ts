@@ -1,6 +1,7 @@
 import {IEvent} from "../interfaces/IEvent";
 import {DiscordMessage} from "./DiscordMessage";
 import {DiscordUser} from "./DiscordUser";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordEvent implements IEvent {
 	private readonly _name: string;
@@ -36,7 +37,7 @@ export class DiscordEvent implements IEvent {
 		if (this._events.hasOwnProperty(name)) {
 			this._name = this._events[name].name;
 		} else {
-			throw "Unsupported event";
+			new ErrorHandler(`The event '${name}' is not supported.`).throw();
 		}
 	}
 
