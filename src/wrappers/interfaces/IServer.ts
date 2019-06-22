@@ -32,7 +32,7 @@ export interface IServer {
 	 * @param channelId - The channel id which shall be looked for
 	 * @return The channel if it exists, else false
 	 */
-	hasChannel(channelId: number): IChannel|boolean;
+	hasChannel(channelId: string): IChannel|boolean;
 
 	/**
 	 * Get the roles of the server.
