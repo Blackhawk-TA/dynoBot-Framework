@@ -43,9 +43,9 @@ export class DiscordServer implements IServer {
 		return Channels;
 	}
 
-	hasChannel(channelId: number): IChannel|boolean {
+	hasChannel(channelId: string): IChannel|boolean {
 		let i: number = 0,
-			channels = this._server.channels;
+			channels = this._server.channels.array();
 
 		while(i < channels.length) {
 			if (channels[i].id === channelId) {
