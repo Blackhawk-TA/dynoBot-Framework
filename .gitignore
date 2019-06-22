@@ -7,9 +7,3 @@ node_modules/
 # Testing
 bot.js
 bot-config.json
-
-# Compiled TypeScript
-build/
-
-# Documentation
-doc/
