@@ -43,6 +43,19 @@ export class DiscordServer implements IServer {
 		return Channels;
 	}
 
+	hasChannel(channelId: number): IChannel|boolean {
+		let i: number = 0,
+			channels = this._server.channels;
+
+		while(i < channels.length) {
+			if (channels[i].id === channelId) {
+				return new DiscordChannel(channels[i]);
+			}
+		}
+
+		return false;
+	}
+
 	getRoles(): IRole[] {
 		let roles = this._server.roles.array(),
 			Roles: IRole[] = [];

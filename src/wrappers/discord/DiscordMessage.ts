@@ -20,12 +20,24 @@ export class DiscordMessage implements IMessage {
 		return new DiscordChannel(this._message.channel);
 	}
 
-	getContent(): string {
-		return this._message.content;
+	getContent(excludeFirstWord?: boolean): string {
+		if (excludeFirstWord) {
+			let content: string = this._message.content;
+			let index: number = content.indexOf(" ");
+			return content.slice(index + 1, content.length);
+		} else {
+			return this._message.content;
+		}
 	}
 
-	getContentArray(): string[] {
-		return this._message.content.split(" ");
+	getContentArray(excludeFirstWord?: boolean): string[] {
+		let messageArray = this._message.content.split(" ");
+		if (excludeFirstWord) {
+			messageArray.shift();
+			return messageArray;
+		} else {
+			return messageArray;
+		}
 	}
 
 	getRegexGroups(RegexPattern: RegExp): string[] {

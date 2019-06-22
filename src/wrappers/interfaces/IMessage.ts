@@ -15,15 +15,17 @@ export interface IMessage {
 
 	/**
 	 * Get the content of the message.
+	 * @param [excludeFirstWord] - Excludes the first word of the content if set to true
 	 * @return The message content
 	 */
-	getContent(): string;
+	getContent(excludeFirstWord?: boolean): string;
 
 	/**
 	 * Get the content of the message as an array.
+	 * @param [excludeFirstWord] - Excludes the first word of the content array if set to true
 	 * @return The message split into an array
 	 */
-	getContentArray(): string[];
+	getContentArray(excludeFirstWord?: boolean): string[];
 
 	/**
 	 * Get the regex groups of a message

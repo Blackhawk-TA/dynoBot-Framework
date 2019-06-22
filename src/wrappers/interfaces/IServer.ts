@@ -28,6 +28,13 @@ export interface IServer {
 	getChannels(): IChannel[];
 
 	/**
+	 * Checks if the given channel exists on the server
+	 * @param channelId - The channel id which shall be looked for
+	 * @return The channel if it exists, else false
+	 */
+	hasChannel(channelId: number): IChannel|boolean;
+
+	/**
 	 * Get the roles of the server.
 	 * @return The roles of the server
 	 */
