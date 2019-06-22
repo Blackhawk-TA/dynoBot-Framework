@@ -1,7 +1,7 @@
-import {IChannel} from "../common/IChannel";
-import {IServer} from "../common/IServer";
+import {IChannel} from "../interfaces/IChannel";
+import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
-import {IMessage} from "../common/IMessage";
+import {IMessage} from "../interfaces/IMessage";
 import {DiscordMessage} from "./DiscordMessage";
 
 export class DiscordChannel implements IChannel {
@@ -41,23 +41,7 @@ export class DiscordChannel implements IChannel {
 		});
 	}
 
-	deleteMessages(amount: number, filter?: boolean): Promise<IMessage[]> {
-		return new Promise<IMessage[]>((resolve, reject) => {
-			this._channel.bulkDelete(amount, filter).then((messages) => {
-				let Messages: IMessage[] = [];
-				for (let i: number = 0; i < amount; i++) {
-					Messages.push(messages[i]);
-					if (i === messages.length - 1) {
-						resolve(Messages);
-					}
-				}
-			}).catch(error => {
-				reject(error);
-			});
-		});
-	}
-
-	deleteMessageArray(messages: IMessage[]): Promise<IMessage[]> {
+	deleteMessages(messages: IMessage[]): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
 			let Messages: IMessage[] = [];
 			for (let i: number = 0; i < messages.length; i++) {
@@ -76,13 +60,17 @@ export class DiscordChannel implements IChannel {
 		});
 	}
 
-	awaitMessages(filter: any, options?: object): Promise<IMessage[]> {
+	awaitMessages(options?: object): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
-			this._channel.awaitMessages(filter, options).then(messages => {
-				resolve(messages.array());
+			this._channel.awaitMessages(function() {return true}, options).then(messages => {
+				let Messages: IMessage[] = [];
+				messages.array().forEach(message => {
+					Messages.push(new DiscordMessage(message));
+				});
+				resolve(Messages);
 			}).catch(reason => {
 				reject(reason);
-			})
+			});
 		});
 	}
 }

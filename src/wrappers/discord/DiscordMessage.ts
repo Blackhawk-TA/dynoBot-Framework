@@ -1,12 +1,13 @@
-import {IMessage} from "../common/IMessage";
+import {IMessage} from "../interfaces/IMessage";
 import {DiscordChannel} from "./DiscordChannel";
-import {IChannel} from "../common/IChannel";
-import {IUser} from "../common/IUser";
+import {IChannel} from "../interfaces/IChannel";
+import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IRole} from "../common/IRole";
+import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
-import {IServer} from "../common/IServer";
+import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordMessage implements IMessage {
 	_message: any;
@@ -15,16 +16,28 @@ export class DiscordMessage implements IMessage {
 		this._message = message;
 	}
 
-	get channel(): IChannel {
+	getChannel(): IChannel {
 		return new DiscordChannel(this._message.channel);
 	}
 
-	getContent(): string {
-		return this._message.content;
+	getContent(excludeFirstWord?: boolean): string {
+		if (excludeFirstWord) {
+			let content: string = this._message.content;
+			let index: number = content.indexOf(" ");
+			return content.slice(index + 1, content.length);
+		} else {
+			return this._message.content;
+		}
 	}
 
-	getContentArray(): string[] {
-		return this._message.content.split(" ");
+	getContentArray(excludeFirstWord?: boolean): string[] {
+		let messageArray = this._message.content.split(" ");
+		if (excludeFirstWord) {
+			messageArray.shift();
+			return messageArray;
+		} else {
+			return messageArray;
+		}
 	}
 
 	getRegexGroups(RegexPattern: RegExp): string[] {
@@ -36,22 +49,32 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthorRoles(): IRole[] {
-		let roles = this._message.member.roles.array(),
-			Roles: IRole[] = [];
+		if (this._message.member && this._message.member.roles) {
+			let roles = this._message.member.roles.array(),
+				Roles: IRole[] = [];
 
-		roles.forEach(role => {
-			Roles.push(new DiscordRole(role));
-		});
+			roles.forEach(role => {
+				Roles.push(new DiscordRole(role));
+			});
 
-		return Roles;
+			return Roles;
+		} else {
+			new ErrorHandler("There are no roles in this channel.").log();
+			return null;
+		}
 	}
 
-	getChannel(): IChannel {
-		return new DiscordChannel(this._message.channel);
+	hasServer(): boolean {
+		return !!this._message.guild;
 	}
 
 	getServer(): IServer {
-		return new DiscordServer(this._message.guild);
+		if (this._message.guild) {
+			return new DiscordServer(this._message.guild);
+		} else {
+			new ErrorHandler("The message was not sent on a server.").log();
+			return null;
+		}
 	}
 
 	isMentioned(User: IUser): boolean {

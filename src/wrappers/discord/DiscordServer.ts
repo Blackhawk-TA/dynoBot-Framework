@@ -1,9 +1,9 @@
-import {IServer} from "../common/IServer";
-import {IUser} from "../common/IUser";
+import {IServer} from "../interfaces/IServer";
+import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IChannel} from "../common/IChannel";
+import {IChannel} from "../interfaces/IChannel";
 import {DiscordChannel} from "./DiscordChannel";
-import {IRole} from "../common/IRole";
+import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
 
 export class DiscordServer implements IServer {
@@ -41,6 +41,19 @@ export class DiscordServer implements IServer {
 		});
 
 		return Channels;
+	}
+
+	hasChannel(channelId: number): IChannel|boolean {
+		let i: number = 0,
+			channels = this._server.channels;
+
+		while(i < channels.length) {
+			if (channels[i].id === channelId) {
+				return new DiscordChannel(channels[i]);
+			}
+		}
+
+		return false;
 	}
 
 	getRoles(): IRole[] {

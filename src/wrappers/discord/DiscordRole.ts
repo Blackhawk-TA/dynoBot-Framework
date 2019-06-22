@@ -1,4 +1,4 @@
-import {IRole} from "../common/IRole";
+import {IRole} from "../interfaces/IRole";
 
 export class DiscordRole implements IRole {
 	private _role: any;

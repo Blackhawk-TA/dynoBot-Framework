@@ -10,3 +10,6 @@ bot-config.json
 
 # Compiled TypeScript
 build/
+
+# Documentation
+doc/
