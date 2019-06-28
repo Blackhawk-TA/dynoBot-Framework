@@ -1,0 +1,255 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>dynobot-framework</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">dynobot-framework</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> dynobot-framework</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="dynobot-framework">dynoBot-Framework</h1>
+				<h3 id="overview">Overview</h3>
+				<ol>
+					<li><a href="#dynobot-framework">dynoBot-Framework</a></li>
+					<li><a href="#documentation">Documentation</a></li>
+					<li><a href="#setup">Setup</a></li>
+					<li><a href="#events">Events</a></li>
+					<li><a href="#implementation">Implementation</a></li>
+				</ol>
+				<h3 id="dynobot-framework">dynoBot-Framework</h3>
+				<p>dynoBot-Framework is an chat bot api wrapper which allows you to code your bot independently from chat bot APIs such as the ones from discord or slack.
+				Currently only discord bots are supported. Slack will follow soon.</p>
+				<h3 id="documentation">Documentation</h3>
+				<p>You can find a documentation for the dynoBot-Framework here:</p>
+				<p><a href="http://doc-dynobot.tapadventures.com/">http://doc-dynobot.tapadventures.com/</a></p>
+				<h3 id="setup">Setup</h3>
+				<p><code>npm i dynobot-framework</code></p>
+				<p>Now you can use the framework by adding following line:</p>
+				<p><code>`</code>ecmascript 6
+				const {DiscordBot} = require(&quot;dynobot-framework&quot;);</p>
+				<pre><code>
+<span class="hljs-comment">### Events</span>
+Events have to <span class="hljs-keyword">be </span>registered <span class="hljs-keyword">before </span>they can <span class="hljs-keyword">be </span>used. This can <span class="hljs-keyword">be </span>done <span class="hljs-keyword">by </span>the following line:
+
+```ecmascript <span class="hljs-number">6</span>
+<span class="hljs-keyword">Bot.client.registerEvent("&lt;event-name&gt;");</span></code></pre><p>Supported events:</p>
+				<ul>
+					<li><code>error</code> - returns Error object</li>
+					<li><code>serverMemberAdd</code> - returns User object</li>
+					<li><code>serverMemberRemove</code> - returns User object</li>
+					<li><code>message</code> - returns Message object</li>
+					<li><code>ready</code> - no return value</li>
+				</ul>
+				<p>Once a event is registered, it can be used like this:</p>
+				<p><code>`</code>ecmascript 6
+					Bot.client.events.on(&quot;<event-name>&quot;, (returnValue) =&gt; {
+						//Code that shall be executed when the event was triggered
+				});</p>
+				<pre><code>
+### Implementation
+There is an <span class="hljs-keyword">open</span> source bot called <span class="hljs-literal">[<span class="hljs-identifier">dynoBot</span>]</span>(https:<span class="hljs-comment">//github.com/Blackhawk-TA/dynoBot) which uses the dynoBot-Framework.</span>
+You can take a look at it <span class="hljs-keyword">if</span> you prefer a more realistic implementation example.
+
+There is also an example <span class="hljs-keyword">of</span> a simple bot implementation <span class="hljs-keyword">to</span> get started withk:
+```ecmascript <span class="hljs-number">6</span>
+const {DiscordBot} = require(<span class="hljs-string">"dynobot-framework"</span>);
+const Bot = <span class="hljs-keyword">new</span> <span class="hljs-constructor">DiscordBot(<span class="hljs-string">"&lt;discord-token&gt;"</span>)</span>;
+
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Bot</span>.</span></span>client.register<span class="hljs-constructor">Event(<span class="hljs-string">"ready"</span>)</span>;
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Bot</span>.</span></span>client.register<span class="hljs-constructor">Event(<span class="hljs-string">"message"</span>)</span>;
+
+<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Bot</span>.</span></span>client.events.on(<span class="hljs-string">"ready"</span>,<span class="hljs-function"> <span class="hljs-params">()</span> =&gt;</span> {
+    console.log(<span class="hljs-string">"Bot started"</span>);
+
+    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Bot</span>.</span></span>client.events.on(<span class="hljs-string">"message"</span>,<span class="hljs-function"> (<span class="hljs-params">msg</span>) =&gt;</span> {
+        <span class="hljs-keyword">if</span> (msg.is<span class="hljs-constructor">Mentioned(<span class="hljs-params">bot</span>.<span class="hljs-params">client</span>.<span class="hljs-params">user</span>)</span>) {
+            msg.channel.send(<span class="hljs-string">"OK"</span>);
+        }
+    });
+});</code></pre>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_ichannel_.html">"wrappers/interfaces/IChannel"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_iclient_.html">"wrappers/interfaces/IClient"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_ievent_.html">"wrappers/interfaces/IEvent"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_imessage_.html">"wrappers/interfaces/IMessage"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_irole_.html">"wrappers/interfaces/IRole"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_iserver_.html">"wrappers/interfaces/IServer"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_wrappers_interfaces_iuser_.html">"wrappers/interfaces/IUser"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_utils_errorhandler_.html">"utils/<wbr>Error<wbr>Handler"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_wrappers_discord_discordchannel_.html">"wrappers/discord/<wbr>Discord<wbr>Channel"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_wrappers_discord_discordmessage_.html">"wrappers/discord/<wbr>Discord<wbr>Message"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_wrappers_discord_discordrole_.html">"wrappers/discord/<wbr>Discord<wbr>Role"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_wrappers_discord_discordserver_.html">"wrappers/discord/<wbr>Discord<wbr>Server"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_wrappers_discord_discorduser_.html">"wrappers/discord/<wbr>Discord<wbr>User"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
