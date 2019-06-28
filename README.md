@@ -29,7 +29,7 @@ const {DiscordBot} = require("dynobot-framework");
 Events have to be registered before they can be used. This can be done by the following line:
 
 ```js
-Bot.client.registerEvent("<event-name>");
+Bot.getClient().registerEvent("<event-name>");
 ```
 
 Supported events:
@@ -42,7 +42,7 @@ Supported events:
 Once a event is registered, it can be used like this:
 
 ```js
-Bot.client.events.on("<event-name>", (returnValue) => {
+Bot.getClient().getEvents().on("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
 });
 ```
@@ -56,15 +56,15 @@ There is also an example of a simple bot implementation to get started withk:
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
-Bot.client.registerEvent("ready");
-Bot.client.registerEvent("message");
+Bot.getClient().registerEvent("ready");
+Bot.getClient().registerEvent("message");
 
-Bot.client.events.on("ready", () => {
+Bot.getClient().getEvents().on("ready", () => {
 	console.log("Bot started");
 
-	Bot.client.events.on("message", (msg) => {
-		if (msg.isMentioned(bot.client.user)) {
-			msg.channel.send("OK");
+	Bot.getClient().getEvents().on("message", (msg) => {
+		if (msg.isMentioned(Bot.getClient().getUser())) {
+			msg.getChannel().send("OK");
 		}
 	});
 });
