@@ -21,14 +21,14 @@ http://doc-dynobot.tapadventures.com/
 
 Now you can use the framework by adding following line:
 
-```ecmascript 6
+```js
 const {DiscordBot} = require("dynobot-framework");
 ```
 
 ### Events
 Events have to be registered before they can be used. This can be done by the following line:
 
-```ecmascript 6
+```js
 Bot.client.registerEvent("<event-name>");
 ```
 
@@ -41,7 +41,7 @@ Supported events:
 
 Once a event is registered, it can be used like this:
 
-```ecmascript 6
+```js
 Bot.client.events.on("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
 });
@@ -52,7 +52,7 @@ There is an open source bot called [dynoBot](https://github.com/Blackhawk-TA/dyn
 You can take a look at it if you prefer a more realistic implementation example.
 
 There is also an example of a simple bot implementation to get started withk:
-```ecmascript 6
+```js
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
