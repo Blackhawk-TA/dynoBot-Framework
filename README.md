@@ -48,7 +48,10 @@ Bot.client.events.on("<event-name>", (returnValue) => {
 ```
 
 ### Implementation
-Here is an example of a simple bot:
+There is an open source bot called [dynoBot](https://github.com/Blackhawk-TA/dynoBot) which uses the dynoBot-Framework.
+You can take a look at it if you prefer a more realistic implementation example.
+
+There is also an example of a simple bot implementation to get started withk:
 ```ecmascript 6
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
