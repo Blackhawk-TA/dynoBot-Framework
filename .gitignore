@@ -1,5 +1,6 @@
 # IDE
 .idea/
+dynoBot-Framework.iml
 
 # Node
 node_modules/
