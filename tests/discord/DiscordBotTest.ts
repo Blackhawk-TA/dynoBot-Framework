@@ -1,5 +1,3 @@
-'use strict';
-
 import {DiscordClient} from "../../src/wrappers/discord/DiscordClient";
 
 const {DiscordBot} = require("../../src/DiscordBot");

@@ -1,6 +1,6 @@
 const request = require("request");
 
-class ApiHandler {
+export class ApiHandler {
 	static callMethod(method: string, param: object): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			const data: object = {
