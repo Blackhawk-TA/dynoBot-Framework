@@ -4,19 +4,19 @@ import {IUser} from "./IUser";
 
 export interface IClient {
 	/**
-	 * Get the event emitter of the client to allow reacting on events
+	 * Gets the event emitter of the client to allow reacting on events
 	 * @return The event emitter
 	 */
 	getEvents(): EventEmitter;
 
 	/**
-	 * Get the wrapped user object from the client.
+	 * Gets the wrapped user object from the client.
 	 * @return The user object of the client
 	 */
 	getUser(): IUser
 
 	/**
-	 * Get the servers the client is on.
+	 * Gets the servers the client is on.
 	 * @return The servers of the client
 	 */
 	getServers(): IServer[]

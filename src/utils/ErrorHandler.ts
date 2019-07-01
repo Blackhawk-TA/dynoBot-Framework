@@ -1,25 +1,16 @@
 export class ErrorHandler {
-	private readonly _error: Error;
-
-	/**
-	 * Constructor for the ErrorHandler
-	 * @param errorMessage The message describing the error
-	 */
-	constructor(errorMessage: string) {
-		this._error = new Error(errorMessage);
-	}
-
 	/**
 	 * Prints the error into the console without quitting the program
 	 */
-	log(): void {
-		console.error(this._error);
+	static log(errorMessage: string): void {
+		console.error(errorMessage);
 	}
 
 	/**
 	 * Throws the error and quits the program
 	 */
-	throw(): void {
-		throw this._error;
+	static throw(errorMessage: string): void {
+		let error = new Error(errorMessage);
+		throw error;
 	}
 }

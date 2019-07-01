@@ -10,25 +10,25 @@ export interface IChannel {
 	send(message?: string, options?: any);
 
 	/**
-	 * Get the channel id.
+	 * Gets the channel id.
 	 * @return The channel id
 	 */
 	getId(): number;
 
 	/**
-	 * Get the channel name.
+	 * Gets the channel name.
 	 * @return The channel name
 	 */
 	getName(): string;
 
 	/**
-	 * Get the server the channel is existing on.
+	 * Gets the server the channel is existing on.
 	 * @return The server of the channel
 	 */
 	getServer(): IServer;
 
 	/**
-	 * Get messages sent in the channel.
+	 * Gets messages sent in the channel.
 	 * @param amount - The amount of messages to get
 	 * @return A promise which returns an array of the messages on resolve
 	 */

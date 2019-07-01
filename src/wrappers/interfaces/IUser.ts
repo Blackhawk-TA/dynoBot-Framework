@@ -2,13 +2,13 @@ import {DiscordChannel} from "../discord/DiscordChannel";
 
 export interface IUser {
 	/**
-	 * Get the id of the user.
+	 * Gets the id of the user.
 	 * @return The user id
 	 */
 	getId(): number;
 
 	/**
-	 * Get the name of the user.
+	 * Gets the name of the user.
 	 * @return The username
 	 */
 	getName(): string;

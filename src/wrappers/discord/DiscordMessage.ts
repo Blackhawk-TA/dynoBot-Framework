@@ -59,7 +59,7 @@ export class DiscordMessage implements IMessage {
 
 			return Roles;
 		} else {
-			new ErrorHandler("There are no roles in this channel.").log();
+			ErrorHandler.log("There are no roles in this channel.");
 			return null;
 		}
 	}
@@ -72,7 +72,7 @@ export class DiscordMessage implements IMessage {
 		if (this._message.guild) {
 			return new DiscordServer(this._message.guild);
 		} else {
-			new ErrorHandler("The message was not sent on a server.").log();
+			ErrorHandler.log("The message was not sent on a server.");
 			return null;
 		}
 	}

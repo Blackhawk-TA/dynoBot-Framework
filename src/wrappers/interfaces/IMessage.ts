@@ -8,39 +8,39 @@ export interface IMessage {
 
 
 	/**
-	 * Get the channel the message was sent in.
+	 * Gets the channel the message was sent in.
 	 * @return The wrapped channel object
 	 */
 	getChannel(): IChannel;
 
 	/**
-	 * Get the content of the message.
+	 * Gets the content of the message.
 	 * @param [excludeFirstWord] - Excludes the first word of the content if set to true
 	 * @return The message content
 	 */
 	getContent(excludeFirstWord?: boolean): string;
 
 	/**
-	 * Get the content of the message as an array.
+	 * Gets the content of the message as an array.
 	 * @param [excludeFirstWord] - Excludes the first word of the content array if set to true
 	 * @return The message split into an array
 	 */
 	getContentArray(excludeFirstWord?: boolean): string[];
 
 	/**
-	 * Get the regex groups of a message
+	 * Gets the regex groups of a message
 	 * @param regexPattern - The pattern which shall be applied on the message.
 	 */
 	getRegexGroups(regexPattern: RegExp): string[];
 
 	/**
-	 * Get the author of the message
+	 * Gets the author of the message
 	 * @return The author of the message
 	 */
 	getAuthor(): IUser;
 
 	/**
-	 * Get the roles of the author. Can only be used on messages sent on servers.
+	 * Gets the roles of the author. Can only be used on messages sent on servers.
 	 * @return The roles of the author
 	 */
 	getAuthorRoles(): IRole[];
@@ -52,7 +52,7 @@ export interface IMessage {
 	hasServer(): boolean;
 
 	/**
-	 * Get the server the message was sent on, not every message has was sent on a server.
+	 * Gets the server the message was sent on, not every message has was sent on a server.
 	 * @return The server the message was sent on
 	 */
 	getServer(): IServer;

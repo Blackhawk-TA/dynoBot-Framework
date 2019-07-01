@@ -1,33 +1,21 @@
 import {IEvent} from "../interfaces/IEvent";
-import {DiscordMessage} from "./DiscordMessage";
-import {DiscordUser} from "./DiscordUser";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 
-export class DiscordEvent implements IEvent {
+export class SlackEvent implements IEvent{
 	private readonly _name: string;
 	private _events = {
 		error: {
-			name: "error",
-			returnClass: Error,
+			name: "onerror",
+			returnClass: Error, //TODO check if it shall be wrapped
 			isWrapped: false
 		},
-		serverMemberAdd: {
-			name: "guildMemberAdd",
-			returnClass: DiscordUser,
-			isWrapped: true
-		},
-		serverMemberRemove: {
-			name: "guildMemberRemove",
-			returnClass: DiscordUser,
-			isWrapped: true
-		},
 		message: {
-			name: "message",
-			returnClass: DiscordMessage,
+			name: "onmessage",
+			returnClass: null,
 			isWrapped: true
 		},
 		ready: {
-			name: "ready",
+			name: "onopen",
 			returnClass: null,
 			isWrapped: false,
 		}
@@ -55,4 +43,3 @@ export class DiscordEvent implements IEvent {
 		}
 	}
 }
-
