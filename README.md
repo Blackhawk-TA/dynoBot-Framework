@@ -1,5 +1,10 @@
 # dynoBot-Framework
 
+[![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/dynoBot-Framework/blob/master/LICENSE.md)
+[![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
+[![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
+[![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=orange)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
+
 ### Overview
 1. [dynoBot-Framework](#dynobot-framework)
 2. [Documentation](#documentation)
@@ -21,14 +26,14 @@ http://doc-dynobot.tapadventures.com/
 
 Now you can use the framework by adding following line:
 
-```ecmascript 6
+```js
 const {DiscordBot} = require("dynobot-framework");
 ```
 
 ### Events
 Events have to be registered before they can be used. This can be done by the following line:
 
-```ecmascript 6
+```js
 Bot.client.registerEvent("<event-name>");
 ```
 
@@ -41,7 +46,7 @@ Supported events:
 
 Once a event is registered, it can be used like this:
 
-```ecmascript 6
+```js
 Bot.client.events.on("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
 });
@@ -49,7 +54,7 @@ Bot.client.events.on("<event-name>", (returnValue) => {
 
 ### Implementation
 Here is an example of a simple bot:
-```ecmascript 6
+```js
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
