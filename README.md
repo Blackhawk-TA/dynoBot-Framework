@@ -4,11 +4,6 @@
 [![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
 [![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=orange)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
 
-[![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/dynoBot-Framework/blob/master/LICENSE.md)
-[![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
-[![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
-[![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=orange)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
-
 ### Overview
 1. [dynoBot-Framework](#dynobot-framework)
 2. [Documentation](#documentation)
