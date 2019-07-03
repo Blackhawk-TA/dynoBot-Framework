@@ -4,7 +4,8 @@ import {DiscordUser} from "./DiscordUser";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordEvent implements IEvent {
-	private readonly _name: string;
+	private readonly _wrappedName: string;
+	private readonly _apiName: string;
 	private _events = {
 		error: {
 			name: "error",
@@ -35,14 +36,19 @@ export class DiscordEvent implements IEvent {
 
 	constructor(name: string) {
 		if (this._events.hasOwnProperty(name)) {
-			this._name = this._events[name].name;
+			this._wrappedName = this._events[name].name;
+			this._apiName = name;
 		} else {
 			new ErrorHandler(`The event '${name}' is not supported.`).throw();
 		}
 	}
 
+	getWrappedName(): string {
+		return this._wrappedName;
+	}
+
 	getWrappedObject(object: any): any {
-		let event = this._events[this._name];
+		let event = this._events[this._apiName];
 		let WrappedClass = event.returnClass;
 		if (WrappedClass) {
 			return event.isWrapped ? new WrappedClass(object) : object;

@@ -72,7 +72,7 @@ export class DiscordMessage implements IMessage {
 		if (this._message.guild) {
 			return new DiscordServer(this._message.guild);
 		} else {
-			new ErrorHandler("The message was not sent on a server.").log();
+			new ErrorHandler("The message was not sent on a server.").throw();
 			return null;
 		}
 	}
