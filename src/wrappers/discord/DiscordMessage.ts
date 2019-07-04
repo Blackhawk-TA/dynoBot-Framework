@@ -59,8 +59,7 @@ export class DiscordMessage implements IMessage {
 
 			return Roles;
 		} else {
-			ErrorHandler.log("There are no roles in this channel.");
-			return null;
+			return [];
 		}
 	}
 

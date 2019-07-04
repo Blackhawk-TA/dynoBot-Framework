@@ -40,7 +40,7 @@ export interface IMessage {
 	getAuthor(): IUser;
 
 	/**
-	 * Gets the roles of the author. Can only be used on messages sent on servers.
+	 * Gets the roles of the author.
 	 * @return The roles of the author
 	 */
 	getAuthorRoles(): IRole[];
