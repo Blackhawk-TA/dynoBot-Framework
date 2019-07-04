@@ -6,7 +6,7 @@
 [![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=orange)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
 
 ### Overview
-1. [dynoBot-Framework](#dynobotframework)
+1. [dynoBot-Framework](#dynobot-framework)
 2. [Documentation](#documentation)
 3. [Setup](#setup)
 4. [Events](#events)
