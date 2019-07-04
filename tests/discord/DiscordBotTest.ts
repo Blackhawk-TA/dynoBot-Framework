@@ -3,7 +3,6 @@ import {DiscordClient} from "../../src/wrappers/discord/DiscordClient";
 const {DiscordBot} = require("../../src/DiscordBot");
 const Discord = require("discord.js");
 const assert = require("assert");
-const token = process.env.TRAVIS ? process.env.TRAVIS : require("../../../tests/bot-config").token.discord;
 
 let token = "";
 if (process.env.TRAVIS) {

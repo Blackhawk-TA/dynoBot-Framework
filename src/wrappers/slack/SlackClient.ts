@@ -39,6 +39,6 @@ export class SlackClient implements IClient {
 			} else {
 				this._events.emit(name);
 			}
-		}
+		};
 	}
 }
