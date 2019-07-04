@@ -100,7 +100,7 @@ export class DiscordMessage implements IMessage {
 			}).catch(error => {
 				reject(error);
 			});
-		})
+		});
 	}
 
 	getCreationDate(): Date {

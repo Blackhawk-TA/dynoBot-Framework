@@ -6,7 +6,6 @@ import {IChannel} from "./IChannel";
 export interface IMessage {
 	_message: any;
 
-
 	/**
 	 * Gets the channel the message was sent in.
 	 * @return The wrapped channel object
@@ -40,7 +39,7 @@ export interface IMessage {
 	getAuthor(): IUser;
 
 	/**
-	 * Gets the roles of the author.
+	 * Gets the roles of the author
 	 * @return The roles of the author
 	 */
 	getAuthorRoles(): IRole[];

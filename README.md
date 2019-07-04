@@ -1,5 +1,6 @@
 # dynoBot-Framework
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/dynoBot-Framework/blob/master/LICENSE.md)
+[![travis](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework.svg)](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework/jobs/213378136)
 [![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
 [![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=orange)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)

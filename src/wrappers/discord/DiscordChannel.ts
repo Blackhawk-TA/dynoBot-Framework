@@ -32,7 +32,7 @@ export class DiscordChannel implements IChannel {
 			this._channel.fetchMessages({limit: amount}).then((messages) => {
 				let Messages: IMessage[] = [];
 				messages.forEach(message => {
-					Messages.push(new DiscordMessage(message))
+					Messages.push(new DiscordMessage(message));
 				});
 				resolve(Messages);
 			}).catch(error => {
@@ -62,7 +62,7 @@ export class DiscordChannel implements IChannel {
 
 	awaitMessages(options?: object): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
-			this._channel.awaitMessages(function() {return true}, options).then(messages => {
+			this._channel.awaitMessages(function() {return true;}, options).then(messages => {
 				let Messages: IMessage[] = [];
 				messages.array().forEach(message => {
 					Messages.push(new DiscordMessage(message));

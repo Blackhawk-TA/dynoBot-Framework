@@ -5,6 +5,14 @@ const Discord = require("discord.js");
 const assert = require("assert");
 const token = process.env.TRAVIS ? process.env.TRAVIS : require("../../../tests/bot-config").token.discord;
 
+let token = "";
+if (process.env.TRAVIS) {
+	token = process.env.DISCORD_TOKEN;
+} else {
+	const botConfig = require("../../../tests/bot-config");
+	token = botConfig.token.discord;
+}
+
 beforeEach(function() {
 	this.client = new Discord.Client();
 });
@@ -29,6 +37,6 @@ describe("The getter", function() {
 		let Bot = new DiscordBot(token);
 
 		//Assert
-		assert.strictEqual(Bot.client instanceof DiscordClient, true, "The wrapped client object was returned.");
+		assert.strictEqual(Bot.getClient() instanceof DiscordClient, true, "The wrapped client object was returned.");
 	});
 });

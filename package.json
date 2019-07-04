@@ -5,7 +5,8 @@
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {
 		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",
-		"build": "typedoc --out doc src/wrappers/interfaces/ && tsc"
+		"build": "typedoc --out doc src/wrappers/interfaces/ && tsc",
+		"validate": "eslint --ext .ts src tests"
 	},
 	"keywords": [
 		"discord-bot",
@@ -26,14 +27,18 @@
 		"url": "https://github.com/Blackhawk-TA/chatbot-api-wrapper.git"
 	},
 	"dependencies": {
-		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.0.4",
 		"discord.js": "^11.5.0",
-		"mocha": "^6.1.4",
 		"request": "^2.88.0",
+		"ws": "^7.0.1"
+	},
+	"devDependencies": {
+		"@types/mocha": "^5.2.7",
+		"@types/node": "^12.0.12",
+		"@typescript-eslint/parser": "^1.11.0",
+		"eslint": "^6.0.1",
+		"mocha": "^6.1.4",
 		"sinon": "^7.3.2",
 		"ts-node": "^8.3.0",
-		"typescript": "^3.5.1",
-		"ws": "^7.0.1"
+		"typescript": "^3.5.1"
 	}
 }
