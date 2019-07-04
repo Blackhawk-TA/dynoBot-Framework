@@ -38,6 +38,6 @@ describe("The getter", function() {
 		let Bot = new DiscordBot(token);
 
 		//Assert
-		assert.strictEqual(Bot.client instanceof DiscordClient, true, "The wrapped client object was returned.");
+		assert.strictEqual(Bot.getClient() instanceof DiscordClient, true, "The wrapped client object was returned.");
 	});
 });
