@@ -59,8 +59,7 @@ export class DiscordMessage implements IMessage {
 
 			return Roles;
 		} else {
-			new ErrorHandler("There are no roles in this channel.").log();
-			return null;
+			return [];
 		}
 	}
 
@@ -101,7 +100,7 @@ export class DiscordMessage implements IMessage {
 			}).catch(error => {
 				reject(error);
 			});
-		})
+		});
 	}
 
 	getCreationDate(): Date {

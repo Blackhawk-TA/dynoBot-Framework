@@ -18,7 +18,7 @@ export class DiscordServer implements IServer {
 	}
 
 	getName(): string {
-		return this._server.name
+		return this._server.name;
 	}
 
 	getMembers(): IUser[] {
