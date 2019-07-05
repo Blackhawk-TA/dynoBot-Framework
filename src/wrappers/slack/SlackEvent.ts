@@ -25,7 +25,7 @@ export class SlackEvent implements IEvent{
 		if (this._events.hasOwnProperty(name)) {
 			this._name = this._events[name].name;
 		} else {
-			ErrorHandler.throw(`The event '${name}' is not supported.`);
+			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
 		}
 	}
 

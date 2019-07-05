@@ -16,6 +16,8 @@ export class SlackBot implements IBot{
 			} else {
 				ErrorHandler.log("Could not connect to the websocket: " + response.error);
 			}
+		}).catch(error => {
+			ErrorHandler.throwError(error);
 		});
 	}
 
