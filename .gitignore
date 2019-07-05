@@ -8,9 +8,3 @@ node_modules/
 # Testing
 bot.js
 .env
-
-# Compiled TypeScript
-build/
-
-# Documentation
-doc/
