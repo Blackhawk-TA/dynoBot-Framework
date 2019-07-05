@@ -1,39 +1,30 @@
 import {DiscordClient} from "../../src/wrappers/discord/DiscordClient";
+import {IBot} from "../../src/interfaces/IBot";
 
 const {DiscordBot} = require("../../src/DiscordBot");
-const Discord = require("discord.js");
 const assert = require("assert");
 
-let token = "";
-if (process.env.TRAVIS) {
-	token = process.env.DISCORD_TOKEN;
-} else {
-	const botConfig = require("../../../tests/bot-config");
-	token = botConfig.token.discord;
-}
-
-beforeEach(function() {
-	this.client = new Discord.Client();
-});
-
-afterEach(function() {
-	this.client = null;
-});
+require("dotenv").config();
+const token = process.env.DISCORD_TOKEN;
 
 describe("The bot initialisation", function() {
 	it("Has a user which is not yet defined", function() {
 		//Act
-		new DiscordBot(token);
+		let Bot: IBot = new DiscordBot(token);
 
 		//Assert
-		assert.strictEqual(this.client.user, null, "The user is not yet defined.");
+		try {
+			assert.ifError(Bot.getClient().getUser().getId());
+		} catch (e) {
+			assert.strictEqual(e.toString(), "TypeError: Cannot read property 'user' of null");
+		}
 	});
 });
 
 describe("The getter", function() {
 	it("Has a getter which returns the wrapped client object", function() {
 		//Act
-		let Bot = new DiscordBot(token);
+		let Bot: IBot = new DiscordBot(token);
 
 		//Assert
 		assert.strictEqual(Bot.getClient() instanceof DiscordClient, true, "The wrapped client object was returned.");

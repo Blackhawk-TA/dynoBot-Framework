@@ -7,9 +7,17 @@
 			"modules": true
 		}
 	},
+	"plugins": ["promise"],
 	"rules": {
 		"semi": ["error", "always"],
-		"quotes": ["error", "double", {"allowTemplateLiterals":  true}],
+		"no-multi-spaces": "error",
+		"no-trailing-spaces": "error",
+		"object-curly-spacing": "error",
+		"comma-spacing": ["error", {"before": false, "after": true}],
+		"quotes": ["error", "double", {
+			"allowTemplateLiterals":  true,
+			"avoidEscape": true
+		}],
 		"indent": ["error", "tab"],
 		"key-spacing": ["error", {
 			"mode": "strict",
@@ -17,6 +25,6 @@
 			"afterColon": true
 		}],
 		"block-scoped-var": "error",
-		"comma-spacing": ["error", { "before": false, "after": true }]
+		"promise/catch-or-return": "error"
 	}
 }
