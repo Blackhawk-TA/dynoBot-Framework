@@ -39,7 +39,7 @@ export class DiscordEvent implements IEvent {
 			this._wrappedName = this._events[name].name;
 			this._apiName = name;
 		} else {
-			new ErrorHandler(`The event '${name}' is not supported.`).throw();
+			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
 		}
 	}
 

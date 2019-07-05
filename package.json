@@ -16,7 +16,10 @@
 		"chatbot",
 		"slack",
 		"api",
-		"wrapper"
+		"wrapper",
+		"framework",
+		"js",
+		"ts"
 	],
 	"author": {
 		"name": "Blackhawk"
@@ -33,10 +36,13 @@
 		"@types/mocha": "^5.2.7",
 		"@types/node": "^12.0.12",
 		"@typescript-eslint/parser": "^1.11.0",
+		"dotenv": "^8.0.0",
 		"eslint": "^6.0.1",
+		"eslint-plugin-promise": "^4.2.1",
 		"mocha": "^6.1.4",
 		"sinon": "^7.3.2",
 		"ts-node": "^8.3.0",
+		"typedoc": "^0.14.2",
 		"typescript": "^3.5.2"
 	}
 }

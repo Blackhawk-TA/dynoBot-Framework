@@ -1,12 +1,13 @@
 # IDE
 .idea/
+dynoBot-Framework.iml
 
 # Node
 node_modules/
 
 # Testing
 bot.js
-bot-config.json
+.env
 
 # Compiled TypeScript
 build/
