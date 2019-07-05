@@ -1,16 +1,26 @@
 export class ErrorHandler {
 	/**
-	 * Prints the error into the console without quitting the program
+	 * Prints the given error into the console without quitting the program
+	 * @param error - The error which shall be logged in the console
 	 */
-	static log(errorMessage: string): void {
-		console.error(errorMessage);
+	static log(error: string|Error): void {
+		console.error(error);
 	}
 
 	/**
-	 * Throws the error and quits the program
+	 * Converts the given error message to an error, throws it and quits the program
+	 * @param errorMessage - The message which shall be converted to an error object
 	 */
-	static throw(errorMessage: string): void {
-		let error = new Error(errorMessage);
+	static throwErrorMessage(errorMessage: string): void {
+		let error: Error = new Error(errorMessage);
+		throw error;
+	}
+
+	/**
+	 * Throws the given error and quits the program
+	 * @param error - The error which shall be thrown
+	 */
+	static throwError(error: Error): void {
 		throw error;
 	}
 }
