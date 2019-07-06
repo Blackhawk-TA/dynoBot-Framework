@@ -31,7 +31,7 @@ export class SlackClient implements IClient {
 
 	registerEvent(name: string) :void {
 		let Event: IEvent = new SlackEvent(name);
-		let wrappedName: string = Event.getWrappedName();
+		let wrappedName: string = Event.getApiEventName();
 		this._client[wrappedName] = (object?: any) => {
 			let WrappedObject = Event.getWrappedObject(object);
 			if (WrappedObject) {
