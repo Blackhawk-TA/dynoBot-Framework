@@ -38,7 +38,7 @@ export class DiscordClient implements IClient {
 
 	registerEvent(name: string): void {
 		let Event: IEvent = new DiscordEvent(name);
-		let wrappedName: string = Event.getWrappedName();
+		let wrappedName: string = Event.getApiEventName();
 		this._client.on(wrappedName, (object) => {
 			let WrappedObject = Event.getWrappedObject(object);
 			if (WrappedObject) {
