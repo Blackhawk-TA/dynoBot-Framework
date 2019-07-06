@@ -2,7 +2,8 @@ import {IEvent} from "../interfaces/IEvent";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class SlackEvent implements IEvent{
-	private readonly _name: string;
+	private readonly _wrappedName: string;
+	private readonly _apiEventName: string;
 	private _events = {
 		error: {
 			name: "onerror",
@@ -23,18 +24,19 @@ export class SlackEvent implements IEvent{
 
 	constructor(name: string) {
 		if (this._events.hasOwnProperty(name)) {
-			this._name = this._events[name].name;
+			this._apiEventName = this._events[name].name;
+			this._wrappedName = name;
 		} else {
 			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
 		}
 	}
 
-	getWrappedName(): string {
-		return this._name;
+	getApiEventName(): string {
+		return this._apiEventName;
 	}
 
 	getWrappedObject(object: any): any {
-		let event = this._events[this._name];
+		let event = this._events[this._wrappedName];
 		let WrappedClass = event.returnClass;
 		if (WrappedClass) {
 			return event.isWrapped ? new WrappedClass(object) : object;
