@@ -26,18 +26,11 @@ http://dynodoc.tapadventures.com/
 `npm install dynobot-framework`
 
 Now you can use the framework by adding following line:
-
 ```js
 const {DiscordBot} = require("dynobot-framework");
 ```
 
 ### Events
-Events have to be registered before they can be used. This can be done by the following line:
-
-```js
-Bot.getClient().registerEvent("<event-name>");
-```
-
 Supported events:
 - `error` - returns Error object
 - `serverMemberAdd` - returns User object
@@ -45,8 +38,7 @@ Supported events:
 - `message` - returns Message object
 - `ready` - no return value
 
-Once a event is registered, it can be used like this:
-
+Events can be used like this:
 ```js
 Bot.getClient().getEvents().on("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
@@ -61,9 +53,6 @@ There is also an example of a simple bot implementation to get started withk:
 ```js
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
-
-Bot.getClient().registerEvent("ready");
-Bot.getClient().registerEvent("message");
 
 Bot.getClient().getEvents().on("ready", () => {
 	console.log("Bot started");

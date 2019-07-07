@@ -43,6 +43,19 @@ export class DiscordClient implements IClient {
 		this._events = new EventEmitter();
 		this._user = new DiscordUser(client.user);
 		this._client = client;
+
+		for (let name in this._apiEvents) { //register events
+			let Event: EventHandler = new EventHandler(name, this._apiEvents);
+			let wrappedName: string = Event.getApiEventName();
+			this._client.on(wrappedName, (object) => {
+				let WrappedObject = Event.getWrappedObject(object);
+				if (WrappedObject) {
+					this._events.emit(name, WrappedObject);
+				} else {
+					this._events.emit(name);
+				}
+			});
+		}
 	}
 
 	getEvents(): EventEmitter {
@@ -61,18 +74,5 @@ export class DiscordClient implements IClient {
 		});
 
 		return wrappedServers;
-	}
-
-	registerEvent(name: string): void {
-		let Event: EventHandler = new EventHandler(name, this._apiEvents);
-		let wrappedName: string = Event.getApiEventName();
-		this._client.on(wrappedName, (object) => {
-			let WrappedObject = Event.getWrappedObject(object);
-			if (WrappedObject) {
-				this._events.emit(name, WrappedObject);
-			} else {
-				this._events.emit(name);
-			}
-		});
 	}
 }
