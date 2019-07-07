@@ -16,7 +16,7 @@ describe("The bot initialisation", function() {
 		try {
 			assert.ifError(Bot.getClient().getUser().getId());
 		} catch (e) {
-			assert.strictEqual(e.toString(), "TypeError: Cannot read property 'user' of null");
+			assert.strictEqual(e.toString(), "TypeError: Cannot read property 'id' of null");
 		}
 	});
 });

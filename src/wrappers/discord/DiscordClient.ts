@@ -4,13 +4,40 @@ import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
-import {IEvent} from "../interfaces/IEvent";
-import {DiscordEvent} from "./DiscordEvent";
+import {DiscordMessage} from "./DiscordMessage";
+import {EventHandler} from "../../utils/EventHandler";
 
 export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
 	private readonly _user: IUser;
 	private readonly _client: any;
+	private readonly _apiEvents = {
+		error: {
+			name: "error",
+			returnClass: Error,
+			isWrapped: false
+		},
+		serverMemberAdd: {
+			name: "guildMemberAdd",
+			returnClass: DiscordUser,
+			isWrapped: true
+		},
+		serverMemberRemove: {
+			name: "guildMemberRemove",
+			returnClass: DiscordUser,
+			isWrapped: true
+		},
+		message: {
+			name: "message",
+			returnClass: DiscordMessage,
+			isWrapped: true
+		},
+		ready: {
+			name: "ready",
+			returnClass: null,
+			isWrapped: false,
+		}
+	};
 
 	constructor(client: any) {
 		this._events = new EventEmitter();
@@ -37,7 +64,7 @@ export class DiscordClient implements IClient {
 	}
 
 	registerEvent(name: string): void {
-		let Event: IEvent = new DiscordEvent(name);
+		let Event: EventHandler = new EventHandler(name, this._apiEvents);
 		let wrappedName: string = Event.getApiEventName();
 		this._client.on(wrappedName, (object) => {
 			let WrappedObject = Event.getWrappedObject(object);
