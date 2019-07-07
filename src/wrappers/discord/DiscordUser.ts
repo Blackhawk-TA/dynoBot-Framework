@@ -8,11 +8,11 @@ export class DiscordUser implements IUser {
 	}
 
 	getId(): number {
-		return this._user.user.id;
+		return this._user.id;
 	}
 
 	getName(): string {
-		return this._user.user.username;
+		return this._user.username;
 	}
 
 	createDM(): Promise<DiscordChannel> {
