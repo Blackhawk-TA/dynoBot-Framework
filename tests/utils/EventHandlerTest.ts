@@ -1,13 +1,39 @@
-import {IEvent} from "../../src/wrappers/interfaces/IEvent";
-import {DiscordEvent} from "../../src/wrappers/discord/DiscordEvent";
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
+import {EventHandler} from "../../src/utils/EventHandler";
 
 const assert = require("assert");
+
+beforeEach(function() {
+	this._apiEvents = {
+		error: {
+			name: "error",
+			returnClass: Error,
+			isWrapped: false
+		},
+		serverMemberAdd: {
+			name: "guildMemberAdd"
+		},
+		message: {
+			name: "message",
+			returnClass: DiscordMessage,
+			isWrapped: true
+		},
+		ready: {
+			name: "ready",
+			returnClass: null,
+			isWrapped: false,
+		}
+	};
+});
+
+afterEach(function() {
+	this._apiEvents = null;
+});
 
 describe("The method getApiEventName", function() {
 	it("Returns the original unwrapped api event name", function() {
 		//Arrange
-		let Event: IEvent = new DiscordEvent("serverMemberAdd");
+		let Event: EventHandler = new EventHandler("serverMemberAdd", this._apiEvents);
 
 		//Act
 		let apiEventName: string = Event.getApiEventName();
@@ -20,7 +46,7 @@ describe("The method getApiEventName", function() {
 describe("The method getWrappedObject", function() {
 	it("Returns the wrapped object of the event", function() {
 		//Arrange
-		let Event: IEvent = new DiscordEvent("message");
+		let Event: EventHandler = new EventHandler("message", this._apiEvents);
 		let apiObject: object = {};
 
 		//Act
@@ -32,7 +58,7 @@ describe("The method getWrappedObject", function() {
 
 	it("Returns the api object because it should not be wrapped", function() {
 		//Arrange
-		let Event: IEvent = new DiscordEvent("error");
+		let Event: EventHandler = new EventHandler("error", this._apiEvents);
 		let apiObject: Error = new Error("test error");
 
 		//Act
@@ -44,7 +70,7 @@ describe("The method getWrappedObject", function() {
 
 	it("Returns null if the event has no return value and shall not be wrapped", function() {
 		//Arrange
-		let Event: IEvent = new DiscordEvent("ready");
+		let Event: EventHandler = new EventHandler("ready", this._apiEvents);
 
 		//Act
 		let WrappedObject: any = Event.getWrappedObject(undefined);
