@@ -7,14 +7,16 @@ import {ErrorHandler} from "./utils/ErrorHandler";
 const WebSocket = require("ws");
 
 export class SlackBot implements IBot{
-	_connection: WebSocket;
+	private _connection: WebSocket;
+	private _client: IClient;
 
 	constructor(token: string) {
 		ApiHandler.callMethod("rtm.connect", {token: token}).then(response => {
 			if (response.ok) {
 				this._connection = new WebSocket(response.url);
+				this._client = new SlackClient(this._connection);
 			} else {
-				ErrorHandler.log("Could not connect to the websocket: " + response.error);
+				ErrorHandler.throwErrorMessage("Could not connect to the websocket: " + response.error);
 			}
 		}).catch(error => {
 			ErrorHandler.throwError(error);
@@ -22,6 +24,6 @@ export class SlackBot implements IBot{
 	}
 
 	getClient(): IClient {
-		return new SlackClient(this._connection);
+		return this._client;
 	}
 }
