@@ -6,6 +6,7 @@ import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {DiscordMessage} from "./DiscordMessage";
 import {EventHandler} from "../../utils/EventHandler";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
@@ -58,8 +59,12 @@ export class DiscordClient implements IClient {
 		}
 	}
 
-	getEvents(): EventEmitter {
-		return this._events;
+	onEvent(name: string, listener: (...args: any[]) => void): void {
+		if (this._apiEvents.hasOwnProperty(name)) {
+			this._events.on(name, listener);
+		} else {
+			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
+		}
 	}
 
 	getUser(): IUser {

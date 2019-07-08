@@ -1,13 +1,13 @@
-import {EventEmitter} from "events";
 import {IServer} from "./IServer";
 import {IUser} from "./IUser";
 
 export interface IClient {
 	/**
-	 * Get the event emitter of the client to allow reacting on events
-	 * @return The event emitter
+	 * Executes a given listener function when the referred event was triggered
+	 * @param name - The name of the event
+	 * @param listener - The event listener, a function which shall be executed once the event was triggered
 	 */
-	getEvents(): EventEmitter;
+	onEvent(name: string, listener: (...args: any[]) => void): void;
 
 	/**
 	 * Get the wrapped user object from the client.
