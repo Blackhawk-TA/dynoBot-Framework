@@ -6,6 +6,7 @@ import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {DiscordMessage} from "./DiscordMessage";
 import {EventHandler} from "../../utils/EventHandler";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordClient implements IClient {
 	private readonly _events: EventEmitter;
@@ -43,10 +44,27 @@ export class DiscordClient implements IClient {
 		this._events = new EventEmitter();
 		this._user = new DiscordUser(client.user);
 		this._client = client;
+
+		for (let name in this._apiEvents) { //register events
+			let Event: EventHandler = new EventHandler(name, this._apiEvents);
+			let apiEventName: string = Event.getApiEventName();
+			this._client.on(apiEventName, (object) => {
+				let WrappedObject = Event.getWrappedObject(object);
+				if (WrappedObject) {
+					this._events.emit(name, WrappedObject);
+				} else {
+					this._events.emit(name);
+				}
+			});
+		}
 	}
 
-	getEvents(): EventEmitter {
-		return this._events;
+	onEvent(name: string, listener: (...args: any[]) => void): void {
+		if (this._apiEvents.hasOwnProperty(name)) {
+			this._events.on(name, listener);
+		} else {
+			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
+		}
 	}
 
 	getUser(): IUser {
@@ -61,18 +79,5 @@ export class DiscordClient implements IClient {
 		});
 
 		return wrappedServers;
-	}
-
-	registerEvent(name: string): void {
-		let Event: EventHandler = new EventHandler(name, this._apiEvents);
-		let wrappedName: string = Event.getApiEventName();
-		this._client.on(wrappedName, (object) => {
-			let WrappedObject = Event.getWrappedObject(object);
-			if (WrappedObject) {
-				this._events.emit(name, WrappedObject);
-			} else {
-				this._events.emit(name);
-			}
-		});
 	}
 }
