@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework.svg?branch=master)](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework)
 [![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
+[![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/master.svg?color=blue)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/master)
 [![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=blue)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
 
 ### Overview
@@ -25,18 +26,11 @@ http://dynodoc.tapadventures.com/
 `npm install dynobot-framework`
 
 Now you can use the framework by adding following line:
-
 ```js
 const {DiscordBot} = require("dynobot-framework");
 ```
 
 ### Events
-Events have to be registered before they can be used. This can be done by the following line:
-
-```js
-Bot.getClient().registerEvent("<event-name>");
-```
-
 Supported events:
 - `error` - returns Error object
 - `serverMemberAdd` - returns User object
@@ -44,10 +38,9 @@ Supported events:
 - `message` - returns Message object
 - `ready` - no return value
 
-Once a event is registered, it can be used like this:
-
+Events can be used like this:
 ```js
-Bot.getClient().getEvents().on("<event-name>", function (returnValue) {
+Bot.getClient().onEvent("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
 });
 ```
@@ -61,13 +54,10 @@ There is also an example of a simple bot implementation to get started withk:
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
-Bot.getClient().registerEvent("ready");
-Bot.getClient().registerEvent("message");
-
-Bot.getClient().getEvents().on("ready", function() {
+Bot.getClient().onEvent("ready", function() {
 	console.log("Bot started");
 
-	Bot.getClient().getEvents().on("message", function(msg) {
+	Bot.getClient().onEvent("message", function(msg) {
 		if (msg.isMentioned(Bot.getClient().user)) {
 			msg.getChannel().send("OK");
 		}
