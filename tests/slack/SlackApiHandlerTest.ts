@@ -1,14 +1,14 @@
-const {ApiHandler} = require("../../src/wrappers/slack/ApiHandler");
+const {SlackApiHandler} = require("../../src/wrappers/slack/SlackApiHandler");
 const assert = require("assert");
 
-describe("The class ApiHandler", function() {
+describe("The class SlackApiHandler", function() {
 	describe("The method callMethod", function() {
 		it("Calls an invalid method", function() {
 			//Arrange
 			let methodName: string = "invalid.method";
 
 			//Act
-			return ApiHandler.callMethod(methodName, {}).then(result => {
+			return SlackApiHandler.callMethod(methodName, {}).then(result => {
 				//Assert
 				assert.strictEqual(result.ok, false, "The result is not ok.");
 				assert.strictEqual(result.error, "unknown_method", "An unknown method has been called.");
@@ -21,7 +21,7 @@ describe("The class ApiHandler", function() {
 			let methodName: string = "rtm.connect";
 
 			//Act
-			return ApiHandler.callMethod(methodName, {}).then(result => {
+			return SlackApiHandler.callMethod(methodName, {}).then(result => {
 				//Assert
 				assert.strictEqual(result.ok, false, "The result is not ok.");
 				assert.ok(result.error, "The api returned an error message.");

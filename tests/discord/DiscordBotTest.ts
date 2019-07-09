@@ -7,6 +7,7 @@ const assert = require("assert");
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 
+//TODO adjust tests according to PreInitClient
 describe("The class DiscordBot", function() {
 	describe("The bot initialisation", function() {
 		it("Has a user which is not yet defined", function() {

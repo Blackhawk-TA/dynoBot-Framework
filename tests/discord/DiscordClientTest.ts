@@ -7,6 +7,7 @@ import {IServer} from "../../src/wrappers/interfaces/IServer";
 const assert = require("assert");
 const sinon = require("sinon");
 
+//TODO adjust tests according to PreInitClient
 describe("The class DiscordClient", function() {
 	beforeEach(function() {
 		let client: object = {

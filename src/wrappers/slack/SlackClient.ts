@@ -9,39 +9,26 @@ export class SlackClient implements IClient {
 	private readonly _events: EventEmitter;
 	private readonly _user: IUser; //TODO set
 	private readonly _client: any;
-	private readonly _apiEvents = {
-		error: {
-			name: "onerror",
-			returnClass: Error, //TODO check if it shall be wrapped
-			isWrapped: false
-		},
-		message: {
-			name: "onmessage",
-			returnClass: null, //TODO check how it shall be wrapped
-			isWrapped: true
-		},
-		ready: {
-			name: "onopen",
-			returnClass: SlackClient,
-			isWrapped: true,
-		}
-	};
+	private readonly _apiEvents;
 
-	constructor(client: any) {
+	constructor(client: any, apiEvents: object) {
+		this._apiEvents = apiEvents;
 		this._events = new EventEmitter();
 		this._client = client;
 
 		for (let name in this._apiEvents) { //register events
-			let Event: EventHandler = new EventHandler(name, this._apiEvents);
-			let apiEventName: string = Event.getApiEventName();
-			this._client.on(apiEventName, (object) => {
-				let WrappedObject = Event.getWrappedObject(object);
-				if (WrappedObject) {
-					this._events.emit(name, WrappedObject);
-				} else {
-					this._events.emit(name);
-				}
-			});
+			if (this._apiEvents.hasOwnProperty(name)) {
+				let Event: EventHandler = new EventHandler(name, this._apiEvents);
+				let apiEventName: string = Event.getApiEventName();
+				this._client.on(apiEventName, (object) => {
+					let WrappedObject = Event.getWrappedObject(object);
+					if (WrappedObject) {
+						this._events.emit(name, WrappedObject);
+					} else {
+						this._events.emit(name);
+					}
+				});
+			}
 		}
 	}
 
