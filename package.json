@@ -4,9 +4,11 @@
 	"description": "A TypeScript framework which works as an API wrapper for chat bots such as discord or slack.",
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {
-		"test": "tsc && mocha -r ts-node/register **/*Test.js --exit",
 		"build": "typedoc --excludeExternals --out doc src/wrappers/interfaces/ && tsc",
-		"validate": "eslint --ext .ts src tests"
+		"test": "tsc && mocha -r ts-node/register **/*Test.ts --exit",
+		"coverage": "nyc npm run test",
+		"validate": "eslint --ext .ts src tests",
+		"validation-build": "npm run-script validate && npm run-script coverage && npm run-script build"
 	},
 	"keywords": [
 		"discord-bot",
@@ -40,6 +42,7 @@
 		"eslint": "^6.0.1",
 		"eslint-plugin-promise": "^4.2.1",
 		"mocha": "^6.1.4",
+		"nyc": "^14.1.1",
 		"sinon": "^7.3.2",
 		"ts-node": "^8.3.0",
 		"typescript": "^3.5.2"
