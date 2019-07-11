@@ -17,18 +17,44 @@ describe("The class EventHandler", function() {
 			message: {
 				name: "message",
 				returnClass: DiscordMessage,
-				isWrapped: true
+				isWrapped: true,
+				isInitEvent: false
 			},
 			ready: {
 				name: "ready",
 				returnClass: null,
 				isWrapped: false,
+				isInitEvent: true
 			}
 		};
 	});
 
 	afterEach(function() {
 		this._apiEvents = null;
+	});
+
+	describe("The method isInitEvent", function() {
+		it("Returns false because the event is not an init event", function() {
+			//Arrange
+			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+
+			//Act
+			let isInitEvent: boolean = Event.isInitEvent();
+
+			//Assert
+			assert.strictEqual(isInitEvent, false, "The event is not an init event.");
+		});
+
+		it("Returns true because the event is an init event", function() {
+			//Arrange
+			let Event: EventHandler = new EventHandler("ready", this._apiEvents);
+
+			//Act
+			let isInitEvent: boolean = Event.isInitEvent();
+
+			//Assert
+			assert.strictEqual(isInitEvent, true, "The event is an init event.");
+		});
 	});
 
 	describe("The method getApiEventName", function() {

@@ -1,10 +1,9 @@
 # dynoBot-Framework
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Blackhawk-TA/dynoBot-Framework/blob/master/LICENSE.md)
 [![Build Status](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework.svg?branch=master)](https://travis-ci.com/Blackhawk-TA/dynoBot-Framework)
+[![Coverage Status](https://coveralls.io/repos/github/Blackhawk-TA/dynoBot-Framework/badge.svg?branch=master)](https://coveralls.io/github/Blackhawk-TA/dynoBot-Framework?branch=master)
 [![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
-[![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/master.svg?color=blue)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/master)
-[![github](https://img.shields.io/github/package-json/v/Blackhawk-TA/dynoBot-Framework/development.svg?color=blue)](https://github.com/Blackhawk-TA/dynoBot-Framework/tree/development)
 
 ### Overview
 1. [dynoBot-Framework](#dynobot-framework)
@@ -40,7 +39,7 @@ Supported events:
 
 Events can be used like this:
 ```js
-Bot.getClient().onEvent("<event-name>", (returnValue) => {
+Bot.onEvent("<event-name>", (returnValue) => {
 	//Code that shall be executed when the event was triggered
 });
 ```
@@ -54,10 +53,10 @@ There is also an example of a simple bot implementation to get started withk:
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
-Bot.getClient().onEvent("ready", () => {
+Bot.onEvent("ready", () => {
 	console.log("Bot started");
 
-	Bot.getClient().onEvent("message", (msg) => {
+	Bot.onEvent("message", (msg) => {
 		if (msg.isMentioned(Bot.getClient().getUser())) {
 			msg.getChannel().send("OK");
 		}
