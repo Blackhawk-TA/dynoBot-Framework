@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "typedoc --excludeExternals --out doc src/wrappers/interfaces/ && tsc",
 		"test": "tsc && mocha -r ts-node/register **/*Test.ts --exit",
-		"coverage": "nyc npm run test",
+		"coverage": "nyc npm run test | coveralls",
 		"validate": "eslint --ext .ts src tests",
 		"validation-build": "npm run-script validate && npm run-script coverage && npm run-script build"
 	},
@@ -38,6 +38,7 @@
 		"@types/mocha": "^5.2.7",
 		"@types/node": "^12.0.12",
 		"@typescript-eslint/parser": "^1.11.0",
+		"coveralls": "^3.0.4",
 		"dotenv": "^8.0.0",
 		"eslint": "^6.0.1",
 		"eslint-plugin-promise": "^4.2.1",
