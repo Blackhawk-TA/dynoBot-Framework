@@ -43,7 +43,7 @@ describe("The class EventHandler", function() {
 			} catch(e) {
 				assert.strictEqual(e.toString(), "Error: The event 'test' is not supported.");
 			}
-		})
+		});
 	});
 
 	describe("The method isInitEvent", function() {
