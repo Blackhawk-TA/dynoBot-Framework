@@ -59,7 +59,7 @@ describe("The class DiscordUser", function() {
 			//Arrange
 			let _user: object = {
 				createDM: function() {
-					return new Promise(reject => {
+					return new Promise((resolve, reject) => {
 						reject("some reason");
 					});
 				}
@@ -97,7 +97,7 @@ describe("The class DiscordUser", function() {
 			//Arrange
 			let _user: object = {
 				deleteDM: function() {
-					return new Promise(reject => {
+					return new Promise((resolve, reject) => {
 						reject("some reason");
 					});
 				}
