@@ -10,9 +10,6 @@ require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 
 describe("The class DiscordBot", function() {
-	describe("The bot initialisation", function() {
-	});
-
 	describe("The method onEvent", function() {
 		it("Throws an error if the event is not supported", function() {
 			//Arrange

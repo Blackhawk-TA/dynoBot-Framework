@@ -51,6 +51,7 @@ export class DiscordServer implements IServer {
 			if (channels[i].id === channelId) {
 				return new DiscordChannel(channels[i]);
 			}
+			i++;
 		}
 
 		return false;

@@ -1,4 +1,3 @@
-import {ErrorHandler} from "./ErrorHandler";
 import {EventEmitter} from "events";
 
 export class EventHandler {
@@ -13,8 +12,6 @@ export class EventHandler {
 			this._apiEventName = events[name].name;
 			this._isInitEvent = events[name].isInitEvent;
 			this._wrappedName = name;
-		} else {
-			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
 		}
 	}
 

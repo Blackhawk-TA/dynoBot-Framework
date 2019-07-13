@@ -36,9 +36,9 @@ export interface IChannel {
 
 	/**
 	 * Delete every message in an array of messages.
-	 * @param messages - The messages which shall be deleted
+	 * @param MessagesToDelete - The messages which shall be deleted
 	 */
-	deleteMessages(messages: IMessage[]): Promise<IMessage[]>;
+	deleteMessages(MessagesToDelete: IMessage[]): Promise<IMessage[]>;
 
 	/**
 	 * Resolves with a collection of messages that pass the specified filter.

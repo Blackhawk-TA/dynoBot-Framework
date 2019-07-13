@@ -41,16 +41,15 @@ export class DiscordChannel implements IChannel {
 		});
 	}
 
-	deleteMessages(messages: IMessage[]): Promise<IMessage[]> {
+	deleteMessages(MessagesToDelete: IMessage[]): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
 			let Messages: IMessage[] = [];
-			for (let i: number = 0; i < messages.length; i++) {
-				let Message: IMessage = new DiscordMessage(messages[i]);
-				Message.delete().then((result) => {
+			for (let i: number = 0; i < MessagesToDelete.length; i++) {
+				MessagesToDelete[i].delete().then((result) => {
 					if (result instanceof DiscordMessage) {
 						Messages.push(result);
 					}
-					if (i === messages.length - 1) {
+					if (i === MessagesToDelete.length - 1) {
 						resolve(Messages);
 					}
 				}).catch(error => {

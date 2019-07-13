@@ -1,7 +1,9 @@
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
 import {EventHandler} from "../../src/utils/EventHandler";
+import {EventEmitter} from "events";
 
 const assert = require("assert");
+const sinon = require("sinon");
 
 describe("The class EventHandler", function() {
 	beforeEach(function() {
@@ -104,6 +106,61 @@ describe("The class EventHandler", function() {
 
 			//Assert
 			assert.strictEqual(WrappedObject, null, "Null was returned because the wrapped event has no return value.");
+		});
+	});
+
+	describe("The method wrap", function() {
+		it("Emits the wrapped event and hands over a wrapped object", function() {
+			//Arrange
+			let OriginalEmitter: EventEmitter = new EventEmitter();
+			let WrappedEmitter: EventEmitter = new EventEmitter();
+			let wrappedEmitStub = sinon.stub(WrappedEmitter, "emit");
+			let eventObject = {};
+
+			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+
+			let getApiEventNameStub = sinon.stub(Event, "getApiEventName").returns("message");
+			let getWrappedObjectStub = sinon.stub(Event, "getWrappedObject").returns(new DiscordMessage(eventObject));
+
+			//Act
+			Event.wrap(OriginalEmitter, WrappedEmitter);
+			OriginalEmitter.emit("message", eventObject);
+
+			//Assert
+			WrappedEmitter.on("message", eventObject => {
+				assert.strictEqual(getApiEventNameStub.callCount, 1, "The method getApiEventName was called once.");
+				assert.strictEqual(getWrappedObjectStub.callCount, 1, "The method getWrappedObject was called once.");
+				assert.strictEqual(getWrappedObjectStub.getCall(0).args[0], eventObject, "The method getWrappedObject was called with the correct parameter.");
+				assert.strictEqual(wrappedEmitStub.callCount, 1, "The wrapped event was emitted.");
+				assert.strictEqual(wrappedEmitStub.getCall(0).args[0], "message", "The event name was handed over correctly.");
+				assert.strictEqual(wrappedEmitStub.getCall(0).args[1] instanceof DiscordMessage, true, "The object was wrapped correctly.");
+			});
+		});
+
+		it("Emits the wrapped event without handing over a wrapped object", function() {
+			//Arrange
+			let OriginalEmitter: EventEmitter = new EventEmitter();
+			let WrappedEmitter: EventEmitter = new EventEmitter();
+			let wrappedEmitStub = sinon.stub(WrappedEmitter, "emit");
+			let eventObject = {};
+
+			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+
+			let getApiEventNameStub = sinon.stub(Event, "getApiEventName").returns("message");
+			let getWrappedObjectStub = sinon.stub(Event, "getWrappedObject").returns(null);
+
+			//Act
+			Event.wrap(OriginalEmitter, WrappedEmitter);
+			OriginalEmitter.emit("message", eventObject);
+
+			//Assert
+			WrappedEmitter.on("message", eventObject => {
+				assert.strictEqual(getApiEventNameStub.callCount, 1, "The method getApiEventName was called once.");
+				assert.strictEqual(getWrappedObjectStub.callCount, 1, "The method getWrappedObject was called once.");
+				assert.strictEqual(getWrappedObjectStub.getCall(0).args[0], eventObject, "The method getWrappedObject was called with the correct parameter.");
+				assert.strictEqual(wrappedEmitStub.callCount, 1, "The wrapped event was emitted.");
+				assert.strictEqual(wrappedEmitStub.calledWith("message"), true, "The event name was handed over correctly.");
+			});
 		});
 	});
 });
