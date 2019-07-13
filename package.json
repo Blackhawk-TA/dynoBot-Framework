@@ -5,7 +5,7 @@
 	"main": "./build/src/DiscordBot.js",
 	"scripts": {
 		"build": "typedoc --excludeExternals --out doc src/wrappers/interfaces/ && tsc",
-		"test": "tsc && mocha -r ts-node/register **/*Test.ts --exit",
+		"test": "tsc && nyc mocha -r ts-node/register **/*Test.ts --exit",
 		"coverage": "nyc npm run test | coveralls",
 		"validate": "eslint --ext .ts src tests",
 		"validation-build": "npm run-script validate && npm run-script coverage && npm run-script build"
