@@ -111,7 +111,7 @@ describe("The class DiscordChannel", function() {
 			let FirstMessage = new DiscordMessage({});
 			let SecondMessage = new DiscordMessage({});
 			sinon.stub(FirstMessage, "delete").returns(Promise.resolve(FirstMessage));
-			sinon.stub(SecondMessage,"delete").returns(Promise.resolve(SecondMessage));
+			sinon.stub(SecondMessage, "delete").returns(Promise.resolve(SecondMessage));
 
 			//Act
 			return this.Channel.deleteMessages([FirstMessage, SecondMessage]).then(messages => {
@@ -130,7 +130,7 @@ describe("The class DiscordChannel", function() {
 			//Act
 			return this.Channel.deleteMessages([Message]).catch(error => {
 				assert.strictEqual(error instanceof Error, true, "An error object was returned.");
-				assert.strictEqual(error.toString(), "Error: Some error", "The correct error was returned.")
+				assert.strictEqual(error.toString(), "Error: Some error", "The correct error was returned.");
 			});
 		});
 	});
