@@ -112,6 +112,7 @@ describe("The class DiscordMessage", function() {
 			let Roles = this.Message.getAuthorRoles();
 
 			//Assert
+			assert.strictEqual(Roles.length, 2, "The correct amount of roles was returned.");
 			assert.strictEqual(Roles[0] instanceof DiscordRole, true, "The first roles was wrapped correctly.");
 			assert.strictEqual(Roles[1] instanceof DiscordRole, true, "The second roles was wrapped correctly.");
 		});
