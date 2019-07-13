@@ -18,7 +18,7 @@ export class DiscordBot implements IBot {
 			name: "error",
 			returnClass: Error,
 			isWrapped: false,
-			isInitEvent: false
+			isInitEvent: true
 		},
 		serverMemberAdd: {
 			name: "guildMemberAdd",

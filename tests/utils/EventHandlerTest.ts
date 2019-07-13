@@ -35,17 +35,6 @@ describe("The class EventHandler", function() {
 		this._apiEvents = null;
 	});
 
-	describe("The constructor", function() {
-		it("Throws an error if the event does not exist", function () {
-			//Assert
-			try {
-				assert.ifError(new EventHandler("test", this._apiEvents));
-			} catch(e) {
-				assert.strictEqual(e.toString(), "Error: The event 'test' is not supported.");
-			}
-		});
-	});
-
 	describe("The method isInitEvent", function() {
 		it("Returns false because the event is not an init event", function() {
 			//Arrange
