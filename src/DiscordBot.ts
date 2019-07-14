@@ -6,6 +6,7 @@ import {DiscordUser} from "./wrappers/discord/DiscordUser";
 import {DiscordMessage} from "./wrappers/discord/DiscordMessage";
 import {EventEmitter} from "events";
 import {EventHandler} from "./utils/EventHandler";
+import {EventWrapper} from "./utils/EventWrapper";
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
@@ -13,12 +14,13 @@ const client = new Discord.Client();
 export class DiscordBot implements IBot {
 	private _client: IClient;
 	private readonly _events: EventEmitter;
+	private readonly _token: string;
 	private readonly _apiEvents = {
 		error: {
 			name: "error",
 			returnClass: Error,
 			isWrapped: false,
-			isInitEvent: true
+			isInitEvent: false
 		},
 		serverMemberAdd: {
 			name: "guildMemberAdd",
@@ -48,31 +50,26 @@ export class DiscordBot implements IBot {
 
 	constructor(token: string) {
 		this._events = new EventEmitter();
-
-		for (let name in this._apiEvents) {
-			let Event: EventHandler = new EventHandler(name, this._apiEvents);
-			if (Event.isInitEvent()) {
-				Event.wrap(client, this._events);
-			}
-		}
-
-		client.login(token).then(() => {
-			for (let name in this._apiEvents) { //register events
-				let Event: EventHandler = new EventHandler(name, this._apiEvents);
-				if (!Event.isInitEvent()) {
-					Event.wrap(client, this._events);
-				}
-			}
-
-			this._client = new DiscordClient(client);
-		}).catch(error => {
-			ErrorHandler.throwError(error);
-		});
+		this._token = token;
 	}
 
 	onEvent(name: string, listener: (...args: any[]) => void): void {
 		if (this._apiEvents.hasOwnProperty(name)) {
-			this._events.on(name, listener);
+			let Event: EventHandler = new EventHandler(name, this._apiEvents);
+
+			if (Event.isInitEvent()) {
+				client.login(this._token).then(() => {
+					let eventWrapper: EventWrapper = new EventWrapper(client, this._events);
+					eventWrapper.registerEvents(this._apiEvents, true);
+
+					this._client = new DiscordClient(client);
+					listener();
+				}).catch((error) => {
+					ErrorHandler.throwError(error);
+				});
+			} else {
+				this._events.on(name, listener);
+			}
 		} else {
 			ErrorHandler.throwErrorMessage(`The event '${name}' is not supported.`);
 		}

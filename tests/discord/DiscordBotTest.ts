@@ -17,15 +17,14 @@ describe("The class DiscordBot", function() {
 
 			try {
 				//Act
-				Bot.onEvent("test", () => {
-				});
+				Bot.onEvent("test", () => {});
 			} catch (e) {
 				//Assert
 				assert.strictEqual(e.toString(), "Error: The event 'test' is not supported.", "The correct error was thrown.");
 			}
 		});
 
-		it("Use the original event emitter", function() {
+		it("Use the original event emitter", function() { //TODO adjust
 			//Arrange
 			let listener = function() {};
 			let onEventEmitterStub = sinon.stub(EventEmitter.prototype, "on");
