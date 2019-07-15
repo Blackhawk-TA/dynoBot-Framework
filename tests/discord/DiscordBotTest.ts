@@ -4,7 +4,6 @@ import {EventEmitter} from "events";
 
 const {DiscordBot} = require("../../src/DiscordBot");
 const assert = require("assert");
-const sinon = require("sinon");
 
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
