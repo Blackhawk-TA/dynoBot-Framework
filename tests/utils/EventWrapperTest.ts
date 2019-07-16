@@ -4,7 +4,7 @@ import {EventWrapper} from "../../src/utils/EventWrapper";
 const assert = require("assert");
 
 describe("The class EventWrapper", function() {
-	describe.only("The method registerEvents", function() {
+	describe("The method registerEvents", function() {
 		beforeEach(function() {
 			this.originalEmitter = new EventEmitter();
 			this.eventsToRegister = {
