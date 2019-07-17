@@ -1,18 +1,16 @@
 import {DiscordClient} from "../../src/wrappers/discord/DiscordClient";
 import {IBot} from "../../src/interfaces/IBot";
-import {EventEmitter} from "events";
 
 const {DiscordBot} = require("../../src/DiscordBot");
 const assert = require("assert");
-const sinon = require("sinon");
 
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 
-//TODO adjust tests according to PreInitClient
-describe("The class DiscordBot", function() {
-	describe("The method onEvent", function() {
-		it("Throws an error if the event is not supported", function() {
+describe("The class DiscordBot", function () {
+	describe("The method onEvent", function () {
+		this.timeout(5000);
+		it("Throws an error when the event is not supported", function () {
 			//Arrange
 			let Bot: IBot = new DiscordBot(token);
 
@@ -25,28 +23,26 @@ describe("The class DiscordBot", function() {
 			}
 		});
 
-		it("Use the original event emitter", function() { //TODO adjust
+		it("Initialises the client after the ready event was called", function () {
 			//Arrange
-			let listener = function() {};
-			let onEventEmitterStub = sinon.stub(EventEmitter.prototype, "on");
 			let Bot: IBot = new DiscordBot(token);
 
 			//Act
-			Bot.onEvent("ready", () => {
-				Bot.onEvent("message", listener);
-
-				//Assert
-				assert.strictEqual(onEventEmitterStub.getCall(0).args[0], "message", "The correct event name was handed over.");
-				assert.strictEqual(onEventEmitterStub.getCall(0).args[1], listener, "The correct listener was handed over.");
+			let EventPromise = new Promise(resolve => {
+				Bot.onEvent("ready", () => {
+					resolve();
+				});
 			});
 
-			//Cleanup
-			onEventEmitterStub.restore();
+			return EventPromise.then(() => {
+				//Assert
+				assert.strictEqual(Bot.getClient() instanceof DiscordClient, true, "The client was initialised correctly.");
+			});
 		});
 	});
 
-	describe("The getter", function() {
-		it("Has a getter which returns the wrapped client object when it was initialized", function() {
+	describe("The getter", function () {
+		it("Has a getter which returns the wrapped client object when it was initialized", function () {
 			//Act
 			let Bot: IBot = new DiscordBot(token);
 
@@ -56,7 +52,7 @@ describe("The class DiscordBot", function() {
 			});
 		});
 
-		it("Returns an error because the bot has not been initialized yet", function() {
+		it("Returns an error because the bot has not been initialized yet", function () {
 			//Act
 			let Bot: IBot = new DiscordBot(token);
 

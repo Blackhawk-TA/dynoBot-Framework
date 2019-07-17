@@ -1,11 +1,11 @@
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
-import {EventHandler} from "../../src/utils/EventHandler";
 import {EventEmitter} from "events";
+import {DiscordEventHandler} from "../../src/wrappers/discord/DiscordEventHandler";
 
 const assert = require("assert");
 const sinon = require("sinon");
 
-describe("The class EventHandler", function() {
+describe("The class DiscordEventHandler", function() {
 	beforeEach(function() {
 		this._apiEvents = {
 			error: {
@@ -38,7 +38,7 @@ describe("The class EventHandler", function() {
 	describe("The method isInitEvent", function() {
 		it("Returns false because the event is not an init event", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("message", this._apiEvents);
 
 			//Act
 			let isInitEvent: boolean = Event.isInitEvent();
@@ -49,7 +49,7 @@ describe("The class EventHandler", function() {
 
 		it("Returns true because the event is an init event", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("ready", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("ready", this._apiEvents);
 
 			//Act
 			let isInitEvent: boolean = Event.isInitEvent();
@@ -62,7 +62,7 @@ describe("The class EventHandler", function() {
 	describe("The method getApiEventName", function() {
 		it("Returns the original unwrapped api event name", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("serverMemberAdd", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("serverMemberAdd", this._apiEvents);
 
 			//Act
 			let apiEventName: string = Event.getApiEventName();
@@ -75,7 +75,7 @@ describe("The class EventHandler", function() {
 	describe("The method getWrappedObject", function() {
 		it("Returns the wrapped object of the event", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("message", this._apiEvents);
 			let apiObject: object = {};
 
 			//Act
@@ -87,7 +87,7 @@ describe("The class EventHandler", function() {
 
 		it("Returns the api object because it should not be wrapped", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("error", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("error", this._apiEvents);
 			let apiObject: Error = new Error("test error");
 
 			//Act
@@ -99,7 +99,7 @@ describe("The class EventHandler", function() {
 
 		it("Returns null if the event has no return value and shall not be wrapped", function() {
 			//Arrange
-			let Event: EventHandler = new EventHandler("ready", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("ready", this._apiEvents);
 
 			//Act
 			let WrappedObject: any = Event.getWrappedObject(undefined);
@@ -117,7 +117,7 @@ describe("The class EventHandler", function() {
 			let wrappedEmitStub = sinon.stub(WrappedEmitter, "emit");
 			let eventObject = {};
 
-			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("message", this._apiEvents);
 
 			let getApiEventNameStub = sinon.stub(Event, "getApiEventName").returns("message");
 			let getWrappedObjectStub = sinon.stub(Event, "getWrappedObject").returns(new DiscordMessage(eventObject));
@@ -144,7 +144,7 @@ describe("The class EventHandler", function() {
 			let wrappedEmitStub = sinon.stub(WrappedEmitter, "emit");
 			let eventObject = {};
 
-			let Event: EventHandler = new EventHandler("message", this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler("message", this._apiEvents);
 
 			let getApiEventNameStub = sinon.stub(Event, "getApiEventName").returns("message");
 			let getWrappedObjectStub = sinon.stub(Event, "getWrappedObject").returns(null);
