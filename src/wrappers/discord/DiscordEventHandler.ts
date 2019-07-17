@@ -1,7 +1,7 @@
 import {EventHandler} from "../../utils/EventHandler";
 import {EventEmitter} from "events";
 
-export class DiscordEventHandler extends EventHandler{
+export class DiscordEventHandler extends EventHandler {
 	constructor(name: string, events: object) {
 		super(name, events);
 	}
