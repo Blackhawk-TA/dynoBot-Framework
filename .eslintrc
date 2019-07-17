@@ -38,6 +38,7 @@
 			"allowTemplateLiterals":  true,
 			"avoidEscape": true
 		}],
-		"semi": ["error", "always"]
+		"semi": ["error", "always"],
+		"space-in-parens": ["error", "never"]
 	}
 }
