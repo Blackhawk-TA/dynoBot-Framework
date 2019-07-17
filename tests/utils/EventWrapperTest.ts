@@ -24,7 +24,7 @@ describe("The class EventWrapper", function() {
 				}
 			};
 			this.wrappedEmitter = new EventEmitter();
-			this.EventWrapper = new EventWrapper(this.originalEmitter, this.wrappedEmitter);
+			this.EventWrapper = new EventWrapper(this.originalEmitter, this.wrappedEmitter, DiscordEventHandler);
 			this.wrapStub = sinon.stub(DiscordEventHandler.prototype, "wrap");
 		});
 

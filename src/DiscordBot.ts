@@ -59,7 +59,7 @@ export class DiscordBot implements IBot {
 
 			if (Event.isInitEvent()) {
 				client.login(this._token).then(() => {
-					let eventWrapper: EventWrapper = new EventWrapper(client, this._events);
+					let eventWrapper: EventWrapper = new EventWrapper(client, this._events, DiscordEventHandler);
 					eventWrapper.registerEvents(this._apiEvents, true);
 
 					this._client = new DiscordClient(client);

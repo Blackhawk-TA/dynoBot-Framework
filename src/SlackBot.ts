@@ -4,8 +4,8 @@ import {SlackApiHandler} from "./wrappers/slack/SlackApiHandler";
 import {SlackClient} from "./wrappers/slack/SlackClient";
 import {ErrorHandler} from "./utils/ErrorHandler";
 import {EventWrapper} from "./utils/EventWrapper";
-import {EventHandler} from "./utils/EventHandler";
 import {EventEmitter} from "events";
+import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
 
 const WebSocket = require("ws");
 
@@ -36,23 +36,25 @@ export class SlackBot implements IBot {
 	};
 
 	constructor(token: string) {
+		this._events = new EventEmitter();
 		this._token = token;
 	}
 
 	onEvent(name: string, listener: (...args: any[]) => void): void {
 		if (this._apiEvents.hasOwnProperty(name)) {
-			let Event: EventHandler = new EventHandler(name, this._apiEvents);
+			let Event: SlackEventHandler = new SlackEventHandler(name, this._apiEvents);
 
 			if (Event.isInitEvent()) {
 				SlackApiHandler.callMethod("rtm.connect", {token: this._token}).then(response => {
 					if (response.ok) {
 						this._connection = new WebSocket(response.url);
-						let eventWrapper: EventWrapper = new EventWrapper(this._connection, this._events);
-						//TODO event registration for slack is different, move class from utils to wrappers
-						eventWrapper.registerEvents(this._apiEvents, true);
+						this._connection.onopen = () => {
+							let eventWrapper: EventWrapper = new EventWrapper(this._connection, this._events, SlackEventHandler);
+							eventWrapper.registerEvents(this._apiEvents, true);
 
-						this._client = new SlackClient(this._connection);
-						listener();
+							this._client = new SlackClient(this._connection);
+							listener();
+						};
 					} else {
 						ErrorHandler.throwErrorMessage("Could not connect to the websocket: " + response.error);
 					}
