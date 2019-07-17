@@ -5,8 +5,8 @@ import {ErrorHandler} from "./utils/ErrorHandler";
 import {DiscordUser} from "./wrappers/discord/DiscordUser";
 import {DiscordMessage} from "./wrappers/discord/DiscordMessage";
 import {EventEmitter} from "events";
-import {EventHandler} from "./utils/EventHandler";
 import {EventWrapper} from "./utils/EventWrapper";
+import {DiscordEventHandler} from "./wrappers/discord/DiscordEventHandler";
 
 const Discord = require("discord.js");
 const client = new Discord.Client();
@@ -55,7 +55,7 @@ export class DiscordBot implements IBot {
 
 	onEvent(name: string, listener: (...args: any[]) => void): void {
 		if (this._apiEvents.hasOwnProperty(name)) {
-			let Event: EventHandler = new EventHandler(name, this._apiEvents);
+			let Event: DiscordEventHandler = new DiscordEventHandler(name, this._apiEvents);
 
 			if (Event.isInitEvent()) {
 				client.login(this._token).then(() => {
