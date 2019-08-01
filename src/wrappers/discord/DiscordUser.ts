@@ -1,5 +1,8 @@
 import {IUser} from "../interfaces/IUser";
 import {DiscordChannel} from "./DiscordChannel";
+import {IServer} from "../interfaces/IServer";
+import {DiscordServer} from "./DiscordServer";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordUser implements IUser {
 	private _user: any;
@@ -13,6 +16,15 @@ export class DiscordUser implements IUser {
 
 	getName(): string {
 		return this._user.username;
+	}
+
+	getServer(): IServer {
+		if (this._user.guild) {
+			return new DiscordServer(this._user.guild);
+		} else {
+			ErrorHandler.log("The user is currently not acting on a server.");
+			return null;
+		}
 	}
 
 	createDM(): Promise<DiscordChannel> {

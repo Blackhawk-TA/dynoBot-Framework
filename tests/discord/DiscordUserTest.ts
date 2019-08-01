@@ -1,15 +1,19 @@
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
 import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
+import {ErrorHandler} from "../../src/utils/ErrorHandler";
 
 const assert = require("assert");
+const sinon = require("sinon");
 
 describe("The class DiscordUser", function() {
 	beforeEach(function() {
-		let _user: object = {
+		this._user = {
 			id: 123,
-			username: "name"
+			username: "name",
+			guild: {}
 		};
-		this.User = new DiscordUser(_user);
+		this.User = new DiscordUser(this._user);
 	});
 
 	afterEach(function() {
@@ -33,6 +37,32 @@ describe("The class DiscordUser", function() {
 
 			//Assert
 			assert.strictEqual(username, "name", "The correct username was returned.");
+		});
+	});
+
+	describe("The method getServer", function() {
+		it("Returns the wrapped server object", function() {
+			//Act
+			let Server: any = this.User.getServer();
+
+			//Assert
+			assert.strictEqual(Server instanceof DiscordServer, true, "The server object was wrapped correctly.");
+		});
+
+		it("Returns null because the user is not acting on a server", function() {
+			//Arrange
+			this._user.guild = null;
+			let oErrorHandlerStub = sinon.stub(ErrorHandler, "log");
+
+			//Act
+			let Server: any = this.User.getServer();
+
+			//Assert
+			assert.strictEqual(oErrorHandlerStub.callCount, 1, "The error handler was called.");
+			assert.strictEqual(Server, null, "There is no server, so null was returned.");
+
+			//Cleanup
+			oErrorHandlerStub.restore();
 		});
 	});
 
