@@ -1,4 +1,5 @@
 import {DiscordChannel} from "../discord/DiscordChannel";
+import {IServer} from "./IServer";
 
 export interface IUser {
 	/**
@@ -14,7 +15,13 @@ export interface IUser {
 	getName(): string;
 
 	/**
-	 * Create a private message channel.
+	 * Gets the server the user is acting on.
+	 * @return The server object, null when the user is not acting on a server
+	 */
+	getServer(): IServer;
+
+	/**
+	 * Creates a private message channel.
 	 * @return The channel for private messages
 	 */
 	createDM(): Promise<DiscordChannel>;
