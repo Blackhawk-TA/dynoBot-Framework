@@ -18,6 +18,10 @@ export class DiscordUser implements IUser {
 		return this._user.username;
 	}
 
+	getTag(): string {
+		return this._user.tag;
+	}
+
 	getServer(): IServer {
 		if (this._user.guild) {
 			return new DiscordServer(this._user.guild);
