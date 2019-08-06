@@ -11,7 +11,8 @@ describe("The class DiscordUser", function() {
 		this._user = {
 			id: 123,
 			username: "name",
-			guild: {}
+			guild: {},
+			tag: "name#123"
 		};
 		this.User = new DiscordUser(this._user);
 	});
@@ -37,6 +38,16 @@ describe("The class DiscordUser", function() {
 
 			//Assert
 			assert.strictEqual(username, "name", "The correct username was returned.");
+		});
+	});
+
+	describe("The method getTag", function() {
+		it("Returns the user tag", function() {
+			//Act
+			let tag: number = this.User.getTag();
+
+			//Assert
+			assert.strictEqual(tag, "name#123", "The correct tag was returned.");
 		});
 	});
 
