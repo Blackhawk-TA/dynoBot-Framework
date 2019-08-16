@@ -23,6 +23,27 @@ describe("The class DiscordChannel", function() {
 		this.Channel = null;
 	});
 
+	describe("The method isTextChannel", function() {
+		it("Is a text channel and returns true", function() {
+			//Act
+			let isTextChannel: boolean = this.Channel.isTextChannel();
+
+			//Arrange
+			assert.strictEqual(isTextChannel, true, "The channel is a text channel.");
+		});
+
+		it("Is not a text channel and returns false", function() {
+			//Arrange
+			this.channel.send = undefined;
+
+			//Act
+			let isTextChannel: boolean = this.Channel.isTextChannel();
+
+			//Arrange
+			assert.strictEqual(isTextChannel, false, "The channel is not a text channel.");
+		});
+	});
+
 	describe("The method send", function() {
 		it("Calls the send message of the api", function() {
 			//Arrange
@@ -41,6 +62,18 @@ describe("The class DiscordChannel", function() {
 
 			//Cleanup
 			sendStub.restore();
+		});
+
+		it("Throws an error because there is no send method for this channel", function() {
+			//Arrange
+			this.channel.send = undefined;
+
+			//Act
+			try {
+				this.Channel.send("test");
+			} catch (e) {
+				assert.strictEqual(e.toString(), "Error: This channel doesn't allow sending messages.", "The error message is correct.");
+			}
 		});
 	});
 

@@ -3,6 +3,7 @@ import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {IMessage} from "../interfaces/IMessage";
 import {DiscordMessage} from "./DiscordMessage";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordChannel implements IChannel {
 	private _channel: any;
@@ -11,8 +12,16 @@ export class DiscordChannel implements IChannel {
 		this._channel = channel;
 	}
 
+	isTextChannel(): boolean {
+		return !!this._channel.send;
+	}
+
 	send(message?: string, options?: any): void {
-		this._channel.send(message, options);
+		if (this._channel.send) {
+			this._channel.send(message, options);
+		} else {
+			ErrorHandler.throwErrorMessage("This channel doesn't allow sending messages.");
+		}
 	}
 
 	getId(): number {
