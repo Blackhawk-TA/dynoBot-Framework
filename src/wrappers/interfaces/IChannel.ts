@@ -3,6 +3,12 @@ import {IMessage} from "./IMessage";
 
 export interface IChannel {
 	/**
+	 * Return whether the channel is a text channel.
+	 * @return True if the channel is a text channel, else false
+	 */
+	isTextChannel(): boolean;
+
+	/**
 	 * Send a message to the channel.
 	 * @param [message] - The message to send
 	 * @param [options] - Options for the message, can also be just a RichEmbed or Attachment
