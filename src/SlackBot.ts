@@ -6,6 +6,7 @@ import {ErrorHandler} from "./utils/ErrorHandler";
 import {EventWrapper} from "./utils/EventWrapper";
 import {EventEmitter} from "events";
 import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
+import {SlackMessage} from "./wrappers/slack/SlackMessage";
 
 const WebSocket = require("ws");
 
@@ -15,6 +16,7 @@ export class SlackBot implements IBot {
 	private readonly _token: string;
 	private readonly _events: EventEmitter;
 	private readonly _apiEvents = {
+		//TODO instead of using the onmessage event, create a event for each onmessage subevent and trigger this
 		error: {
 			name: "onerror",
 			returnClass: Error, //TODO check if it shall be wrapped
@@ -22,13 +24,25 @@ export class SlackBot implements IBot {
 			isInitEvent: false
 		},
 		message: {
-			name: "onmessage",
-			returnClass: null, //TODO check how it shall be wrapped
+			name: "desktop_notification",
+			returnClass: SlackMessage, //TODO check how it shall be wrapped
+			isWrapped: true,
+			isInitEvent: false
+		},
+		serverMemberAdd: {
+			name: "member_joined_channel",
+			returnClass: null,
+			isWrapped: true,
+			isInitEvent: false
+		},
+		serverMemberRemove: {
+			name: "member_left_channel",
+			returnClass: null,
 			isWrapped: true,
 			isInitEvent: false
 		},
 		ready: {
-			name: "onopen",
+			name: "hello",
 			returnClass: SlackClient,
 			isWrapped: true,
 			isInitEvent: true
