@@ -1,8 +1,7 @@
 import {EventEmitter} from "events";
 import {DiscordEventHandler} from "./DiscordEventHandler";
-import {IEventWrapper} from "../interfaces/IEventWrapper";
 
-export class DiscordEventWrapper implements IEventWrapper {
+export class DiscordEventWrapper {
 	private readonly _originalEmitter: any;
 	private readonly _wrappedEmitter: EventEmitter;
 	private readonly _EventHandler: any;

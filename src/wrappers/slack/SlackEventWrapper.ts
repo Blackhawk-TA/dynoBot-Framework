@@ -1,9 +1,8 @@
 import {EventEmitter} from "events";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackEventHandler} from "./SlackEventHandler";
-import {IEventWrapper} from "../interfaces/IEventWrapper";
 
-export class SlackEventWrapper implements IEventWrapper {
+export class SlackEventWrapper {
 	private readonly _originalEmitter: any;
 	private readonly _wrappedEmitter: EventEmitter;
 
