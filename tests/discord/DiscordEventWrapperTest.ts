@@ -1,11 +1,11 @@
 import {EventEmitter} from "events";
-import {EventWrapper} from "../../src/utils/EventWrapper";
+import {DiscordEventWrapper} from "../../src/wrappers/discord/DiscordEventWrapper";
 import {DiscordEventHandler} from "../../src/wrappers/discord/DiscordEventHandler";
 
 const assert = require("assert");
 const sinon = require("sinon");
 
-describe("The class EventWrapper", function() {
+describe("The class DiscordEventWrapper", function() {
 	describe("The method registerEvents", function() {
 		beforeEach(function() {
 			this.originalEmitter = new EventEmitter();
@@ -24,7 +24,7 @@ describe("The class EventWrapper", function() {
 				}
 			};
 			this.wrappedEmitter = new EventEmitter();
-			this.EventWrapper = new EventWrapper(this.originalEmitter, this.wrappedEmitter, DiscordEventHandler);
+			this.EventWrapper = new DiscordEventWrapper(this.originalEmitter, this.wrappedEmitter, DiscordEventHandler);
 			this.wrapStub = sinon.stub(DiscordEventHandler.prototype, "wrap");
 		});
 

@@ -3,10 +3,10 @@ import {IClient} from "./wrappers/interfaces/IClient";
 import {SlackApiHandler} from "./wrappers/slack/SlackApiHandler";
 import {SlackClient} from "./wrappers/slack/SlackClient";
 import {ErrorHandler} from "./utils/ErrorHandler";
-import {EventWrapper} from "./utils/EventWrapper";
 import {EventEmitter} from "events";
-import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
 import {SlackMessage} from "./wrappers/slack/SlackMessage";
+import {SlackEventWrapper} from "./wrappers/slack/SlackEventWrapper";
+import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
 
 const WebSocket = require("ws");
 
@@ -63,7 +63,7 @@ export class SlackBot implements IBot {
 					if (response.ok) {
 						this._connection = new WebSocket(response.url);
 						this._connection.onopen = () => {
-							let eventWrapper: EventWrapper = new EventWrapper(this._connection, this._events, SlackEventHandler);
+							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._connection, this._events, SlackEventHandler);
 							eventWrapper.registerEvents(this._apiEvents, true);
 
 							this._client = new SlackClient(this._connection);
