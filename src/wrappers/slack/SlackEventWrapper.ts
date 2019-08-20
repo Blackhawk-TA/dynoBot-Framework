@@ -1,15 +1,15 @@
 import {EventEmitter} from "events";
 import {ErrorHandler} from "../../utils/ErrorHandler";
+import {SlackEventHandler} from "./SlackEventHandler";
+import {IEventWrapper} from "../interfaces/IEventWrapper";
 
-export class SlackEventWrapper {
+export class SlackEventWrapper implements IEventWrapper {
 	private readonly _originalEmitter: any;
 	private readonly _wrappedEmitter: EventEmitter;
-	private readonly _EventHandler: any;
 
-	constructor(originalEmitter: any, wrappedEmitter: EventEmitter, EventHandler: any) {
+	constructor(originalEmitter: any, wrappedEmitter: EventEmitter) {
 		this._originalEmitter = originalEmitter;
 		this._wrappedEmitter = wrappedEmitter;
-		this._EventHandler = EventHandler;
 	}
 
 	registerEvents(eventsToRegister: object, excludeInitEvents?: boolean) {
@@ -24,11 +24,11 @@ export class SlackEventWrapper {
 
 				for (let eventName in eventsToRegister) {
 					if (eventsToRegister.hasOwnProperty(eventName)) {
-						let event = eventsToRegister[eventName],
-							excludeEvent = excludeInitEvents ? event.isInitEvent : false;
+						let event = new SlackEventHandler(eventName, eventsToRegister),
+							excludeEvent = excludeInitEvents ? event.isInitEvent() : false;
 
-						if (event.name === type && !excludeEvent) {
-							this._wrappedEmitter.emit(eventName, data);
+						if (event.getApiEventName() === type && !excludeEvent) {
+							this._wrappedEmitter.emit(eventName, event.getWrappedObject(data));
 						}
 					}
 				}

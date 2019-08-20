@@ -11,12 +11,11 @@ import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
 const WebSocket = require("ws");
 
 export class SlackBot implements IBot {
-	private _connection: WebSocket;
+	private _apiConnection: WebSocket;
 	private _client: IClient;
 	private readonly _token: string;
 	private readonly _events: EventEmitter;
 	private readonly _apiEvents = {
-		//TODO instead of using the onmessage event, create a event for each onmessage subevent and trigger this
 		error: {
 			name: "onerror",
 			returnClass: Error, //TODO check if it shall be wrapped
@@ -61,12 +60,12 @@ export class SlackBot implements IBot {
 			if (Event.isInitEvent()) {
 				SlackApiHandler.callMethod("rtm.connect", {token: this._token}).then(response => {
 					if (response.ok) {
-						this._connection = new WebSocket(response.url);
-						this._connection.onopen = () => {
-							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._connection, this._events, SlackEventHandler);
+						this._apiConnection = new WebSocket(response.url);
+						this._apiConnection.onopen = () => {
+							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._apiConnection, this._events);
 							eventWrapper.registerEvents(this._apiEvents, true);
 
-							this._client = new SlackClient(this._connection);
+							this._client = new SlackClient(this._apiConnection);
 							listener();
 						};
 					} else {
