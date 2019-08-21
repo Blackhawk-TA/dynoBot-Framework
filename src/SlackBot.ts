@@ -13,8 +13,8 @@ const WebSocket = require("ws");
 export class SlackBot implements IBot {
 	private _apiConnection: WebSocket;
 	private _client: IClient;
-	private readonly _token: string;
 	private readonly _events: EventEmitter;
+	private readonly _ApiHandler: SlackApiHandler;
 	private readonly _apiEvents = {
 		error: {
 			name: "onerror",
@@ -50,19 +50,19 @@ export class SlackBot implements IBot {
 
 	constructor(token: string) {
 		this._events = new EventEmitter();
-		this._token = token;
+		this._ApiHandler = new SlackApiHandler(token);
 	}
 
 	onEvent(name: string, listener: (...args: any[]) => void): void {
 		if (this._apiEvents.hasOwnProperty(name)) {
-			let Event: SlackEventHandler = new SlackEventHandler(name, this._apiEvents);
+			let Event: SlackEventHandler = new SlackEventHandler(name, this._apiEvents, this._ApiHandler);
 
 			if (Event.isInitEvent()) {
-				SlackApiHandler.callMethod("rtm.connect", {token: this._token}).then(response => {
+				this._ApiHandler.callMethod("rtm.connect", {}).then(response => {
 					if (response.ok) {
 						this._apiConnection = new WebSocket(response.url);
 						this._apiConnection.onopen = () => {
-							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._apiConnection, this._events);
+							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._apiConnection, this._events, this._ApiHandler);
 							eventWrapper.registerEvents(this._apiEvents, true);
 
 							this._client = new SlackClient(this._apiConnection);

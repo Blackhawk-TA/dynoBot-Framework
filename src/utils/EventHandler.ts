@@ -20,14 +20,4 @@ export abstract class EventHandler {
 	getApiEventName(): string {
 		return this._apiEventName;
 	}
-
-	getWrappedObject(object: any): any {
-		let event = this._events[this._wrappedName];
-		let WrappedClass = event.returnClass;
-		if (WrappedClass) {
-			return event.isWrapped ? new WrappedClass(object) : object;
-		} else {
-			return null;
-		}
-	}
 }

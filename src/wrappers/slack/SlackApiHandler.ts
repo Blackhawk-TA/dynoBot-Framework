@@ -1,11 +1,17 @@
 const request = require("request");
 
 export class SlackApiHandler {
-	static callMethod(method: string, param: object): Promise<any> {
+	private readonly _token: string;
+
+	constructor(token: string) {
+		this._token = token;
+	}
+
+	callMethod(method: string, param: object): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			const data: object = {
 				url: "https://slack.com/api/" + method,
-				form: param
+				form: Object.assign({token: this._token}, param)
 			};
 			request.post(data, (err, req, body) => {
 				if (err) {

@@ -6,6 +6,16 @@ export class DiscordEventHandler extends EventHandler {
 		super(name, events);
 	}
 
+	getWrappedObject(object: any): any {
+		let event = this._events[this._wrappedName];
+		let WrappedClass = event.returnClass;
+		if (WrappedClass) {
+			return event.isWrapped ? new WrappedClass(object) : object;
+		} else {
+			return null;
+		}
+	}
+
 	wrap(originalEmitter: any, wrappedEmitter: EventEmitter): void {
 		originalEmitter.on(this.getApiEventName(), (object) => {
 			let WrappedObject = this.getWrappedObject(object);
