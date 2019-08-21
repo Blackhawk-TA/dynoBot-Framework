@@ -30,7 +30,6 @@ export class SlackMessage implements IMessage {
 
 	getChannel(): IChannel { //TODO should be callable without promise
 		this._ApiHandler.callMethod("channels.info", {channel: this._message.channel}).then(response => {
-			console.log(response);
 			return new SlackChannel(response);
 		}).catch(error => {
 			ErrorHandler.throwErrorMessage("Following problem occurred while on the method call: " + error);

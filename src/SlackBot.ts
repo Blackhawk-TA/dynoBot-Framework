@@ -24,7 +24,7 @@ export class SlackBot implements IBot {
 		},
 		message: {
 			name: "desktop_notification",
-			returnClass: SlackMessage, //TODO check how it shall be wrapped
+			returnClass: SlackMessage,
 			isWrapped: true,
 			isInitEvent: false
 		},
