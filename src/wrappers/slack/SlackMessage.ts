@@ -4,7 +4,6 @@ import {IServer} from "../interfaces/IServer";
 import {IRole} from "../interfaces/IRole";
 import {IChannel} from "../interfaces/IChannel";
 import {SlackApiHandler} from "./SlackApiHandler";
-import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackChannel} from "./SlackChannel";
 
 export class SlackMessage implements IMessage {
@@ -28,14 +27,17 @@ export class SlackMessage implements IMessage {
 		return [];
 	}
 
-	getChannel(): IChannel { //TODO should be callable without promise
-		this._ApiHandler.callMethod("channels.info", {channel: this._message.channel}).then(response => {
-			return new SlackChannel(response);
-		}).catch(error => {
-			ErrorHandler.throwErrorMessage("Following problem occurred while on the method call: " + error);
-			return undefined;
+	getChannel(): IChannel {
+		let returnValues = this._ApiHandler.getPreCalledMethod("channels.list"),
+			channel = {};
+
+		returnValues.channels.forEach(channelObject => {
+			if (channelObject.id) {
+				channel = channelObject;
+			}
 		});
-		return undefined;
+
+		return new SlackChannel(channel);
 	}
 
 	getContent(excludeFirstWord?: boolean): string {
