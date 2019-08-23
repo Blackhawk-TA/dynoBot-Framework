@@ -17,7 +17,7 @@ export class SlackMessage implements IMessage {
 		this._ApiHandler = ApiHandler;
 	}
 
-	delete(): Promise<IMessage|Error> {
+	delete(): Promise<IMessage|Error> { //TODO test if it works
 		let params: object = {
 			channel: this._message.channel,
 			ts: this._message.ts
@@ -64,7 +64,7 @@ export class SlackMessage implements IMessage {
 			}
 		});
 
-		return new SlackChannel(channel);
+		return new SlackChannel(channel, this._ApiHandler);
 	}
 
 	getContent(excludeFirstWord?: boolean): string {

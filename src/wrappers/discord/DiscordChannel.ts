@@ -24,8 +24,8 @@ export class DiscordChannel implements IChannel {
 		}
 	}
 
-	getId(): number {
-		return this._channel.id;
+	getId(): string {
+		return this._channel.id.toString();
 	}
 
 	getName(): string {

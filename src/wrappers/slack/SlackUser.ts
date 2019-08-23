@@ -24,7 +24,7 @@ export class SlackUser implements IUser {
 		return new Promise<IChannel>((resolve, reject) => {
 			this._ApiHandler.callMethod("im.open", param).then(response => {
 				if (response.ok) {
-					resolve(new SlackChannel(response.channel));
+					resolve(new SlackChannel(response.channel, this._ApiHandler));
 				} else {
 					reject(response);
 				}
@@ -43,7 +43,7 @@ export class SlackUser implements IUser {
 				if (response.ok) {
 					response.ims.forEach(channel => {
 						if (channel.user === this._user.id) {
-							resolve(new SlackChannel(channel));
+							resolve(new SlackChannel(channel, this._ApiHandler));
 						}
 					});
 				} else {

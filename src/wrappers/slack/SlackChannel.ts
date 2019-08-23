@@ -1,42 +1,91 @@
 import {IChannel} from "../interfaces/IChannel";
 import {IMessage} from "../interfaces/IMessage";
 import {IServer} from "../interfaces/IServer";
+import {ErrorHandler} from "../../utils/ErrorHandler";
+import {SlackApiHandler} from "./utils/SlackApiHandler";
+import {DiscordMessage} from "../discord/DiscordMessage";
+import {SlackMessage} from "./SlackMessage";
 
 export class SlackChannel implements IChannel {
+	private readonly _ApiHandler: SlackApiHandler;
 	private readonly _channel: any;
 
-	constructor(channel: object) {
+	constructor(channel: object, ApiHandler: SlackApiHandler) {
 		this._channel = channel;
+		this._ApiHandler = ApiHandler;
 	}
 
 	awaitMessages(options?: object): Promise<IMessage[]> {
-		return undefined;
+		ErrorHandler.log("This method is not supported by the slack api.");
+		return null;
 	}
 
 	deleteMessages(MessagesToDelete: IMessage[]): Promise<IMessage[]> {
-		return undefined;
+		return new Promise<IMessage[]>((resolve, reject) => {
+			let Messages: IMessage[] = [];
+			for (let i: number = 0; i < MessagesToDelete.length; i++) {
+				MessagesToDelete[i].delete().then((result) => {
+					if (result instanceof SlackMessage) {
+						Messages.push(result);
+					}
+					if (i === MessagesToDelete.length - 1) {
+						resolve(Messages);
+					}
+				}).catch(error => {
+					reject(error);
+				});
+			}
+		});
 	}
 
-	getId(): number {
-		return 0;
+	getId(): string {
+		return this._channel.id;
 	}
 
 	getMessages(amount: number): Promise<IMessage[]> {
-		return undefined;
+		let param: object = {
+			channel: this._channel.id,
+			count: amount
+		};
+
+		return new Promise<IMessage[]>((resolve, reject) => {
+			this._ApiHandler.callMethod("channels.history", param).then(response => {
+				if (response.ok) {
+					let Messages: IMessage[] = [];
+					response.messages.forEach(message => {
+						Messages.push(new DiscordMessage(message));
+					});
+					resolve(Messages);
+				} else {
+					reject(response);
+				}
+			}).catch(error => {
+				reject(error);
+			});
+		});
 	}
 
 	getName(): string {
-		return "";
+		return this._channel.name;
 	}
 
 	getServer(): IServer {
-		return undefined;
+		ErrorHandler.log("This method is not supported by the slack api.");
+		return null;
 	}
 
 	isTextChannel(): boolean {
-		return false;
+		return this._channel.is_channel;
 	}
 
 	send(message?: string, options?: any) {
+		let params: object = {
+			channel: this._channel.id,
+			text: message
+		};
+
+		this._ApiHandler.callMethod("chat.postMessage", params).catch(error => {
+			ErrorHandler.log("There was a problem sending a message: " + error);
+		});
 	}
 }
