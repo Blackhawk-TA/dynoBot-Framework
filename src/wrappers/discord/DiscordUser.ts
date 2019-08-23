@@ -10,8 +10,8 @@ export class DiscordUser implements IUser {
 		this._user = user;
 	}
 
-	getId(): number {
-		return this._user.id;
+	getId(): string {
+		return this._user.id.toString();
 	}
 
 	getName(): string {

@@ -58,7 +58,7 @@ export class SlackBot implements IBot {
 			let Event: SlackEventHandler = new SlackEventHandler(name, this._apiEvents, this._ApiHandler);
 
 			if (Event.isInitEvent()) {
-				this._ApiHandler.callMethod("rtm.connect", {}).then(response => {
+				this._ApiHandler.callMethod("rtm.connect").then(response => {
 					if (response.ok) {
 						this._apiConnection = new WebSocket(response.url);
 						this._apiConnection.onopen = () => {

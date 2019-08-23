@@ -3,7 +3,7 @@ import {IMessage} from "../interfaces/IMessage";
 import {IServer} from "../interfaces/IServer";
 
 export class SlackChannel implements IChannel {
-	private _channel: any;
+	private readonly _channel: any;
 
 	constructor(channel: object) {
 		this._channel = channel;

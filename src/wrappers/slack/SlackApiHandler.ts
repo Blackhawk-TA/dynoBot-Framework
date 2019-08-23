@@ -32,7 +32,7 @@ export class SlackApiHandler {
 	preCallMethods(): void {
 		for (let methodName in this._bufferedMethods) {
 			if (this._bufferedMethods.hasOwnProperty(methodName)) {
-				this.callMethod(methodName, {}).then(response => {
+				this.callMethod(methodName).then(response => {
 					this._bufferedMethods[methodName].returnValue = response;
 				}).catch(error => {
 					ErrorHandler.throwErrorMessage("There was a problem calling a Slack API method: " + error);
@@ -41,7 +41,7 @@ export class SlackApiHandler {
 		}
 	}
 
-	callMethod(method: string, param: object): Promise<any> {
+	callMethod(method: string, param: object = {}): Promise<any> {
 		return new Promise<any>((resolve, reject) => {
 			const data: object = {
 				url: "https://slack.com/api/" + method,

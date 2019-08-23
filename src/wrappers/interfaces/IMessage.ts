@@ -38,6 +38,7 @@ export interface IMessage {
 
 	/**
 	 * Gets the roles of the author
+	 * @supported Discord only
 	 * @return The roles of the author
 	 */
 	getAuthorRoles(): IRole[];
@@ -50,6 +51,7 @@ export interface IMessage {
 
 	/**
 	 * Gets the server the message was sent on, not every message has was sent on a server.
+	 * @supported Discord only
 	 * @return The server the message was sent on
 	 */
 	getServer(): IServer;
@@ -63,6 +65,7 @@ export interface IMessage {
 
 	/**
 	 * Check if the message is deletable by the user.
+	 * @supported Discord only
 	 * @return True if the message is deletable
 	 */
 	isDeletable(): boolean;

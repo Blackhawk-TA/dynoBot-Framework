@@ -19,7 +19,7 @@ describe("The class SlackApiHandler", function() {
 			let methodName: string = "invalid.method";
 
 			//Act
-			return this.ApiHandler.callMethod(methodName, {}).then(result => {
+			return this.ApiHandler.callMethod(methodName).then(result => {
 				//Assert
 				assert.strictEqual(result.ok, false, "The result is not ok.");
 				assert.strictEqual(result.error, "unknown_method", "An unknown method has been called.");
@@ -32,7 +32,7 @@ describe("The class SlackApiHandler", function() {
 			let methodName: string = "rtm.connect";
 
 			//Act
-			return this.ApiHandler.callMethod(methodName, {}).then(result => {
+			return this.ApiHandler.callMethod(methodName).then(result => {
 				//Assert
 				assert.strictEqual(result.ok, false, "The result is not ok.");
 				assert.ok(result.error, "The api returned an error message.");

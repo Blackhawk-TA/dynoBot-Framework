@@ -6,7 +6,7 @@ export interface IUser {
 	 * Gets the id of the user.
 	 * @return The user id
 	 */
-	getId(): number;
+	getId(): string;
 
 	/**
 	 * Gets the name of the user.
@@ -16,12 +16,14 @@ export interface IUser {
 
 	/**
 	 * Gets the tag of the user which makes it identifiable on a server
+	 * @supported Discord only
 	 * @return The user tag
 	 */
 	getTag(): string;
 
 	/**
 	 * Gets the server the user is acting on.
+	 * @supported Discord only
 	 * @return The server object, null when the user is not acting on a server
 	 */
 	getServer(): IServer;
