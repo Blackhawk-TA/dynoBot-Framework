@@ -5,26 +5,53 @@ import {IRole} from "../interfaces/IRole";
 import {IChannel} from "../interfaces/IChannel";
 import {SlackApiHandler} from "./SlackApiHandler";
 import {SlackChannel} from "./SlackChannel";
+import {ErrorHandler} from "../../utils/ErrorHandler";
+import {SlackUser} from "./SlackUser";
 
 export class SlackMessage implements IMessage {
 	private readonly _ApiHandler: SlackApiHandler;
-	_message: any;
+	private readonly _message: any;
 
 	constructor(message, ApiHandler) {
 		this._message = message;
 		this._ApiHandler = ApiHandler;
 	}
 
-	delete(): Promise<IMessage | Error> {
-		return undefined;
+	delete(): Promise<IMessage|Error> {
+		let params: object = {
+			channel: this._message.channel,
+			ts: this._message.ts
+		};
+
+		return new Promise<IMessage|Error>((resolve, reject) => {
+			this._ApiHandler.callMethod("chat.delete", params).then(response => {
+				if (response.ok) {
+					resolve(new SlackMessage(response, this._ApiHandler));
+				} else {
+					reject(response);
+				}
+			}).catch(error => {
+				reject(error);
+			});
+		});
 	}
 
 	getAuthor(): IUser {
-		return undefined;
+		let returnValues = this._ApiHandler.getPreCalledMethod("users.list"),
+			author = {},
+			authorName = this._message.content.split(":")[0];
+
+		returnValues.members.forEach(member => {
+			if (member.real_name === authorName) {
+				author = member;
+			}
+		});
+		return new SlackUser(author, this._ApiHandler);
 	}
 
 	getAuthorRoles(): IRole[] {
-		return [];
+		ErrorHandler.log("This method is not supported by the slack api.");
+		return null;
 	}
 
 	getChannel(): IChannel {
@@ -41,34 +68,56 @@ export class SlackMessage implements IMessage {
 	}
 
 	getContent(excludeFirstWord?: boolean): string {
-		return "";
+		let fullContent: string = this._message.content,
+			authorEndIndex: number = fullContent.indexOf(":") + 1,
+			content: string = fullContent.substring(authorEndIndex).trimLeft();
+
+		if (excludeFirstWord) {
+			let firstWordEndIndex = content.indexOf(" ") + 1;
+			return content.substring(firstWordEndIndex);
+		} else {
+			return content;
+		}
 	}
 
 	getContentArray(excludeFirstWord?: boolean): string[] {
-		return [];
+		let content = this.getContent(excludeFirstWord);
+		return content.split(" ");
 	}
 
 	getCreationDate(): Date {
-		return undefined;
+		return new Date(this._message.ts * 1000);
 	}
 
-	getRegexGroups(regexPattern: RegExp): string[] {
-		return [];
+	getRegexGroups(RegexPattern: RegExp): string[] {
+		return RegexPattern.exec(this.getContent());
 	}
 
 	getServer(): IServer {
-		return undefined;
+		ErrorHandler.log("This method is not supported by the slack api.");
+		return null;
 	}
 
 	hasServer(): boolean {
-		return false;
+		return !!this._message.title;
 	}
 
 	isDeletable(): boolean {
-		return false;
+		ErrorHandler.log("This method is not supported by the slack api.");
+		return null;
 	}
 
 	isMentioned(User: IUser): boolean {
-		return false;
+		let content = this.getContent(true),
+			mentioned = false;
+
+		content.replace(/@\w+/g, function(name) {
+			let nameWithoutPrefix = name.substring(1);
+			if (User.getName() === nameWithoutPrefix) {
+				mentioned = true;
+			}
+			return null;
+		});
+		return mentioned;
 	}
 }

@@ -8,6 +8,10 @@ export class SlackApiHandler {
 		"channels.list": {
 			returnValue: {},
 			updateEvents: ["channel_created", "channel_deleted"] //TODO update channels list value on these events
+		},
+		"users.list": {
+			returnValue: {},
+			updateEvents: ["channel_join", "channels_leave", "channels_kick"] //TODO check what happens on several servers
 		}
 	};
 

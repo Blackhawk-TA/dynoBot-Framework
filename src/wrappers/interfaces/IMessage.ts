@@ -4,8 +4,6 @@ import {IServer} from "./IServer";
 import {IChannel} from "./IChannel";
 
 export interface IMessage {
-	_message: any;
-
 	/**
 	 * Gets the channel the message was sent in.
 	 * @return The wrapped channel object
