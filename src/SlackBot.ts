@@ -61,11 +61,13 @@ export class SlackBot implements IBot {
 				this._ApiHandler.callMethod("rtm.connect").then(response => {
 					if (response.ok) {
 						this._apiConnection = new WebSocket(response.url);
+						this._ApiHandler.setApiConnection(this._apiConnection);
 						this._apiConnection.onopen = () => {
 							let eventWrapper: SlackEventWrapper = new SlackEventWrapper(this._apiConnection, this._events, this._ApiHandler);
 							eventWrapper.registerEvents(this._apiEvents, true);
 
-							this._client = new SlackClient(this._apiConnection);
+							let botId = response.self.id;
+							this._client = new SlackClient(this._apiConnection, botId, this._ApiHandler);
 							listener();
 						};
 					} else {
@@ -83,7 +85,7 @@ export class SlackBot implements IBot {
 	}
 
 	getClient(): IClient {
-		if (this._client) {
+		if (this._client && this._ApiHandler) {
 			return this._client;
 		} else {
 			ErrorHandler.throwErrorMessage("The bot has not been initialized yet.");

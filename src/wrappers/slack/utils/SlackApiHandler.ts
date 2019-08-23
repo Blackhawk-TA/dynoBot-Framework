@@ -3,6 +3,7 @@ import {ErrorHandler} from "../../../utils/ErrorHandler";
 const request = require("request");
 
 export class SlackApiHandler {
+	private _apiConnection: any;
 	private readonly _token: string;
 	private readonly _bufferedMethods: object = {
 		"channels.list": {
@@ -20,25 +21,9 @@ export class SlackApiHandler {
 		this.preCallMethods();
 	}
 
-	getPreCalledMethod(name: string) {
-		if (this._bufferedMethods.hasOwnProperty(name)) {
-			return this._bufferedMethods[name].returnValue;
-		} else {
-			ErrorHandler.throwErrorMessage(`The method ${name} is not supported. Please add it to the bufferedMethods list.`);
-		}
-	}
-
-	//Pre-call methods to prevent the usage of promises for the framework methods
-	preCallMethods(): void {
-		for (let methodName in this._bufferedMethods) {
-			if (this._bufferedMethods.hasOwnProperty(methodName)) {
-				this.callMethod(methodName).then(response => {
-					this._bufferedMethods[methodName].returnValue = response;
-				}).catch(error => {
-					ErrorHandler.throwErrorMessage("There was a problem calling a Slack API method: " + error);
-				});
-			}
-		}
+	setApiConnection(value: any) {
+		this._apiConnection = value;
+		this.updatePreCalledMethods();
 	}
 
 	callMethod(method: string, param: object = {}): Promise<any> {
@@ -60,5 +45,31 @@ export class SlackApiHandler {
 				}
 			});
 		});
+	}
+
+	//Pre-call methods to prevent the usage of promises for the framework methods
+	preCallMethods(): void {
+		for (let methodName in this._bufferedMethods) {
+			if (this._bufferedMethods.hasOwnProperty(methodName)) {
+				this.callMethod(methodName).then(response => {
+					this._bufferedMethods[methodName].returnValue = response;
+				}).catch(error => {
+					ErrorHandler.throwErrorMessage("There was a problem calling a Slack API method: " + error);
+				});
+			}
+		}
+	}
+
+	getPreCalledMethod(name: string) {
+		if (this._bufferedMethods.hasOwnProperty(name)) {
+			return this._bufferedMethods[name].returnValue;
+		} else {
+			ErrorHandler.throwErrorMessage(`The method ${name} is not supported. Please add it to the bufferedMethods list.`);
+		}
+	}
+
+	updatePreCalledMethods() {
+		this._apiConnection.onmessage = message => {
+		};
 	}
 }

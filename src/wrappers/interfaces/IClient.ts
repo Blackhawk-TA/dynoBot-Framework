@@ -11,7 +11,7 @@ export interface IClient {
 
 	/**
 	 * Gets the servers the client is on.
-	 * @supported Discord, Slack
+	 * @supported Discord
 	 * @return The servers of the client
 	 */
 	getServers(): IServer[]

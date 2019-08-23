@@ -108,7 +108,7 @@ export class SlackMessage implements IMessage {
 	}
 
 	isMentioned(User: IUser): boolean {
-		let content = this.getContent(true),
+		let content = this.getContent(false),
 			mentioned = false;
 
 		content.replace(/@\w+/g, function(name) {
