@@ -3,7 +3,7 @@ import {IUser} from "../interfaces/IUser";
 import {IServer} from "../interfaces/IServer";
 import {IRole} from "../interfaces/IRole";
 import {IChannel} from "../interfaces/IChannel";
-import {SlackApiHandler} from "./SlackApiHandler";
+import {SlackApiHandler} from "./utils/SlackApiHandler";
 import {SlackChannel} from "./SlackChannel";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackUser} from "./SlackUser";

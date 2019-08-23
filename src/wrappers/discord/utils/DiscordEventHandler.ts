@@ -1,4 +1,4 @@
-import {EventHandler} from "../../utils/EventHandler";
+import {EventHandler} from "../../../utils/EventHandler";
 import {EventEmitter} from "events";
 
 export class DiscordEventHandler extends EventHandler {

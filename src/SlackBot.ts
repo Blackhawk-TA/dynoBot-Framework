@@ -1,12 +1,12 @@
 import {IBot} from "./interfaces/IBot";
 import {IClient} from "./wrappers/interfaces/IClient";
-import {SlackApiHandler} from "./wrappers/slack/SlackApiHandler";
+import {SlackApiHandler} from "./wrappers/slack/utils/SlackApiHandler";
 import {SlackClient} from "./wrappers/slack/SlackClient";
 import {ErrorHandler} from "./utils/ErrorHandler";
 import {EventEmitter} from "events";
 import {SlackMessage} from "./wrappers/slack/SlackMessage";
-import {SlackEventWrapper} from "./wrappers/slack/SlackEventWrapper";
-import {SlackEventHandler} from "./wrappers/slack/SlackEventHandler";
+import {SlackEventWrapper} from "./wrappers/slack/utils/SlackEventWrapper";
+import {SlackEventHandler} from "./wrappers/slack/utils/SlackEventHandler";
 
 const WebSocket = require("ws");
 

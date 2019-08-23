@@ -1,4 +1,4 @@
-import {EventHandler} from "../../utils/EventHandler";
+import {EventHandler} from "../../../utils/EventHandler";
 import {SlackApiHandler} from "./SlackApiHandler";
 
 export class SlackEventHandler extends EventHandler {

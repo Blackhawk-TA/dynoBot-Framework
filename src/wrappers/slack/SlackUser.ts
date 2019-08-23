@@ -1,7 +1,7 @@
 import {IUser} from "../interfaces/IUser";
 import {IChannel} from "../interfaces/IChannel";
 import {IServer} from "../interfaces/IServer";
-import {SlackApiHandler} from "./SlackApiHandler";
+import {SlackApiHandler} from "./utils/SlackApiHandler";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackChannel} from "./SlackChannel";
 

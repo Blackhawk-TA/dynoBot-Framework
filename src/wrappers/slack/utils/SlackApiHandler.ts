@@ -1,4 +1,4 @@
-import {ErrorHandler} from "../../utils/ErrorHandler";
+import {ErrorHandler} from "../../../utils/ErrorHandler";
 
 const request = require("request");
 

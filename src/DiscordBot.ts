@@ -5,8 +5,8 @@ import {ErrorHandler} from "./utils/ErrorHandler";
 import {DiscordUser} from "./wrappers/discord/DiscordUser";
 import {DiscordMessage} from "./wrappers/discord/DiscordMessage";
 import {EventEmitter} from "events";
-import {DiscordEventWrapper} from "./wrappers/discord/DiscordEventWrapper";
-import {DiscordEventHandler} from "./wrappers/discord/DiscordEventHandler";
+import {DiscordEventWrapper} from "./wrappers/discord/utils/DiscordEventWrapper";
+import {DiscordEventHandler} from "./wrappers/discord/utils/DiscordEventHandler";
 
 const Discord = require("discord.js");
 const client = new Discord.Client();

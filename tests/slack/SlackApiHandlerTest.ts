@@ -1,4 +1,4 @@
-import {SlackApiHandler} from "../../src/wrappers/slack/SlackApiHandler";
+import {SlackApiHandler} from "../../src/wrappers/slack/utils/SlackApiHandler";
 
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;

@@ -1,6 +1,6 @@
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
 import {EventEmitter} from "events";
-import {DiscordEventHandler} from "../../src/wrappers/discord/DiscordEventHandler";
+import {DiscordEventHandler} from "../../src/wrappers/discord/utils/DiscordEventHandler";
 
 const assert = require("assert");
 const sinon = require("sinon");

@@ -1,5 +1,5 @@
 import {EventEmitter} from "events";
-import {ErrorHandler} from "../../utils/ErrorHandler";
+import {ErrorHandler} from "../../../utils/ErrorHandler";
 import {SlackEventHandler} from "./SlackEventHandler";
 import {SlackApiHandler} from "./SlackApiHandler";
 
