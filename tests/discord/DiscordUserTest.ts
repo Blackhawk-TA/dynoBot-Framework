@@ -27,7 +27,7 @@ describe("The class DiscordUser", function() {
 			let userId: number = this.User.getId();
 
 			//Assert
-			assert.strictEqual(userId, 123, "The correct user id was returned.");
+			assert.strictEqual(userId, "123", "The correct user id was returned.");
 		});
 	});
 
