@@ -83,7 +83,7 @@ describe("The class DiscordChannel", function() {
 			let channelId: number = this.Channel.getId();
 
 			//Assert
-			assert.strictEqual(channelId, 123, "The correct channel id was returned.");
+			assert.strictEqual(channelId, "123", "The correct channel id was returned.");
 		});
 	});
 
