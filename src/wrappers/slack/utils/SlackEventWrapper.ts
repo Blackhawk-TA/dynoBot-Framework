@@ -24,6 +24,8 @@ export class SlackEventWrapper {
 				let data: any = JSON.parse(message.data),
 					type: string = data.type;
 
+				this._ApiHandler.updatePreCalledMethods(type);
+
 				for (let eventName in eventsToRegister) {
 					if (eventsToRegister.hasOwnProperty(eventName)) {
 						let event = new SlackEventHandler(eventName, eventsToRegister, this._ApiHandler),

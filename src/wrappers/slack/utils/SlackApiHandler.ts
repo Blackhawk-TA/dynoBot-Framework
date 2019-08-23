@@ -5,25 +5,30 @@ const request = require("request");
 export class SlackApiHandler {
 	private _apiConnection: any;
 	private readonly _token: string;
+	//TODO check what happens on several servers with pre-called methods
 	private readonly _bufferedMethods: object = {
 		"channels.list": {
 			returnValue: {},
-			updateEvents: ["channel_created", "channel_deleted"] //TODO update channels list value on these events
+			updateEvents: ["channels_created", "channels_deleted"]
 		},
 		"users.list": {
 			returnValue: {},
-			updateEvents: ["channel_join", "channels_leave", "channels_kick"] //TODO check what happens on several servers
+			updateEvents: ["channel_join", "channels_leave", "channels_kick"]
 		}
 	};
 
 	constructor(token: string) {
 		this._token = token;
-		this.preCallMethods();
+
+		for (let methodName in this._bufferedMethods) {
+			if (this._bufferedMethods.hasOwnProperty(methodName)) {
+				this.preCallMethod(methodName);
+			}
+		}
 	}
 
 	setApiConnection(value: any) {
 		this._apiConnection = value;
-		this.updatePreCalledMethods();
 	}
 
 	callMethod(method: string, param: object = {}): Promise<any> {
@@ -47,17 +52,13 @@ export class SlackApiHandler {
 		});
 	}
 
-	//Pre-call methods to prevent the usage of promises for the framework methods
-	preCallMethods(): void {
-		for (let methodName in this._bufferedMethods) {
-			if (this._bufferedMethods.hasOwnProperty(methodName)) {
-				this.callMethod(methodName).then(response => {
-					this._bufferedMethods[methodName].returnValue = response;
-				}).catch(error => {
-					ErrorHandler.throwErrorMessage("There was a problem calling a Slack API method: " + error);
-				});
-			}
-		}
+	//Pre-call method to prevent the usage of promises for the framework methods
+	preCallMethod(name: string): void {
+		this.callMethod(name).then(response => {
+			this._bufferedMethods[name].returnValue = response;
+		}).catch(error => {
+			ErrorHandler.throwErrorMessage("There was a problem calling a Slack API method: " + error);
+		});
 	}
 
 	getPreCalledMethod(name: string) {
@@ -68,8 +69,16 @@ export class SlackApiHandler {
 		}
 	}
 
-	updatePreCalledMethods() {
-		this._apiConnection.onmessage = message => {
-		};
+	updatePreCalledMethods(eventType: string) {
+		for (let methodName in this._bufferedMethods) {
+			if (this._bufferedMethods.hasOwnProperty(methodName)) {
+				let updateEvents = this._bufferedMethods[methodName].updateEvents;
+				updateEvents.forEach(event => {
+					if (event === eventType) {
+						this.preCallMethod(methodName);
+					}
+				});
+			}
+		}
 	}
 }
