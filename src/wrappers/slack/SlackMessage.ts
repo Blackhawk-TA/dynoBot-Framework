@@ -7,6 +7,7 @@ import {SlackApiHandler} from "./utils/SlackApiHandler";
 import {SlackChannel} from "./SlackChannel";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackUser} from "./SlackUser";
+import {SlackServer} from "./SlackServer";
 
 export class SlackMessage implements IMessage {
 	private readonly _ApiHandler: SlackApiHandler;
@@ -42,7 +43,7 @@ export class SlackMessage implements IMessage {
 			authorName = this._message.content.split(":")[0];
 
 		returnValues.members.forEach(member => {
-			if (member.real_name === authorName) {
+			if (member.id === authorName) {
 				author = member;
 			}
 		});
@@ -94,12 +95,18 @@ export class SlackMessage implements IMessage {
 	}
 
 	getServer(): IServer {
-		ErrorHandler.log("This method is not supported by the slack api.");
-		return null;
+		let launchUriParts = this._message.launchUri.split("="),
+			serverId = launchUriParts[launchUriParts.length - 1],
+			server = this._ApiHandler.getServer(serverId);
+
+		return new SlackServer(server, this._ApiHandler);
 	}
 
 	hasServer(): boolean {
-		return !!this._message.title;
+		let launchUriParts = this._message.launchUri.split("="),
+			serverId = launchUriParts[launchUriParts.length - 1];
+
+		return !!this._message.title && serverId;
 	}
 
 	isDeletable(): boolean {

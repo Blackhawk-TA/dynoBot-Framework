@@ -5,14 +5,14 @@ import {IRole} from "./IRole";
 export interface IServer {
 	/**
 	 * Gets the id of the server.
-	 * @supported Discord
+	 * @supported Discord, Slack
 	 * @return The server id
 	 */
-	getId(): number;
+	getId(): string;
 
 	/**
 	 * Gets the name of the server.
-	 * @supported Discord
+	 * @supported Discord, Slack
 	 * @return The server name
 	 */
 	getName(): string;

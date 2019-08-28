@@ -4,6 +4,7 @@ const request = require("request");
 
 export class SlackApiHandler {
 	private _apiConnection: any;
+	private readonly _servers: object;
 	private readonly _token: string;
 	//TODO check what happens on several servers with pre-called methods
 	private readonly _bufferedMethods: object = {
@@ -19,6 +20,7 @@ export class SlackApiHandler {
 
 	constructor(token: string) {
 		this._token = token;
+		this._servers = {};
 
 		for (let methodName in this._bufferedMethods) {
 			if (this._bufferedMethods.hasOwnProperty(methodName)) {
@@ -79,6 +81,27 @@ export class SlackApiHandler {
 					}
 				});
 			}
+		}
+	}
+
+	addServer(id: string): void {
+		this.callMethod("team.info", {team: id}).then(response => {
+			if (response.ok) {
+				this._servers[id] = response.team;
+			} else {
+				ErrorHandler.throwErrorMessage("There was a problem with the api response: " + response);
+			}
+		}).catch(error => {
+			ErrorHandler.throwErrorMessage("The server could not be added to the server list: " + error);
+		});
+	}
+
+	getServer(id: string): object {
+		if (this._servers && this._servers.hasOwnProperty(id)) {
+			return this._servers[id];
+		} else {
+			ErrorHandler.throwErrorMessage(`A server with the id '${id}' does not exist.`);
+			return null;
 		}
 	}
 }

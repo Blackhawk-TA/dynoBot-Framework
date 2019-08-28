@@ -23,7 +23,7 @@ export class SlackBot implements IBot {
 			isInitEvent: false
 		},
 		message: {
-			name: "desktop_notification",
+			name: "desktop_notification", //Use message event instead
 			returnClass: SlackMessage,
 			isWrapped: true,
 			isInitEvent: false
