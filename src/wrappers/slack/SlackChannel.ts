@@ -69,7 +69,7 @@ export class SlackChannel implements IChannel {
 		return this._channel.name;
 	}
 
-	getServer(): IServer {
+	getServer(): IServer { //TODO wrap
 		ErrorHandler.log("This method is not supported by the slack api.");
 		return null;
 	}

@@ -18,12 +18,12 @@ export class SlackBot implements IBot {
 	private readonly _apiEvents = {
 		error: {
 			name: "onerror",
-			returnClass: Error, //TODO check if it shall be wrapped
+			returnClass: Error,
 			isWrapped: false,
 			isInitEvent: false
 		},
 		message: {
-			name: "desktop_notification", //Use message event instead
+			name: "message",
 			returnClass: SlackMessage,
 			isWrapped: true,
 			isInitEvent: false
@@ -71,7 +71,7 @@ export class SlackBot implements IBot {
 							listener();
 						};
 					} else {
-						ErrorHandler.throwErrorMessage("Could not connect to the websocket: " + response.error);
+						ErrorHandler.apiError("Slack", response);
 					}
 				}).catch(error => {
 					ErrorHandler.throwError(error);

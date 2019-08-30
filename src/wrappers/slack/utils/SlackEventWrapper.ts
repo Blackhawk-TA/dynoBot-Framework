@@ -24,9 +24,6 @@ export class SlackEventWrapper {
 				let data: any = JSON.parse(message.data),
 					type: string = data.type;
 
-				if (type === "message") {
-					this._ApiHandler.addServer(data.team);
-				}
 				this._ApiHandler.updatePreCalledMethods(type);
 
 				for (let eventName in eventsToRegister) {
@@ -40,7 +37,7 @@ export class SlackEventWrapper {
 					}
 				}
 			} catch (e) {
-				ErrorHandler.log("There was a problem wrapping the event data: " + e);
+				ErrorHandler.throwErrorMessage("There was a problem wrapping the event data: " + e);
 			}
 		};
 	}

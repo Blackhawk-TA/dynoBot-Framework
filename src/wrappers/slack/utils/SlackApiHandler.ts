@@ -27,6 +27,8 @@ export class SlackApiHandler {
 				this.preCallMethod(methodName);
 			}
 		}
+
+		this.addServer(); //TODO support several servers and check how this works when several servers are in use
 	}
 
 	setApiConnection(value: any) {
@@ -84,12 +86,14 @@ export class SlackApiHandler {
 		}
 	}
 
-	addServer(id: string): void {
-		this.callMethod("team.info", {team: id}).then(response => {
+	addServer(id?: string): void {
+		let param = id ? {team: id} : {};
+
+		this.callMethod("team.info", param).then(response => {
 			if (response.ok) {
 				this._servers[id] = response.team;
 			} else {
-				ErrorHandler.throwErrorMessage("There was a problem with the api response: " + response);
+				ErrorHandler.apiError("Slack", response);
 			}
 		}).catch(error => {
 			ErrorHandler.throwErrorMessage("The server could not be added to the server list: " + error);

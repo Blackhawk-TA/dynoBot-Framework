@@ -40,13 +40,14 @@ export class SlackMessage implements IMessage {
 	getAuthor(): IUser {
 		let returnValues = this._ApiHandler.getPreCalledMethod("users.list"),
 			author = {},
-			authorName = this._message.content.split(":")[0];
+			authorId = this._message.user;
 
 		returnValues.members.forEach(member => {
-			if (member.id === authorName) {
+			if (member.id === authorId) {
 				author = member;
 			}
 		});
+
 		return new SlackUser(author, this._ApiHandler);
 	}
 
@@ -60,7 +61,7 @@ export class SlackMessage implements IMessage {
 			channel = {};
 
 		returnValues.channels.forEach(channelObject => {
-			if (channelObject.id) {
+			if (channelObject.id === this._message.channel) {
 				channel = channelObject;
 			}
 		});
@@ -69,13 +70,11 @@ export class SlackMessage implements IMessage {
 	}
 
 	getContent(excludeFirstWord?: boolean): string {
-		let fullContent: string = this._message.content,
-			authorEndIndex: number = fullContent.indexOf(":") + 1,
-			content: string = fullContent.substring(authorEndIndex).trimLeft();
+		let content: string = this._message.text;
 
 		if (excludeFirstWord) {
-			let firstWordEndIndex = content.indexOf(" ") + 1;
-			return content.substring(firstWordEndIndex);
+			let authorEndIndex: number = content.indexOf(">") + 1;
+			return content.substring(authorEndIndex).trimLeft();
 		} else {
 			return content;
 		}
@@ -91,22 +90,18 @@ export class SlackMessage implements IMessage {
 	}
 
 	getRegexGroups(RegexPattern: RegExp): string[] {
-		return RegexPattern.exec(this.getContent());
+		return RegexPattern.exec(this._message.text);
 	}
 
 	getServer(): IServer {
-		let launchUriParts = this._message.launchUri.split("="),
-			serverId = launchUriParts[launchUriParts.length - 1],
+		let serverId = this._message.team,
 			server = this._ApiHandler.getServer(serverId);
 
 		return new SlackServer(server, this._ApiHandler);
 	}
 
 	hasServer(): boolean {
-		let launchUriParts = this._message.launchUri.split("="),
-			serverId = launchUriParts[launchUriParts.length - 1];
-
-		return !!this._message.title && serverId;
+		return !!this._message.team;
 	}
 
 	isDeletable(): boolean {
@@ -115,16 +110,20 @@ export class SlackMessage implements IMessage {
 	}
 
 	isMentioned(User: IUser): boolean {
-		let content = this.getContent(false),
-			mentioned = false;
+		let content = this._message.text,
+			pattern = new RegExp(/<@(\w+)>/gm),
+			mentioned = false,
+			mentions = content.match(pattern);
 
-		content.replace(/@\w+/g, function(name) {
-			let nameWithoutPrefix = name.substring(1);
-			if (User.getName() === nameWithoutPrefix) {
+		mentions.forEach(mention => {
+			let result = pattern.exec(mention),
+				id = result && result[1];
+
+			if (id === User.getId()) {
 				mentioned = true;
 			}
-			return null;
 		});
+
 		return mentioned;
 	}
 }
