@@ -115,14 +115,16 @@ export class SlackMessage implements IMessage {
 			mentioned = false,
 			mentions = content.match(pattern);
 
-		mentions.forEach(mention => {
-			let result = pattern.exec(mention),
-				id = result && result[1];
+		if (mentions) {
+			mentions.forEach(mention => {
+				let result = pattern.exec(mention),
+					id = result && result[1];
 
-			if (id === User.getId()) {
-				mentioned = true;
-			}
-		});
+				if (id === User.getId()) {
+					mentioned = true;
+				}
+			});
+		}
 
 		return mentioned;
 	}

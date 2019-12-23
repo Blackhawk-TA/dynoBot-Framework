@@ -7,8 +7,8 @@ import {EventEmitter} from "events";
 import {SlackMessage} from "./wrappers/slack/SlackMessage";
 import {SlackEventWrapper} from "./wrappers/slack/utils/SlackEventWrapper";
 import {SlackEventHandler} from "./wrappers/slack/utils/SlackEventHandler";
-
-const WebSocket = require("ws");
+import {SlackUser} from "./wrappers/slack/SlackUser";
+import * as WebSocket from "ws";
 
 export class SlackBot implements IBot {
 	private _apiConnection: WebSocket;
@@ -29,14 +29,14 @@ export class SlackBot implements IBot {
 			isInitEvent: false
 		},
 		serverMemberAdd: {
-			name: "member_joined_channel",
-			returnClass: null, //TODO wrap
+			name: "member_joined_channel", //TODO use returned userId to wrap the object, same for member_left_channel, or use user_change event
+			returnClass: SlackUser, //TODO wrap properly
 			isWrapped: true,
 			isInitEvent: false
 		},
 		serverMemberRemove: {
 			name: "member_left_channel",
-			returnClass: null, //TODO wrap
+			returnClass: SlackUser, //TODO wrap properly
 			isWrapped: true,
 			isInitEvent: false
 		},
