@@ -93,10 +93,10 @@ export class SlackApiHandler {
 			if (response.ok) {
 				this._servers[id] = response.team;
 			} else {
-				ErrorHandler.apiError("Slack", response);
+				ErrorHandler.apiError("Slack", response.error);
 			}
-		}).catch(error => {
-			ErrorHandler.throwErrorMessage("The server could not be added to the server list: " + error);
+		}).catch(() => {
+			ErrorHandler.throwErrorMessage("The server could not be added to the server list.");
 		});
 	}
 

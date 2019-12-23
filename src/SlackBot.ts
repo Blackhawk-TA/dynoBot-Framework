@@ -30,13 +30,13 @@ export class SlackBot implements IBot {
 		},
 		serverMemberAdd: {
 			name: "member_joined_channel",
-			returnClass: null,
+			returnClass: null, //TODO wrap
 			isWrapped: true,
 			isInitEvent: false
 		},
 		serverMemberRemove: {
 			name: "member_left_channel",
-			returnClass: null,
+			returnClass: null, //TODO wrap
 			isWrapped: true,
 			isInitEvent: false
 		},
@@ -71,7 +71,7 @@ export class SlackBot implements IBot {
 							listener();
 						};
 					} else {
-						ErrorHandler.apiError("Slack", response);
+						ErrorHandler.apiError("Slack", response.error);
 					}
 				}).catch(error => {
 					ErrorHandler.throwError(error);
