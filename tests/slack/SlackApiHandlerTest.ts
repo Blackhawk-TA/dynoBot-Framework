@@ -1,8 +1,10 @@
 import {SlackApiHandler} from "../../src/wrappers/slack/utils/SlackApiHandler";
+import {ErrorHandler} from "../../src/utils/ErrorHandler";
 
 require("dotenv").config();
 const token = process.env.DISCORD_TOKEN;
 const assert = require("assert");
+const sinon = require("sinon");
 
 describe("The class SlackApiHandler", function() {
 	beforeEach(function() {
@@ -17,13 +19,11 @@ describe("The class SlackApiHandler", function() {
 		it("Calls an invalid method", function() {
 			//Arrange
 			let methodName: string = "invalid.method";
+			let throwErrorStub = sinon.stub(ErrorHandler, "throwErrorMessage");
 
 			//Act
-			return this.ApiHandler.callMethod(methodName).then(result => {
-				//Assert
-				assert.strictEqual(result.ok, false, "The result is not ok.");
-				assert.strictEqual(result.error, "unknown_method", "An unknown method has been called.");
-				assert.strictEqual(result.req_method, methodName, "The invalid method name was returned correctly");
+			return this.ApiHandler.callMethod(methodName).catch(() => {
+				assert.strictEqual(throwErrorStub.callCount, true, "An error was thrown");
 			});
 		});
 

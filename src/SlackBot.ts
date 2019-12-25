@@ -30,13 +30,13 @@ export class SlackBot implements IBot {
 		},
 		serverMemberAdd: {
 			name: "member_joined_channel", //TODO use returned userId to wrap the object, same for member_left_channel, or use user_change event
-			returnClass: SlackUser, //TODO wrap properly
+			returnClass: SlackUser, //TODO check if it works
 			isWrapped: true,
 			isInitEvent: false
 		},
 		serverMemberRemove: {
 			name: "member_left_channel",
-			returnClass: SlackUser, //TODO wrap properly
+			returnClass: SlackUser, //TODO check if it works
 			isWrapped: true,
 			isInitEvent: false
 		},

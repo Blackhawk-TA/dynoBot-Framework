@@ -12,8 +12,7 @@ export class ErrorHandler {
 	 * @param errorMessage - The message which shall be converted to an error object
 	 */
 	static throwErrorMessage(errorMessage: string): void {
-		let error: Error = new Error(errorMessage);
-		throw error;
+		throw new Error(errorMessage);
 	}
 
 	/**
@@ -30,7 +29,6 @@ export class ErrorHandler {
 	 * @param apiErrorMessage - The error handed over by the API
 	 */
 	static apiError(apiName: string, apiErrorMessage: any): void {
-		let error: Error = new Error("A problem occurred while using the " + apiName + " API: " + apiErrorMessage);
-		throw error;
+		throw new Error("A problem occurred while using the " + apiName + " API: " + apiErrorMessage);
 	}
 }
