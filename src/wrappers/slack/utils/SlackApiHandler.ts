@@ -91,7 +91,11 @@ export class SlackApiHandler {
 
 		this.callMethod("team.info", param).then(response => {
 			if (response.ok) {
-				this._servers[id] = response.team;
+				if (response.team && response.team.id) {
+					this._servers[response.team.id] = response.team;
+				} else {
+					ErrorHandler.throwErrorMessage("The server could not be added to the server list due to an invalid id.");
+				}
 			} else {
 				ErrorHandler.apiError("Slack", response.error);
 			}

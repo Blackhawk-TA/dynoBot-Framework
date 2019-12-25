@@ -29,6 +29,17 @@ export class ErrorHandler {
 	 * @param apiErrorMessage - The error handed over by the API
 	 */
 	static apiError(apiName: string, apiErrorMessage: any): void {
-		throw new Error("A problem occurred while using the " + apiName + " API: " + apiErrorMessage);
+		let errorMessage: string = "A problem occurred while using the " + apiName + " API: " + apiErrorMessage;
+		throw new Error(errorMessage);
+	}
+
+	/**
+	 * Throws an error that the used function is not supported by the given api
+	 * @param apiName - The name of the api to be displayed in the error message
+	 * @param fnName - The name of the function which is not supported
+	 */
+	static notSupported(apiName: string, fnName: string): void {
+		let errorMessage: string = "The function " + fnName + " is not supported by the " + apiName + " API.";
+		throw new Error(errorMessage);
 	}
 }

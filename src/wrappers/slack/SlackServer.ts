@@ -15,7 +15,7 @@ export class SlackServer implements IServer {
 	}
 
 	getChannels(): IChannel[] {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getChannels");
 		return null;
 	}
 
@@ -24,7 +24,7 @@ export class SlackServer implements IServer {
 	}
 
 	getMembers(): IUser[] {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getMembers");
 		return null;
 	}
 
@@ -33,12 +33,12 @@ export class SlackServer implements IServer {
 	}
 
 	getRoles(): IRole[] {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getRoles");
 		return null;
 	}
 
 	hasChannel(channelId: string): IChannel | boolean {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "hasChannel");
 		return null;
 	}
 }

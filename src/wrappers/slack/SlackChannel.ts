@@ -3,7 +3,6 @@ import {IMessage} from "../interfaces/IMessage";
 import {IServer} from "../interfaces/IServer";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 import {SlackApiHandler} from "./utils/SlackApiHandler";
-import {DiscordMessage} from "../discord/DiscordMessage";
 import {SlackMessage} from "./SlackMessage";
 
 export class SlackChannel implements IChannel {
@@ -16,7 +15,7 @@ export class SlackChannel implements IChannel {
 	}
 
 	awaitMessages(options?: object): Promise<IMessage[]> {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "awaitMessages");
 		return null;
 	}
 
@@ -42,7 +41,7 @@ export class SlackChannel implements IChannel {
 		return this._channel.id;
 	}
 
-	getMessages(amount: number): Promise<IMessage[]> {
+	getMessages(amount: number): Promise<IMessage[]> { //TODO check if it works
 		let param: object = {
 			channel: this._channel.id,
 			count: amount
@@ -53,7 +52,7 @@ export class SlackChannel implements IChannel {
 				if (response.ok) {
 					let Messages: IMessage[] = [];
 					response.messages.forEach(message => {
-						Messages.push(new DiscordMessage(message));
+						Messages.push(new SlackMessage(this._ApiHandler, message));
 					});
 					resolve(Messages);
 				} else {
@@ -70,7 +69,7 @@ export class SlackChannel implements IChannel {
 	}
 
 	getServer(): IServer { //TODO wrap
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "SlackChannel.getServer");
 		return null;
 	}
 

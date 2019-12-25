@@ -1,5 +1,4 @@
 import {EventEmitter} from "events";
-import {ErrorHandler} from "../../../utils/ErrorHandler";
 import {SlackEventHandler} from "./SlackEventHandler";
 import {SlackApiHandler} from "./SlackApiHandler";
 
@@ -20,24 +19,20 @@ export class SlackEventWrapper {
 		};
 
 		this._originalEmitter.onmessage = message => {
-			try {
-				let data: any = JSON.parse(message.data),
-					type: string = data.type;
+			let data: any = JSON.parse(message.data),
+				type: string = data.type;
 
-				this._ApiHandler.updatePreCalledMethods(type);
+			this._ApiHandler.updatePreCalledMethods(type);
 
-				for (let eventName in eventsToRegister) {
-					if (eventsToRegister.hasOwnProperty(eventName)) {
-						let event = new SlackEventHandler(eventName, eventsToRegister, this._ApiHandler),
-							excludeEvent = excludeInitEvents ? event.isInitEvent() : false;
+			for (let eventName in eventsToRegister) {
+				if (eventsToRegister.hasOwnProperty(eventName)) {
+					let event = new SlackEventHandler(eventName, eventsToRegister, this._ApiHandler),
+						excludeEvent = excludeInitEvents ? event.isInitEvent() : false;
 
-						if (event.getApiEventName() === type && !excludeEvent) {
-							this._wrappedEmitter.emit(eventName, event.getWrappedObject(data));
-						}
+					if (event.getApiEventName() === type && !excludeEvent) {
+						this._wrappedEmitter.emit(eventName, event.getWrappedObject(data));
 					}
 				}
-			} catch (e) {
-				ErrorHandler.throwErrorMessage("There was a problem wrapping the event data: " + e);
 			}
 		};
 	}

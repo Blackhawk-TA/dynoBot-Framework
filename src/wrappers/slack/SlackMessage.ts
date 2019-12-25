@@ -52,7 +52,7 @@ export class SlackMessage implements IMessage {
 	}
 
 	getAuthorRoles(): IRole[] {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getAuthorRoles");
 		return null;
 	}
 
@@ -105,7 +105,7 @@ export class SlackMessage implements IMessage {
 	}
 
 	isDeletable(): boolean {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "isDeletable");
 		return null;
 	}
 

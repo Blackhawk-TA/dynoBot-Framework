@@ -32,7 +32,7 @@ export class SlackClient implements IClient {
 	}
 
 	getServers(): IServer[] {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getServers");
 		return null;
 	}
 }

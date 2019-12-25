@@ -64,12 +64,12 @@ export class SlackUser implements IUser {
 	}
 
 	getServer(): IServer {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getServer");
 		return null;
 	}
 
 	getTag(): string {
-		ErrorHandler.log("This method is not supported by the slack api.");
+		ErrorHandler.notSupported("Slack", "getTag");
 		return null;
 	}
 }
