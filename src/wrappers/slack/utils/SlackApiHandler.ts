@@ -28,7 +28,7 @@ export class SlackApiHandler {
 			}
 		}
 
-		this.addServer(); //TODO support several servers and check how this works when several servers are in use
+		// this.addServer(); //TODO support several servers and check how this works when several servers are in use
 	}
 
 	setApiConnection(value: any) {

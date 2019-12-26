@@ -65,4 +65,16 @@ describe("The class ErrorHandler", function() {
 			}
 		});
 	});
+
+	describe("The method notSupported", function() {
+		it("Throws the error message", function() {
+			try {
+				//Act
+				ErrorHandler.notSupported("Slack", "someFunction");
+			} catch (e) {
+				//Assert
+				assert.strictEqual(e.toString(), "Error: The function someFunction is not supported by the Slack API.", "The correct error was thrown.");
+			}
+		});
+	});
 });
