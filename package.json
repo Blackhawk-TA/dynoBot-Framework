@@ -31,21 +31,21 @@
 		"url": "https://github.com/Blackhawk-TA/chatbot-api-wrapper.git"
 	},
 	"dependencies": {
-		"discord.js": "^11.5.0"
+		"discord.js": "^11.6.3"
 	},
 	"devDependencies": {
 		"@types/mocha": "^5.2.7",
-		"@types/node": "^12.12.24",
+		"@types/node": "^12.12.32",
 		"@typescript-eslint/parser": "^1.13.0",
-		"coveralls": "^3.0.9",
+		"coveralls": "^3.0.11",
 		"dotenv": "^8.2.0",
 		"eslint": "^6.8.0",
 		"eslint-plugin-promise": "^4.2.1",
-		"mocha": "^6.2.2",
+		"mocha": "^6.2.3",
 		"nyc": "^14.1.1",
 		"sinon": "^7.5.0",
-		"ts-node": "^8.5.4",
-		"typedoc": "^0.15.6",
-		"typescript": "^3.7.4"
+		"ts-node": "^8.8.1",
+		"typedoc": "^0.15.8",
+		"typescript": "^3.8.3"
 	}
 }
