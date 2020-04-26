@@ -1,11 +1,11 @@
-import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
 
 const assert = require("assert");
 const sinon = require("sinon");
 
-describe("The class DiscordChannel", function() {
+describe("The class DiscordTextChannel", function() {
 	beforeEach(function() {
 		this.channel = {
 			id: 123,
@@ -15,33 +15,12 @@ describe("The class DiscordChannel", function() {
 			fetchMessages: function() {},
 			awaitMessages: function() {}
 		};
-		this.Channel = new DiscordChannel(this.channel);
+		this.Channel = new DiscordTextChannel(this.channel);
 	});
 
 	afterEach(function() {
 		this.channel = {};
 		this.Channel = null;
-	});
-
-	describe("The method isTextChannel", function() {
-		it("Is a text channel and returns true", function() {
-			//Act
-			let isTextChannel: boolean = this.Channel.isTextChannel();
-
-			//Arrange
-			assert.strictEqual(isTextChannel, true, "The channel is a text channel.");
-		});
-
-		it("Is not a text channel and returns false", function() {
-			//Arrange
-			this.channel.send = undefined;
-
-			//Act
-			let isTextChannel: boolean = this.Channel.isTextChannel();
-
-			//Arrange
-			assert.strictEqual(isTextChannel, false, "The channel is not a text channel.");
-		});
 	});
 
 	describe("The method send", function() {

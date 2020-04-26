@@ -1,5 +1,5 @@
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
-import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
 import {DiscordRole} from "../../src/wrappers/discord/DiscordRole";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
@@ -40,13 +40,13 @@ describe("The class DiscordMessage", function() {
 		this.Message = null;
 	});
 
-	describe("The method getChannel", function() {
+	describe("The method getTextChannel", function() {
 		it("Returns the wrapped channel object", function() {
 			//Act
-			let Channel = this.Message.getChannel();
+			let Channel = this.Message.getTextChannel();
 
 			//Assert
-			assert.strictEqual(Channel instanceof DiscordChannel, true, "The message object was wrapped.");
+			assert.strictEqual(Channel instanceof DiscordTextChannel, true, "The message object was wrapped.");
 		});
 	});
 

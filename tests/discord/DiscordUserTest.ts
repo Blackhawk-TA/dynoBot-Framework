@@ -1,5 +1,5 @@
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
-import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
 import {ErrorHandler} from "../../src/utils/ErrorHandler";
 
@@ -92,7 +92,7 @@ describe("The class DiscordUser", function() {
 			//Act
 			return User.createDM().then(resolve => {
 				//Assert
-				assert.strictEqual(resolve instanceof DiscordChannel, true, "The promise returned a wrapped DiscordChannel.");
+				assert.strictEqual(resolve instanceof DiscordTextChannel, true, "The promise returned a wrapped DiscordTextChannel.");
 			});
 		});
 
@@ -130,7 +130,7 @@ describe("The class DiscordUser", function() {
 			//Act
 			return User.deleteDM().then(resolve => {
 				//Assert
-				assert.strictEqual(resolve instanceof DiscordChannel, true, "The promise returned a wrapped DiscordChannel.");
+				assert.strictEqual(resolve instanceof DiscordTextChannel, true, "The promise returned a wrapped DiscordTextChannel.");
 			});
 		});
 

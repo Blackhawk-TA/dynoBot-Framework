@@ -1,7 +1,7 @@
 import {IUser} from "./IUser";
 import {IRole} from "./IRole";
 import {IServer} from "./IServer";
-import {IChannel} from "./IChannel";
+import {ITextChannel} from "./ITextChannel";
 
 export interface IMessage {
 	_message: any;
@@ -10,7 +10,7 @@ export interface IMessage {
 	 * Get the channel the message was sent in.
 	 * @return The wrapped channel object
 	 */
-	getChannel(): IChannel;
+	getTextChannel(): ITextChannel;
 
 	/**
 	 * Get the content of the message.

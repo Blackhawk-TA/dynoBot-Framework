@@ -1,4 +1,4 @@
-import {DiscordChannel} from "../discord/DiscordChannel";
+import {DiscordTextChannel} from "../discord/DiscordTextChannel";
 import {IServer} from "./IServer";
 
 export interface IUser {
@@ -30,11 +30,11 @@ export interface IUser {
 	 * Creates a private message channel.
 	 * @return The channel for private messages
 	 */
-	createDM(): Promise<DiscordChannel>;
+	createDM(): Promise<DiscordTextChannel>;
 
 	/**
 	 * Deletes a private message channel.
 	 * @return The channel which has been deleted
 	 */
-	deleteDM(): Promise<DiscordChannel>;
+	deleteDM(): Promise<DiscordTextChannel>;
 }

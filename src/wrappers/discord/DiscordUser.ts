@@ -1,5 +1,5 @@
 import {IUser} from "../interfaces/IUser";
-import {DiscordChannel} from "./DiscordChannel";
+import {DiscordTextChannel} from "./DiscordTextChannel";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {ErrorHandler} from "../../utils/ErrorHandler";
@@ -31,20 +31,20 @@ export class DiscordUser implements IUser {
 		}
 	}
 
-	createDM(): Promise<DiscordChannel> {
-		return new Promise<DiscordChannel>((resolve, reject) => {
+	createDM(): Promise<DiscordTextChannel> {
+		return new Promise<DiscordTextChannel>((resolve, reject) => {
 			this._user.createDM().then(channel => {
-				resolve(new DiscordChannel(channel));
+				resolve(new DiscordTextChannel(channel));
 			}).catch(reason => {
 				reject(reason);
 			});
 		});
 	}
 
-	deleteDM(): Promise<DiscordChannel> {
-		return new Promise<DiscordChannel>((resolve, reject) => {
+	deleteDM(): Promise<DiscordTextChannel> {
+		return new Promise<DiscordTextChannel>((resolve, reject) => {
 			this._user.deleteDM().then(channel => {
-				resolve(new DiscordChannel(channel));
+				resolve(new DiscordTextChannel(channel));
 			}).catch(reason => {
 				reject(reason);
 			});
