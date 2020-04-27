@@ -1,7 +1,8 @@
 language: node_js
 node_js:
   - "12.16.2"
-script:
+before_script:
   - npm install -g node-pre-gyp
+script:
   - npm run-script validate
   - nyc npm test && nyc report --reporter=text-lcov | coveralls
