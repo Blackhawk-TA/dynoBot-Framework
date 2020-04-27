@@ -1,6 +1,9 @@
 import {IVoiceChannel} from "../interfaces/IVoiceChannel";
 import {IUser} from "../interfaces/IUser";
 import {IServer} from "../interfaces/IServer";
+import {DiscordServer} from "./DiscordServer";
+import {DiscordUser} from "./DiscordUser";
+import {DiscordVoiceConnection} from "./DiscordVoiceConnection";
 
 export class DiscordVoiceChannel implements IVoiceChannel {
 	private _channel: any;
@@ -9,15 +12,19 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 		this._channel = channel;
 	}
 
-	createInvite(options: { temporary?: boolean; maxAge?: number; maxUses?: number; unique?: boolean; reason?: string }) {
-	}
-
 	getId(): number {
 		return this._channel.id;
 	}
 
 	getMembers(): IUser[] {
-		return [];
+		let members = this._channel.members.array(),
+			Members: IUser[] = [];
+
+		members.forEach(member => {
+			Members.push(new DiscordUser(member.user));
+		});
+
+		return Members;
 	}
 
 	getName(): boolean {
@@ -25,7 +32,7 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 	}
 
 	getServer(): IServer {
-		return undefined;
+		return new DiscordServer(this._channel.guild);
 	}
 
 	getUserLimit(): number {
@@ -33,40 +40,32 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 	}
 
 	isDeletable(): boolean {
-		return false;
+		return this._channel.deletable;
 	}
 
 	wasDeleted(): boolean {
 		return this._channel.deleted;
 	}
 
-	isEditable(): boolean {
-		return false;
-	}
-
 	isFull(): boolean {
-		return false;
+		return this._channel.full;
 	}
 
-	isJoinable(): boolean {
-		return false;
+	canJoin(): boolean {
+		return this._channel.joinable;
 	}
 
-	join(): void {
+	join(): Promise<DiscordVoiceConnection> {
+		return new Promise<any>(((resolve, reject) => {
+			this._channel.join().then(connection => {
+				resolve(new DiscordVoiceConnection(connection));
+			}).catch(error => {
+				reject(error);
+			});
+		}))
 	}
 
 	leave(): void {
-	}
-
-	pauseAudio(silence?: boolean): void {
-	}
-
-	playAudio(): void {
-	}
-
-	resumeAudio(): void {
-	}
-
-	stopAudio(): void {
+		this._channel.leave();
 	}
 }

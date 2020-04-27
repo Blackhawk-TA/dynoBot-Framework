@@ -1,5 +1,6 @@
 import {IServer} from "./IServer";
 import {IUser} from "./IUser";
+import {IVoiceConnection} from "./IVoiceConnection";
 
 export interface IVoiceChannel {
 	/**
@@ -13,12 +14,6 @@ export interface IVoiceChannel {
 	 * @return True if the channel was deleted, else false
 	 */
 	wasDeleted(): boolean;
-
-	/**
-	 * Whether the channel is editable
-	 * @return True if the channel is editable, else false
-	 */
-	isEditable(): boolean;
 
 	/**
 	 * Whether the channel is full
@@ -42,7 +37,7 @@ export interface IVoiceChannel {
 	 * Whether the client can join the channel
 	 * @return True if the client can join the channel, else false
 	 */
-	isJoinable(): boolean;
+	canJoin(): boolean;
 
 	/**
 	 * Get the members in the voice channel
@@ -62,50 +57,12 @@ export interface IVoiceChannel {
 	getUserLimit(): number;
 
 	/**
-	 * Creates an invite for the voice channel
-	 * @param options Options for the invite
-	 * @param options.temporary Whether members that joined via the invite should be automatically kicked after 24 hours if they have not yet received a role
-	 * @param options.maxAge How long the invite should last (in seconds, 0 for forever)
-	 * @param options.maxUses Maximum number of uses
-	 * @param options.unique Create a unique invite, or use an existing one with similar settings
-	 * @param options.reason Reason for creating this
-	 */
-	createInvite(options: {
-		temporary?: boolean,
-		maxAge?: number,
-		maxUses?: number,
-		unique?: boolean,
-		reason?: string
-	});
-
-	/**
 	 * Joins the voice channel
 	 */
-	join(): void;
+	join(): Promise<IVoiceConnection>;
 
 	/**
 	 * Leaves the voice channel
 	 */
 	leave(): void;
-
-	/**
-	 * Starts playing audio on the voice channel
-	 */
-	playAudio(): void;
-
-	/**
-	 * Stops playing audio on the voice channel
-	 */
-	stopAudio(): void;
-
-	/**
-	 * Pauses the audio
-	 * @param silence Whether to play silence while paused to prevent audio glitches, default is false
-	 */
-	pauseAudio(silence?: boolean): void;
-
-	/**
-	 * Resumes the audio
-	 */
-	resumeAudio(): void;
 }

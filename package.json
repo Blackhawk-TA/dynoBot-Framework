@@ -31,7 +31,10 @@
 		"url": "https://github.com/Blackhawk-TA/chatbot-api-wrapper.git"
 	},
 	"dependencies": {
-		"discord.js": "^11.6.4"
+		"@discordjs/opus": "^0.2.1",
+		"discord.js": "^11.6.4",
+		"ffmpeg-static": "^4.1.1",
+		"opusscript": "0.0.7"
 	},
 	"devDependencies": {
 		"@types/mocha": "^5.2.7",
