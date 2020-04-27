@@ -14,7 +14,7 @@ export interface IVoiceConnection {
 	isSpeaking(): boolean;
 
 	/**
-	 * Disconnects the voice connections
+	 * Disconnects the voice connection
 	 */
 	disconnect(): void;
 

@@ -23,7 +23,7 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 	}
 
 	play(resource: string): void {
-		this._dispatcher = this._connection.playFile(resource); //TODO not working
+		this._dispatcher = this._connection.playArbitraryInput(resource);
 	}
 
 	pause(silence?: boolean): void {
