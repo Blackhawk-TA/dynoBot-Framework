@@ -199,10 +199,12 @@ describe("The class DiscordMessage", function() {
 	describe("The method isMentioned", function() {
 		it("Returns true because the user was mentioned", function() {
 			//Arrange
-			let user: object = {
-				id: "2"
+			let member: object = {
+				user: {
+					id: "2"
+				}
 			};
-			let User: IUser = new DiscordUser(user);
+			let User: IUser = new DiscordUser(member);
 
 			//Act
 			let isMentioned: boolean = this.Message.isMentioned(User);
@@ -213,10 +215,12 @@ describe("The class DiscordMessage", function() {
 
 		it("Returns false because the user was mentioned", function() {
 			//Arrange
-			let user: object = {
-				id: "3"
+			let member: object = {
+				user: {
+					id: "3"
+				}
 			};
-			let User: IUser = new DiscordUser(user);
+			let User: IUser = new DiscordUser(member);
 
 			//Act
 			let isMentioned: boolean = this.Message.isMentioned(User);
