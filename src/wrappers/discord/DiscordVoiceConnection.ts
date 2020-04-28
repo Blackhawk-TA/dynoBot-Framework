@@ -7,8 +7,20 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 	private _connection: any;
 	private _dispatcher: any;
 	private readonly _apiEvents = {
+		debug: {
+			name: "debug"
+		},
 		end: {
 			name: "end"
+		},
+		error: {
+			name: "error"
+		},
+		speaking: {
+			name: "speaking"
+		},
+		start: {
+			name: "start"
 		}
 	};
 

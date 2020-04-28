@@ -48,6 +48,7 @@
 		"sinon": "^7.5.0",
 		"ts-node": "^8.9.1",
 		"typedoc": "^0.15.8",
-		"typescript": "^3.8.3"
+		"typescript": "^3.8.3",
+		"ytdl-core": "^2.1.1"
 	}
 }
