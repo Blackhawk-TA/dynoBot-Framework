@@ -5,7 +5,7 @@ export interface IVoiceConnection {
 	 * Gets the voice channel the connection is active on
 	 * @return The voice channel
 	 */
-	getChannel(): IVoiceChannel;
+	getVoiceChannel(): IVoiceChannel;
 
 	/**
 	 * Checks whether the client is currently speaking
@@ -34,4 +34,11 @@ export interface IVoiceConnection {
 	 * Resume the current audio stream
 	 */
 	resume(): void;
+
+	/**
+	 * Handles the voice connection events
+	 * @param name The name of the event
+	 * @param listener The listener function that gets attached to the event
+	 */
+	onEvent(name: string, listener: (...args: any[]) => void): void
 }

@@ -57,6 +57,12 @@ export interface IVoiceChannel {
 	getUserLimit(): number;
 
 	/**
+	 * Gets the voice connection, if there is one.
+	 * @return The active voice connection
+	 */
+	getConnection(): IVoiceConnection;
+
+	/**
 	 * Joins the voice channel
 	 */
 	join(): Promise<IVoiceConnection>;

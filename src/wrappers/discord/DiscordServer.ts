@@ -28,7 +28,7 @@ export class DiscordServer implements IServer {
 			Members: IUser[] = [];
 
 		members.forEach(member => {
-			Members.push(new DiscordUser(member.user));
+			Members.push(new DiscordUser(member));
 		});
 
 		return Members;

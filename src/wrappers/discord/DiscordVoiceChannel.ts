@@ -4,9 +4,12 @@ import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {DiscordUser} from "./DiscordUser";
 import {DiscordVoiceConnection} from "./DiscordVoiceConnection";
+import {IVoiceConnection} from "../interfaces/IVoiceConnection";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordVoiceChannel implements IVoiceChannel {
 	private _channel: any;
+	private _connection: IVoiceConnection;
 
 	constructor(channel: object) {
 		this._channel = channel;
@@ -21,7 +24,7 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 			Members: IUser[] = [];
 
 		members.forEach(member => {
-			Members.push(new DiscordUser(member.user));
+			Members.push(new DiscordUser(member));
 		});
 
 		return Members;
@@ -37,6 +40,15 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 
 	getUserLimit(): number {
 		return this._channel.userLimit;
+	}
+
+	getConnection(): IVoiceConnection {
+		if (this._connection) {
+			return this._connection;
+		} else {
+			ErrorHandler.log("There is no active voice connection. The bot has to join a channel first.");
+			return null;
+		}
 	}
 
 	isDeletable(): boolean {
@@ -58,11 +70,12 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 	join(): Promise<DiscordVoiceConnection> {
 		return new Promise<any>(((resolve, reject) => {
 			this._channel.join().then(connection => {
-				resolve(new DiscordVoiceConnection(connection));
+				this._connection = new DiscordVoiceConnection(connection);
+				resolve(this._connection);
 			}).catch(error => {
 				reject(error);
 			});
-		}))
+		}));
 	}
 
 	leave(): void {

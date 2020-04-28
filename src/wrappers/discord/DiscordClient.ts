@@ -9,7 +9,7 @@ export class DiscordClient implements IClient {
 	private readonly _client: any;
 
 	constructor(client: any) {
-		this._user = new DiscordUser(client.user);
+		this._user = new DiscordUser(client);
 		this._client = client;
 	}
 
