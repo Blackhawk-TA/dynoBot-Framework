@@ -19,6 +19,11 @@ export interface IVoiceConnection {
 	disconnect(): void;
 
 	/**
+	 * Ends the voice connection
+	 */
+	end(): void;
+
+	/**
 	 * Play the given resource
 	 * @param resource The streaming resource, e.g. a link
 	 */
@@ -41,4 +46,10 @@ export interface IVoiceConnection {
 	 * @param listener The listener function that gets attached to the event
 	 */
 	onEvent(name: string, listener: (...args: any[]) => void): void
+
+	/**
+	 * Removes all event listeners of the given event
+	 * @param name The name of the event
+	 */
+	removeAllListeners(name: string): void;
 }

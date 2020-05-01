@@ -2,7 +2,7 @@
 	"name": "dynobot-framework",
 	"version": "1.2.0",
 	"description": "A TypeScript framework which works as an API wrapper for chat bots such as discord or slack.",
-	"main": "./build/src/DiscordBot.js",
+	"main": "./build/DiscordBot.js",
 	"scripts": {
 		"build": "typedoc --excludeExternals --out doc src/wrappers/interfaces/ && tsc",
 		"test": "mocha -r ts-node/register **/*Test.ts --exit",

@@ -2,10 +2,13 @@ import {IVoiceConnection} from "../interfaces/IVoiceConnection";
 import {IVoiceChannel} from "../interfaces/IVoiceChannel";
 import {DiscordVoiceChannel} from "./DiscordVoiceChannel";
 import {ErrorHandler} from "../../utils/ErrorHandler";
+import {EventEmitter} from "events";
+import {EventWrapper} from "../../utils/EventWrapper";
 
 export class DiscordVoiceConnection implements IVoiceConnection {
 	private _connection: any;
 	private _dispatcher: any;
+	private readonly _eventEmitter: EventEmitter;
 	private readonly _apiEvents = {
 		debug: {
 			name: "debug"
@@ -26,10 +29,17 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 
 	constructor(connection) {
 		this._connection = connection;
+		this._eventEmitter = new EventEmitter();
 	}
 
 	disconnect(): void {
 		this._connection.disconnect();
+	}
+
+	end(): void {
+		if (this._dispatcher) {
+			this._dispatcher.end();
+		}
 	}
 
 	getVoiceChannel(): IVoiceChannel {
@@ -54,9 +64,16 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 
 	onEvent(name: string, listener: (...args: any[]) => void): void {
 		if (this._apiEvents.hasOwnProperty(name) && this._dispatcher) {
-			this._dispatcher.on(name, listener);
+			let eventWrapper: EventWrapper = new EventWrapper(this._dispatcher, this._eventEmitter);
+			eventWrapper.registerEvents(this._apiEvents);
+
+			this._eventEmitter.on(name, listener);
 		} else {
-			ErrorHandler.log(`The event '${name}' could not be attached. The play method must be running first`);
+			ErrorHandler.log(`The event '${name}' could not be attached. The play method must be run first`);
 		}
+	}
+
+	removeAllListeners(name: string): void {
+		this._eventEmitter.removeAllListeners(name);
 	}
 }
