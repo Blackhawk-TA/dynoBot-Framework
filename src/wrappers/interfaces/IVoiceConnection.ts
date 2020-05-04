@@ -48,6 +48,12 @@ export interface IVoiceConnection {
 	onEvent(name: string, listener: (...args: any[]) => void): void
 
 	/**
+	 * Gets all available events for the voice connection
+	 * @return The available events as array of strings
+	 */
+	getAvailableEvents(): string[];
+
+	/**
 	 * Removes all event listeners of the given event
 	 * @param name The name of the event
 	 */

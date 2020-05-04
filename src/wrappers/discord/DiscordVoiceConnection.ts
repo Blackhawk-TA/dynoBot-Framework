@@ -11,19 +11,34 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 	private readonly _eventEmitter: EventEmitter;
 	private readonly _apiEvents = {
 		debug: {
-			name: "debug"
+			name: "debug",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
 		},
 		end: {
-			name: "end"
+			name: "end",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
 		},
 		error: {
-			name: "error"
+			name: "error",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
 		},
 		speaking: {
-			name: "speaking"
+			name: "speaking",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
 		},
 		start: {
-			name: "start"
+			name: "start",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
 		}
 	};
 
@@ -71,6 +86,16 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 		} else {
 			ErrorHandler.log(`The event '${name}' could not be attached. The play method must be run first`);
 		}
+	}
+
+	getAvailableEvents(): string[] {
+		let events: string[] = [];
+		for (let name in this._apiEvents) {
+			if (this._apiEvents.hasOwnProperty(name)) {
+				events.push(this._apiEvents[name].name);
+			}
+		}
+		return events;
 	}
 
 	removeAllListeners(name: string): void {

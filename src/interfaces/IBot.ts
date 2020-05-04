@@ -13,4 +13,10 @@ export interface IBot {
 	 * @return The wrapped client object
 	 */
 	getClient(): IClient;
+
+	/**
+	 * Gets all available events for the voice connection
+	 * @return The available events as array of strings
+	 */
+	getAvailableEvents(): string[];
 }
