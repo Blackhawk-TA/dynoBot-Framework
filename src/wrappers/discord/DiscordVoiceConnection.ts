@@ -45,6 +45,7 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 	constructor(connection) {
 		this._connection = connection;
 		this._eventEmitter = new EventEmitter();
+		this._eventEmitter.setMaxListeners(0);
 	}
 
 	disconnect(): void {
