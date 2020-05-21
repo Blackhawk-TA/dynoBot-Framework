@@ -1,13 +1,7 @@
 import {IServer} from "./IServer";
 import {IMessage} from "./IMessage";
 
-export interface IChannel {
-	/**
-	 * Return whether the channel is a text channel.
-	 * @return True if the channel is a text channel, else false
-	 */
-	isTextChannel(): boolean;
-
+export interface ITextChannel {
 	/**
 	 * Send a message to the channel.
 	 * @param [message] - The message to send
