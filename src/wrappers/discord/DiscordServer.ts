@@ -15,7 +15,7 @@ export class DiscordServer implements IServer {
 		this._server = server;
 	}
 
-	getId(): number {
+	getId(): string {
 		return this._server.id;
 	}
 

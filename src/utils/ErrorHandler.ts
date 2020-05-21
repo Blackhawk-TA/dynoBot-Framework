@@ -12,8 +12,7 @@ export class ErrorHandler {
 	 * @param errorMessage - The message which shall be converted to an error object
 	 */
 	static throwErrorMessage(errorMessage: string): void {
-		let error: Error = new Error(errorMessage);
-		throw error;
+		throw new Error(errorMessage);
 	}
 
 	/**
@@ -22,5 +21,25 @@ export class ErrorHandler {
 	 */
 	static throwError(error: Error): void {
 		throw error;
+	}
+
+	/**
+	 * Throws an error with a default error message and the error that the api handed over
+	 * @param apiName - The name of the api to be displayed in the error message
+	 * @param apiErrorMessage - The error handed over by the API
+	 */
+	static apiError(apiName: string, apiErrorMessage: any): void {
+		let errorMessage: string = "A problem occurred while using the " + apiName + " API: " + apiErrorMessage;
+		throw new Error(errorMessage);
+	}
+
+	/**
+	 * Throws an error that the used function is not supported by the given api
+	 * @param apiName - The name of the api to be displayed in the error message
+	 * @param fnName - The name of the function which is not supported
+	 */
+	static notSupported(apiName: string, fnName: string): void {
+		let errorMessage: string = "The function " + fnName + " is not supported by the " + apiName + " API.";
+		throw new Error(errorMessage);
 	}
 }

@@ -10,7 +10,7 @@ import {DiscordServer} from "./DiscordServer";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordMessage implements IMessage {
-	_message: any;
+	private readonly _message: any;
 
 	constructor(message) {
 		this._message = message;
@@ -92,8 +92,8 @@ export class DiscordMessage implements IMessage {
 		return this._message.deletable;
 	}
 
-	delete(): Promise<IMessage | Error> {
-		return new Promise<IMessage | Error>((resolve, reject) => {
+	delete(): Promise<IMessage|Error> {
+		return new Promise<IMessage|Error>((resolve, reject) => {
 			this._message.delete().then(message => {
 				resolve(new DiscordMessage(message));
 			}).catch(error => {

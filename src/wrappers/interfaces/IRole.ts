@@ -1,26 +1,29 @@
 export interface IRole {
 	/**
-	 * Get the role id.
+	 * Gets the role id.
+	 * @supported Discord
 	 * @return The role id
 	 */
 	getId(): number;
 
 	/**
-	 * Get the role name.
+	 * Gets the role name.
+	 * @supported Discord
 	 * @return The role name
 	 */
 	getName(): string;
 
 	/**
-	 * Get the role color.
+	 * Gets the role color.
+	 * @supported Discord
 	 * @return The role color
 	 */
 	getColor(): number;
 
 	/**
-	 * Get the role permissions.
+	 * Gets the role permissions.
+	 * @supported Discord
 	 * @return The role permissions
 	 */
 	getPermissions(): number;
-
 }

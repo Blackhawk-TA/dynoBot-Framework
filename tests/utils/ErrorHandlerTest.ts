@@ -53,7 +53,7 @@ describe("The class ErrorHandler", function() {
 
 	describe("The method throwError", function() {
 		it("Throws the error object", function() {
-			//Assert
+			//Arrange
 			let error: Error = new Error("my error message");
 
 			try {
@@ -62,6 +62,35 @@ describe("The class ErrorHandler", function() {
 			} catch (e) {
 				//Assert
 				assert.strictEqual(e, error, "The correct error was thrown.");
+			}
+		});
+	});
+
+	describe("The method apiError", function() {
+		it("Throws an api error", function() {
+			//Arrange
+			let apiName: string = "Slack",
+				apiErrorMessage: string = "someError",
+				expectedMessage: string = "Error: A problem occurred while using the Slack API: someError";
+
+			try {
+				//Act
+				ErrorHandler.apiError(apiName, apiErrorMessage);
+			} catch (e) {
+				//Assert
+				assert.strictEqual(e.toString(), expectedMessage, "The correct error was thrown.");
+			}
+		});
+	});
+
+	describe("The method notSupported", function() {
+		it("Throws the error message", function() {
+			try {
+				//Act
+				ErrorHandler.notSupported("Slack", "someFunction");
+			} catch (e) {
+				//Assert
+				assert.strictEqual(e.toString(), "Error: The function someFunction is not supported by the Slack API.", "The correct error was thrown.");
 			}
 		});
 	});

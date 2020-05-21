@@ -1,6 +1,6 @@
 {
 	"name": "dynobot-framework",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "A TypeScript framework which works as an API wrapper for chat bots such as discord or slack.",
 	"main": "./build/DiscordBot.js",
 	"scripts": {
@@ -31,9 +31,11 @@
 		"url": "https://github.com/Blackhawk-TA/chatbot-api-wrapper.git"
 	},
 	"dependencies": {
-		"discord.js": "^11.6.4",
+		"discord.js": "^11.6.3",
 		"@discordjs/opus": "^0.1.0",
-		"ffmpeg-static": "^3.0.0"
+		"ffmpeg-static": "^3.0.0",
+		"request": "^2.88.2",
+		"ws": "^7.2.3"
 	},
 	"devDependencies": {
 		"@types/mocha": "^5.2.7",

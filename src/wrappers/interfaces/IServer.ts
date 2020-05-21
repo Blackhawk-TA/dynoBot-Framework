@@ -5,19 +5,22 @@ import {IVoiceChannel} from "./IVoiceChannel";
 
 export interface IServer {
 	/**
-	 * Get the id of the server.
+	 * Gets the id of the server.
+	 * @supported Discord, Slack
 	 * @return The server id
 	 */
-	getId(): number;
+	getId(): string;
 
 	/**
-	 * Get the name of the server.
+	 * Gets the name of the server.
+	 * @supported Discord, Slack
 	 * @return The server name
 	 */
 	getName(): string;
 
 	/**
-	 * Get the members of the server.
+	 * Gets the members of the server.
+	 * @supported Discord
 	 * @return The members of the server
 	 */
 	getMembers(): IUser[];
@@ -44,12 +47,14 @@ export interface IServer {
 
 	/**
 	 * Get the voice channels of the server.
+	 * @supported Discord
 	 * @return The voice channels of the server
 	 */
 	getVoiceChannels(): IVoiceChannel[];
 
 	/**
 	 * Gets the voice channel by its id
+	 * @supported Discord
 	 * @param channelId - The channel id which shall be returned
 	 * @return The voice channel
 	 */
@@ -57,13 +62,15 @@ export interface IServer {
 
 	/**
 	 * Checks if the given channel exists on the server
+	 * @supported Discord
 	 * @param channelId - The channel id which shall be looked for
 	 * @return True if the voice channel exists, else false
 	 */
 	hasVoiceChannel(channelId: string): boolean;
 
 	/**
-	 * Get the roles of the server.
+	 * Gets the roles of the server.
+	 * @supported Discord
 	 * @return The roles of the server
 	 */
 	getRoles(): IRole[];

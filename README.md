@@ -39,7 +39,7 @@ Supported events:
 
 Events can be used like this:
 ```js
-Bot.onEvent("<event-name>", (returnValue) => {
+Bot.onEvent("<event-name>", function(returnValue) {
 	//Code that shall be executed when the event was triggered
 });
 ```
@@ -53,11 +53,11 @@ There is also an example of a simple bot implementation to get started withk:
 const {DiscordBot} = require("dynobot-framework");
 const Bot = new DiscordBot("<discord-token>");
 
-Bot.onEvent("ready", () => {
+Bot.onEvent("ready", function() {
 	console.log("Bot started");
 
-	Bot.onEvent("message", (msg) => {
-		if (msg.isMentioned(Bot.getClient().getUser())) {
+	Bot.onEvent("message", function(msg) {
+		if (msg.isMentioned(Bot.getClient().user)) {
 			msg.getChannel().send("OK");
 		}
 	});

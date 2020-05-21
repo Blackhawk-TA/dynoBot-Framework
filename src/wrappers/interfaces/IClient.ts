@@ -3,13 +3,15 @@ import {IUser} from "./IUser";
 
 export interface IClient {
 	/**
-	 * Get the wrapped user object from the client.
+	 * Gets the wrapped user object from the client.
+	 * @supported Discord, Slack
 	 * @return The user object of the client
 	 */
 	getUser(): IUser;
 
 	/**
-	 * Get the servers the client is on.
+	 * Gets the servers the client is on.
+	 * @supported Discord
 	 * @return The servers of the client
 	 */
 	getServers(): IServer[];

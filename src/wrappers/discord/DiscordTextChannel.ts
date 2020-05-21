@@ -20,8 +20,8 @@ export class DiscordTextChannel implements ITextChannel {
 		}
 	}
 
-	getId(): number {
-		return this._channel.id;
+	getId(): string {
+		return this._channel.id.toString();
 	}
 
 	getName(): string {

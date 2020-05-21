@@ -9,7 +9,7 @@ export interface IBot {
 	onEvent(name: string, listener: (...args: any[]) => void): void;
 
 	/**
-	 * Get the wrapped client object from the bot
+	 * Gets the wrapped client object from the bot
 	 * @return The wrapped client object
 	 */
 	getClient(): IClient;
