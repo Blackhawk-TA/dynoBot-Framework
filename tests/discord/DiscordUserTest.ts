@@ -1,5 +1,5 @@
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
-import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
 import {ErrorHandler} from "../../src/utils/ErrorHandler";
 
@@ -8,13 +8,15 @@ const sinon = require("sinon");
 
 describe("The class DiscordUser", function() {
 	beforeEach(function() {
-		this._user = {
-			id: 123,
-			username: "name",
-			guild: {},
-			tag: "name#123"
+		this._member = {
+			user: {
+				id: 123,
+				username: "name",
+				guild: {},
+				tag: "name#123"
+			}
 		};
-		this.User = new DiscordUser(this._user);
+		this.User = new DiscordUser(this._member);
 	});
 
 	afterEach(function() {
@@ -62,7 +64,7 @@ describe("The class DiscordUser", function() {
 
 		it("Returns null because the user is not acting on a server", function() {
 			//Arrange
-			this._user.guild = null;
+			this._member.user.guild = null;
 			let oErrorHandlerStub = sinon.stub(ErrorHandler, "log");
 
 			//Act
@@ -80,32 +82,36 @@ describe("The class DiscordUser", function() {
 	describe("The method createDM", function() {
 		it("Resolves the promise and returns the channel", function() {
 			//Arrange
-			let _user: object = {
-				createDM: function() {
-					return new Promise(resolve => {
-						resolve({});
-					});
+			let _member: object = {
+				user: {
+					createDM: function() {
+						return new Promise(resolve => {
+							resolve({});
+						});
+					}
 				}
 			};
-			let User: DiscordUser = new DiscordUser(_user);
+			let User: DiscordUser = new DiscordUser(_member);
 
 			//Act
 			return User.createDM().then(resolve => {
 				//Assert
-				assert.strictEqual(resolve instanceof DiscordChannel, true, "The promise returned a wrapped DiscordChannel.");
+				assert.strictEqual(resolve instanceof DiscordTextChannel, true, "The promise returned a wrapped DiscordTextChannel.");
 			});
 		});
 
 		it("Rejects the promise and returns the reason", function() {
 			//Arrange
-			let _user: object = {
-				createDM: function() {
-					return new Promise((resolve, reject) => {
-						reject("some reason");
-					});
+			let _member: object = {
+				user: {
+					createDM: function() {
+						return new Promise((resolve, reject) => {
+							reject("some reason");
+						});
+					}
 				}
 			};
-			let User: DiscordUser = new DiscordUser(_user);
+			let User: DiscordUser = new DiscordUser(_member);
 
 			//Act
 			return User.createDM().catch(reject => {
@@ -118,32 +124,36 @@ describe("The class DiscordUser", function() {
 	describe("The method deleteDM", function() {
 		it("Resolves the promise and returns the channel", function() {
 			//Arrange
-			let _user: object = {
-				deleteDM: function() {
-					return new Promise(resolve => {
-						resolve({});
-					});
+			let _member: object = {
+				user: {
+					deleteDM: function() {
+						return new Promise(resolve => {
+							resolve({});
+						});
+					}
 				}
 			};
-			let User: DiscordUser = new DiscordUser(_user);
+			let User: DiscordUser = new DiscordUser(_member);
 
 			//Act
 			return User.deleteDM().then(resolve => {
 				//Assert
-				assert.strictEqual(resolve instanceof DiscordChannel, true, "The promise returned a wrapped DiscordChannel.");
+				assert.strictEqual(resolve instanceof DiscordTextChannel, true, "The promise returned a wrapped DiscordTextChannel.");
 			});
 		});
 
 		it("Rejects the promise and returns the reason", function() {
 			//Arrange
-			let _user: object = {
-				deleteDM: function() {
-					return new Promise((resolve, reject) => {
-						reject("some reason");
-					});
+			let _member: object = {
+				user: {
+					deleteDM: function() {
+						return new Promise((resolve, reject) => {
+							reject("some reason");
+						});
+					}
 				}
 			};
-			let User: DiscordUser = new DiscordUser(_user);
+			let User: DiscordUser = new DiscordUser(_member);
 
 			//Act
 			return User.deleteDM().catch(reject => {

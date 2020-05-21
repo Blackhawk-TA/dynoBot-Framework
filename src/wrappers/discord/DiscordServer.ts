@@ -1,10 +1,12 @@
 import {IServer} from "../interfaces/IServer";
 import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
-import {IChannel} from "../interfaces/IChannel";
-import {DiscordChannel} from "./DiscordChannel";
+import {ITextChannel} from "../interfaces/ITextChannel";
+import {DiscordTextChannel} from "./DiscordTextChannel";
 import {IRole} from "../interfaces/IRole";
 import {DiscordRole} from "./DiscordRole";
+import {DiscordVoiceChannel} from "./DiscordVoiceChannel";
+import {IVoiceChannel} from "../interfaces/IVoiceChannel";
 
 export class DiscordServer implements IServer {
 	private _server: any;
@@ -26,30 +28,79 @@ export class DiscordServer implements IServer {
 			Members: IUser[] = [];
 
 		members.forEach(member => {
-			Members.push(new DiscordUser(member.user));
+			Members.push(new DiscordUser(member));
 		});
 
 		return Members;
 	}
 
-	getChannels(): IChannel[] {
+	getTextChannels(): ITextChannel[] {
 		let channels = this._server.channels.array(),
-			Channels: IChannel[] = [];
+			Channels: ITextChannel[] = [];
 
 		channels.forEach(channel => {
-			Channels.push(new DiscordChannel(channel));
+			Channels.push(new DiscordTextChannel(channel));
 		});
 
 		return Channels;
 	}
 
-	hasChannel(channelId: string): IChannel|boolean {
+	getTextChannel(channelId: string): ITextChannel {
 		let i: number = 0,
 			channels = this._server.channels.array();
 
 		while(i < channels.length) {
-			if (channels[i].id === channelId) {
-				return new DiscordChannel(channels[i]);
+			if (channels[i].id === channelId && channels[i].type === "text") {
+				return new DiscordTextChannel(channels[i]);
+			}
+			i++;
+		}
+	}
+
+	hasTextChannel(channelId: string): boolean {
+		let i: number = 0,
+			channels = this._server.channels.array();
+
+		while(i < channels.length) {
+			if (channels[i].id === channelId && channels[i].type === "text") {
+				return true;
+			}
+			i++;
+		}
+
+		return false;
+	}
+
+	getVoiceChannels(): IVoiceChannel[] {
+		let channels = this._server.channels.array(),
+			Channels: IVoiceChannel[] = [];
+
+		channels.forEach(channel => {
+			Channels.push(new DiscordVoiceChannel(channel));
+		});
+
+		return Channels;
+	}
+
+	getVoiceChannel(channelId: string): IVoiceChannel {
+		let i: number = 0,
+			channels = this._server.channels.array();
+
+		while(i < channels.length) {
+			if (channels[i].id === channelId && channels[i].type === "voice") {
+				return new DiscordVoiceChannel(channels[i]);
+			}
+			i++;
+		}
+	}
+
+	hasVoiceChannel(channelId: string): boolean {
+		let i: number = 0,
+			channels = this._server.channels.array();
+
+		while(i < channels.length) {
+			if (channels[i].id === channelId && channels[i].type === "voice") {
+				return true;
 			}
 			i++;
 		}

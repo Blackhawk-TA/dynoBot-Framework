@@ -6,10 +6,10 @@
 		"outDir":  "build"
 	},
 	"include": [
-		"src",
-		"tests"
+		"src"
 	],
 	"exclude": [
+		"tests",
 		"node_modules"
 	]
 }

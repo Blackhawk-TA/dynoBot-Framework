@@ -1,7 +1,7 @@
 import {IUser} from "./IUser";
 import {IRole} from "./IRole";
 import {IServer} from "./IServer";
-import {IChannel} from "./IChannel";
+import {ITextChannel} from "./ITextChannel";
 
 export interface IMessage {
 	/**
@@ -9,7 +9,7 @@ export interface IMessage {
 	 * @supported Discord, Slack
 	 * @return The wrapped channel object
 	 */
-	getChannel(): IChannel;
+	getTextChannel(): ITextChannel;
 
 	/**
 	 * Gets the content of the message.

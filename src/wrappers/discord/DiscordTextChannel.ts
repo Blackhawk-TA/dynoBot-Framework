@@ -1,19 +1,15 @@
-import {IChannel} from "../interfaces/IChannel";
+import {ITextChannel} from "../interfaces/ITextChannel";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
 import {IMessage} from "../interfaces/IMessage";
 import {DiscordMessage} from "./DiscordMessage";
 import {ErrorHandler} from "../../utils/ErrorHandler";
 
-export class DiscordChannel implements IChannel {
+export class DiscordTextChannel implements ITextChannel {
 	private _channel: any;
 
 	constructor(channel: object) {
 		this._channel = channel;
-	}
-
-	isTextChannel(): boolean {
-		return !!this._channel.send;
 	}
 
 	send(message?: string, options?: any): void {

@@ -1,5 +1,5 @@
 import {DiscordMessage} from "../../src/wrappers/discord/DiscordMessage";
-import {DiscordChannel} from "../../src/wrappers/discord/DiscordChannel";
+import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
 import {DiscordRole} from "../../src/wrappers/discord/DiscordRole";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
@@ -40,13 +40,13 @@ describe("The class DiscordMessage", function() {
 		this.Message = null;
 	});
 
-	describe("The method getChannel", function() {
+	describe("The method getTextChannel", function() {
 		it("Returns the wrapped channel object", function() {
 			//Act
-			let Channel = this.Message.getChannel();
+			let Channel = this.Message.getTextChannel();
 
 			//Assert
-			assert.strictEqual(Channel instanceof DiscordChannel, true, "The message object was wrapped.");
+			assert.strictEqual(Channel instanceof DiscordTextChannel, true, "The message object was wrapped.");
 		});
 	});
 
@@ -199,10 +199,12 @@ describe("The class DiscordMessage", function() {
 	describe("The method isMentioned", function() {
 		it("Returns true because the user was mentioned", function() {
 			//Arrange
-			let user: object = {
-				id: "2"
+			let member: object = {
+				user: {
+					id: "2"
+				}
 			};
-			let User: IUser = new DiscordUser(user);
+			let User: IUser = new DiscordUser(member);
 
 			//Act
 			let isMentioned: boolean = this.Message.isMentioned(User);
@@ -213,10 +215,12 @@ describe("The class DiscordMessage", function() {
 
 		it("Returns false because the user was mentioned", function() {
 			//Arrange
-			let user: object = {
-				id: "3"
+			let member: object = {
+				user: {
+					id: "3"
+				}
 			};
-			let User: IUser = new DiscordUser(user);
+			let User: IUser = new DiscordUser(member);
 
 			//Act
 			let isMentioned: boolean = this.Message.isMentioned(User);

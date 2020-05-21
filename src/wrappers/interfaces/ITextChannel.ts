@@ -1,14 +1,7 @@
 import {IServer} from "./IServer";
 import {IMessage} from "./IMessage";
 
-export interface IChannel {
-	/**
-	 * Return whether the channel is a text channel.
-	 * @supported Discord, Slack
-	 * @return True if the channel is a text channel, else false
-	 */
-	isTextChannel(): boolean;
-
+export interface ITextChannel {
 	/**
 	 * Send a message to the channel.
 	 * @supported Discord, Slack

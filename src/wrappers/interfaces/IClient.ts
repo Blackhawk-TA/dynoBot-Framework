@@ -7,12 +7,12 @@ export interface IClient {
 	 * @supported Discord, Slack
 	 * @return The user object of the client
 	 */
-	getUser(): IUser
+	getUser(): IUser;
 
 	/**
 	 * Gets the servers the client is on.
 	 * @supported Discord
 	 * @return The servers of the client
 	 */
-	getServers(): IServer[]
+	getServers(): IServer[];
 }

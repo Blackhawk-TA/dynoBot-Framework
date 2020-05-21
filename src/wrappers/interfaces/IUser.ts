@@ -1,5 +1,5 @@
 import {IServer} from "./IServer";
-import {IChannel} from "./IChannel";
+import {IVoiceChannel} from "./IVoiceChannel";
 
 export interface IUser {
 	/**
@@ -17,7 +17,7 @@ export interface IUser {
 	getName(): string;
 
 	/**
-	 * Gets the tag of the user which makes it identifiable on a server
+	 * Gets the tag of the user which makes it identifiable on a server.
 	 * @supported Discord
 	 * @return The user tag
 	 */
@@ -31,16 +31,22 @@ export interface IUser {
 	getServer(): IServer;
 
 	/**
+	 * Gets the voice channel the user is active on.
+	 * @return The voice channel on which the user is active on
+	 */
+	getVoiceChannel(): IVoiceChannel;
+
+	/**
 	 * Creates a private message channel.
 	 * @supported Discord, Slack
 	 * @return The channel for private messages
 	 */
-	createDM(): Promise<IChannel>;
+	createDM(): Promise<ITextChannel>;
 
 	/**
 	 * Deletes a private message channel.
 	 * @supported Discord, Slack
 	 * @return The channel which has been deleted
 	 */
-	deleteDM(): Promise<IChannel>;
+	deleteDM(): Promise<ITextChannel>;
 }

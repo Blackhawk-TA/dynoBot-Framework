@@ -82,4 +82,14 @@ export class DiscordBot implements IBot {
 			ErrorHandler.throwErrorMessage("The bot has not been initialized yet.");
 		}
 	}
+
+	getAvailableEvents(): string[] {
+		let events: string[] = [];
+		for (let name in this._apiEvents) {
+			if (this._apiEvents.hasOwnProperty(name)) {
+				events.push(this._apiEvents[name].name);
+			}
+		}
+		return events;
+	}
 }

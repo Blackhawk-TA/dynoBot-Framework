@@ -1,6 +1,6 @@
 import {IMessage} from "../interfaces/IMessage";
-import {DiscordChannel} from "./DiscordChannel";
-import {IChannel} from "../interfaces/IChannel";
+import {DiscordTextChannel} from "./DiscordTextChannel";
+import {ITextChannel} from "../interfaces/ITextChannel";
 import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
 import {IRole} from "../interfaces/IRole";
@@ -16,8 +16,8 @@ export class DiscordMessage implements IMessage {
 		this._message = message;
 	}
 
-	getChannel(): IChannel {
-		return new DiscordChannel(this._message.channel);
+	getTextChannel(): ITextChannel {
+		return new DiscordTextChannel(this._message.channel);
 	}
 
 	getContent(excludeFirstWord?: boolean): string {
@@ -45,7 +45,7 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthor(): IUser {
-		return new DiscordUser(this._message.author);
+		return new DiscordUser(this._message.member);
 	}
 
 	getAuthorRoles(): IRole[] {
