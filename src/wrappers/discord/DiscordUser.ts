@@ -35,12 +35,12 @@ export class DiscordUser implements IUser {
 	}
 
 	getVoiceChannel(): IVoiceChannel {
-		if (this._member.voiceChannelID) {
+		if (this._member.voice.channelID) {
 			let i: number = 0,
 				voiceChannels: IVoiceChannel[] = this.getServer().getVoiceChannels();
 
 			while (i < voiceChannels.length) {
-				if (voiceChannels[i].getId() === this._member.voiceChannelID) {
+				if (voiceChannels[i].getId() === this._member.voice.channelID) {
 					return voiceChannels[i];
 				}
 				i++;

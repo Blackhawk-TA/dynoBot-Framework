@@ -18,7 +18,7 @@ export class DiscordClient implements IClient {
 	}
 
 	getServers(): IServer[] {
-		let servers: object[] = this._client.guilds.array();
+		let servers: object[] = this._client.guilds.cache.array();
 		let wrappedServers: IServer[] = [];
 		servers.forEach(server => {
 			wrappedServers.push(new DiscordServer(server));

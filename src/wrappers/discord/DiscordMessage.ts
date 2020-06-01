@@ -50,7 +50,7 @@ export class DiscordMessage implements IMessage {
 
 	getAuthorRoles(): IRole[] {
 		if (this._message.member && this._message.member.roles) {
-			let roles = this._message.member.roles.array(),
+			let roles = this._message.member.roles.cache.array(),
 				Roles: IRole[] = [];
 
 			roles.forEach(role => {

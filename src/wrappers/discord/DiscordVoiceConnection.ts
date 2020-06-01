@@ -17,7 +17,7 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 			isInitEvent: false
 		},
 		end: {
-			name: "end",
+			name: "finish",
 			returnClass: null,
 			isWrapped: false,
 			isInitEvent: false
@@ -54,7 +54,7 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 
 	end(): void {
 		if (this._dispatcher) {
-			this._dispatcher.end();
+			this._dispatcher.destroy();
 		}
 	}
 
@@ -67,11 +67,11 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 	}
 
 	play(resource: string): void {
-		this._dispatcher = this._connection.playArbitraryInput(resource);
+		this._dispatcher = this._connection.play(resource);
 	}
 
 	pause(silence?: boolean): void {
-		this._dispatcher.pause();
+		this._dispatcher.pause(true);
 	}
 
 	resume(): void {

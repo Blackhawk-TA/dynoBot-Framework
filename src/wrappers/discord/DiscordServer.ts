@@ -24,7 +24,7 @@ export class DiscordServer implements IServer {
 	}
 
 	getMembers(): IUser[] {
-		let members = this._server.members.array(),
+		let members = this._server.members.cache.array(),
 			Members: IUser[] = [];
 
 		members.forEach(member => {
@@ -35,7 +35,7 @@ export class DiscordServer implements IServer {
 	}
 
 	getTextChannels(): ITextChannel[] {
-		let channels = this._server.channels.array(),
+		let channels = this._server.channels.cache.array(),
 			Channels: ITextChannel[] = [];
 
 		channels.forEach(channel => {
@@ -47,7 +47,7 @@ export class DiscordServer implements IServer {
 
 	getTextChannel(channelId: string): ITextChannel {
 		let i: number = 0,
-			channels = this._server.channels.array();
+			channels = this._server.channels.cache.array();
 
 		while(i < channels.length) {
 			if (channels[i].id === channelId && channels[i].type === "text") {
@@ -59,7 +59,7 @@ export class DiscordServer implements IServer {
 
 	hasTextChannel(channelId: string): boolean {
 		let i: number = 0,
-			channels = this._server.channels.array();
+			channels = this._server.channels.cache.array();
 
 		while(i < channels.length) {
 			if (channels[i].id === channelId && channels[i].type === "text") {
@@ -72,7 +72,7 @@ export class DiscordServer implements IServer {
 	}
 
 	getVoiceChannels(): IVoiceChannel[] {
-		let channels = this._server.channels.array(),
+		let channels = this._server.channels.cache.array(),
 			Channels: IVoiceChannel[] = [];
 
 		channels.forEach(channel => {
@@ -84,7 +84,7 @@ export class DiscordServer implements IServer {
 
 	getVoiceChannel(channelId: string): IVoiceChannel {
 		let i: number = 0,
-			channels = this._server.channels.array();
+			channels = this._server.channels.cache.array();
 
 		while(i < channels.length) {
 			if (channels[i].id === channelId && channels[i].type === "voice") {
@@ -96,7 +96,7 @@ export class DiscordServer implements IServer {
 
 	hasVoiceChannel(channelId: string): boolean {
 		let i: number = 0,
-			channels = this._server.channels.array();
+			channels = this._server.channels.cache.array();
 
 		while(i < channels.length) {
 			if (channels[i].id === channelId && channels[i].type === "voice") {
@@ -109,7 +109,7 @@ export class DiscordServer implements IServer {
 	}
 
 	getRoles(): IRole[] {
-		let roles = this._server.roles.array(),
+		let roles = this._server.roles.cache.array(),
 			Roles: IRole[] = [];
 
 		roles.forEach(role => {
