@@ -20,7 +20,7 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 	}
 
 	getMembers(): IUser[] {
-		let members = this._channel.members.cache.array(),
+		let members = this._channel.members.array(),
 			Members: IUser[] = [];
 
 		members.forEach(member => {
