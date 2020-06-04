@@ -22,6 +22,12 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 			isWrapped: false,
 			isInitEvent: false
 		},
+		failed: {
+			name: "failed",
+			returnClass: null,
+			isWrapped: false,
+			isInitEvent: false
+		},
 		error: {
 			name: "error",
 			returnClass: null,
