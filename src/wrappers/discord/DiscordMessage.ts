@@ -45,12 +45,13 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthor(): IUser {
-		return new DiscordUser(this._message.member);
+		let user: object = this._message.member || this._message.author;
+		return new DiscordUser(user);
 	}
 
 	getAuthorRoles(): IRole[] {
 		if (this._message.member && this._message.member.roles) {
-			let roles = this._message.member.roles.array(),
+			let roles = this._message.member.roles.cache.array(),
 				Roles: IRole[] = [];
 
 			roles.forEach(role => {

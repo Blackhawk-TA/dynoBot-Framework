@@ -19,9 +19,11 @@ describe("The class DiscordMessage", function() {
 			guild: {},
 			member: {
 				roles: {
-					array: function() {
-						return this.roles;
-					}.bind(this)
+					cache: {
+						array: function() {
+							return this.roles;
+						}.bind(this)
+					}
 				}
 			},
 			mentions: {
@@ -120,8 +122,10 @@ describe("The class DiscordMessage", function() {
 		it("Returns an empty array because there are no roles", function() {
 			//Arrange
 			this.message.member.roles = {
-				array: function() {
-					return [];
+				cache: {
+					array: function() {
+						return [];
+					}
 				}
 			};
 

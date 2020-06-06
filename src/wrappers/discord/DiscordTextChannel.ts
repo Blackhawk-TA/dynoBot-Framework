@@ -34,7 +34,7 @@ export class DiscordTextChannel implements ITextChannel {
 
 	getMessages(amount: number): Promise<IMessage[]> {
 		return new Promise<IMessage[]>((resolve, reject) => {
-			this._channel.fetchMessages({limit: amount}).then((messages) => {
+			this._channel.messages.fetch({limit: amount}).then((messages) => {
 				let Messages: IMessage[] = [];
 				messages.forEach(message => {
 					Messages.push(new DiscordMessage(message));
