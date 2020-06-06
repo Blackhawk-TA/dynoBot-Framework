@@ -12,7 +12,9 @@ describe("The class DiscordTextChannel", function() {
 			name: "channelName",
 			guild: {},
 			send: function() {},
-			fetchMessages: function() {},
+			messages: {
+				fetch: function() {}
+			},
 			awaitMessages: function() {}
 		};
 		this.Channel = new DiscordTextChannel(this.channel);
@@ -90,7 +92,7 @@ describe("The class DiscordTextChannel", function() {
 		it("Returns the requested messages", function() {
 			//Arrange
 			let messagesReturned = [{}, {}];
-			let fetchMessagesStub = sinon.stub(this.channel, "fetchMessages").returns(Promise.resolve(messagesReturned));
+			let fetchMessagesStub = sinon.stub(this.channel.messages, "fetch").returns(Promise.resolve(messagesReturned));
 
 			//Act
 			return this.Channel.getMessages(2).then(messages => {
@@ -105,7 +107,7 @@ describe("The class DiscordTextChannel", function() {
 
 		it("Returns an error when fetchMessages was rejected", function() {
 			//Arrange
-			let fetchMessagesStub = sinon.stub(this.channel, "fetchMessages").returns(Promise.reject(new Error("Some error")));
+			let fetchMessagesStub = sinon.stub(this.channel.messages, "fetch").returns(Promise.reject(new Error("Some error")));
 
 			//Act
 			return this.Channel.getMessages(2).catch(error => {
@@ -154,8 +156,10 @@ describe("The class DiscordTextChannel", function() {
 				"some": "option"
 			};
 			let messagesReturned = {
-				array: function() {
-					return [{}, {}];
+				cache: {
+					array: function() {
+						return [{}, {}];
+					}
 				}
 			};
 			let awaitMessagesStub = sinon.stub(this.channel, "awaitMessages").returns(Promise.resolve(messagesReturned));

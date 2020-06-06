@@ -12,18 +12,24 @@ describe("The class DiscordServer", function() {
 			id: 123,
 			name: "serverName",
 			members: {
-				array: function() {
-					return [];
+				cache: {
+					array: function() {
+						return [];
+					}
 				}
 			},
 			channels: {
-				array: function() {
-					return [];
+				cache: {
+					array: function() {
+						return [];
+					}
 				}
 			},
 			roles: {
-				array: function() {
-					return [];
+				cache: {
+					array: function() {
+						return [];
+					}
 				}
 			}
 		};
@@ -61,7 +67,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns an array of wrapped user objects", function() {
 			//Arrange
-			this.server.members.array = function() {
+			this.server.members.cache.array = function() {
 				return [{
 					user: {}
 				}, {
@@ -90,7 +96,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns an array of wrapped channel objects", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{}, {}];
 			};
 
@@ -115,7 +121,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns false because the requested channel does not exist", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "text"
@@ -131,7 +137,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns true because the requested channel exists", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "123",
 					type: "text"
@@ -157,7 +163,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns nothing because the requested channel does not exist", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "text"
@@ -173,7 +179,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns the requested channel", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "text"
@@ -202,7 +208,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns an array of wrapped channel objects", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{}, {}];
 			};
 
@@ -227,7 +233,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns false because the requested channel does not exist", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "voice"
@@ -243,7 +249,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns true because the requested channel exists", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "123",
 					type: "voice"
@@ -269,7 +275,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns undefined because the requested channel does not exist", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "voice"
@@ -285,7 +291,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns the requested channel", function() {
 			//Arrange
-			this.server.channels.array = function() {
+			this.server.channels.cache.array = function() {
 				return [{
 					id: "312",
 					type: "voice"
@@ -314,7 +320,7 @@ describe("The class DiscordServer", function() {
 
 		it("Returns an array of wrapped role objects", function() {
 			//Arrange
-			this.server.roles.array = function() {
+			this.server.roles.cache.array = function() {
 				return [{}, {}];
 			};
 

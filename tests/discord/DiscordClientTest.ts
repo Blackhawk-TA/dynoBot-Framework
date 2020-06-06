@@ -33,8 +33,10 @@ describe("The class DiscordClient", function() {
 			let client: object = {
 				on: function() {},
 				guilds: {
-					array: function() {
-						return [];
+					cache: {
+						array: function() {
+							return [];
+						}
 					}
 				}
 			};
@@ -52,8 +54,10 @@ describe("The class DiscordClient", function() {
 			let client: object = {
 				on: function() {},
 				guilds: {
-					array: function() {
-						return [{}];
+					cache: {
+						array: function() {
+							return [{}];
+						}
 					}
 				}
 			};
@@ -72,8 +76,10 @@ describe("The class DiscordClient", function() {
 			let client: object = {
 				on: function() {},
 				guilds: {
-					array: function() {
-						return [{}, {}];
+					cache: {
+						array: function() {
+							return [{}, {}];
+						}
 					}
 				}
 			};
