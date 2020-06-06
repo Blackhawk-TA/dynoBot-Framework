@@ -156,10 +156,8 @@ describe("The class DiscordTextChannel", function() {
 				"some": "option"
 			};
 			let messagesReturned = {
-				cache: {
-					array: function() {
-						return [{}, {}];
-					}
+				array: function() {
+					return [{}, {}];
 				}
 			};
 			let awaitMessagesStub = sinon.stub(this.channel, "awaitMessages").returns(Promise.resolve(messagesReturned));
