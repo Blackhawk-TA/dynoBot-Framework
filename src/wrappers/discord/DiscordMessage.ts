@@ -45,7 +45,8 @@ export class DiscordMessage implements IMessage {
 	}
 
 	getAuthor(): IUser {
-		return new DiscordUser(this._message.member);
+		let user: object = this._message.member || this._message.author;
+		return new DiscordUser(user);
 	}
 
 	getAuthorRoles(): IRole[] {

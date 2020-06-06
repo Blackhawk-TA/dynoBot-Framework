@@ -7,24 +7,27 @@ import {IVoiceChannel} from "../interfaces/IVoiceChannel";
 
 export class DiscordUser implements IUser {
 	private _member: any;
-	constructor(user: any) {
-		this._member = user;
+	private _user: any;
+
+	constructor(member: any) {
+		this._user = member.user || member;
+		this._member = member;
 	}
 
 	getId(): number {
-		return this._member.user.id;
+		return this._user.id;
 	}
 
 	getName(): string {
-		return this._member.user.username;
+		return this._user.username;
 	}
 
 	getTag(): string {
-		return this._member.user.tag;
+		return this._user.tag;
 	}
 
 	getServer(): IServer {
-		if (this._member.user.guild) {
+		if (this._user.guild) {
 			return new DiscordServer(this._member.user.guild);
 		} else if (this._member.guild) {
 			return new DiscordServer(this._member.guild);
@@ -35,7 +38,7 @@ export class DiscordUser implements IUser {
 	}
 
 	getVoiceChannel(): IVoiceChannel {
-		if (this._member.voice.channelID) {
+		if (this._member.voice && this._member.voice.channelID) {
 			let i: number = 0,
 				voiceChannels: IVoiceChannel[] = this.getServer().getVoiceChannels();
 
@@ -53,7 +56,7 @@ export class DiscordUser implements IUser {
 
 	createDM(): Promise<DiscordTextChannel> {
 		return new Promise<DiscordTextChannel>((resolve, reject) => {
-			this._member.user.createDM().then(channel => {
+			this._user.createDM().then(channel => {
 				resolve(new DiscordTextChannel(channel));
 			}).catch(reason => {
 				reject(reason);
@@ -63,7 +66,7 @@ export class DiscordUser implements IUser {
 
 	deleteDM(): Promise<DiscordTextChannel> {
 		return new Promise<DiscordTextChannel>((resolve, reject) => {
-			this._member.user.deleteDM().then(channel => {
+			this._user.deleteDM().then(channel => {
 				resolve(new DiscordTextChannel(channel));
 			}).catch(reason => {
 				reject(reason);

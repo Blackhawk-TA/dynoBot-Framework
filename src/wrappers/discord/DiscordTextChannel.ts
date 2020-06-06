@@ -68,7 +68,7 @@ export class DiscordTextChannel implements ITextChannel {
 		return new Promise<IMessage[]>((resolve, reject) => {
 			this._channel.awaitMessages(function() {return true;}, options).then(messages => {
 				let Messages: IMessage[] = [];
-				messages.cache.array().forEach(message => {
+				messages.array().forEach(message => {
 					Messages.push(new DiscordMessage(message));
 				});
 				resolve(Messages);
