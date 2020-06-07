@@ -28,7 +28,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Blackhawk-TA/chatbot-api-wrapper.git"
+		"url": "https://github.com/Blackhawk-TA/dynoBot-Framework.git"
 	},
 	"dependencies": {
 		"discord.js": "^12.2.0",
