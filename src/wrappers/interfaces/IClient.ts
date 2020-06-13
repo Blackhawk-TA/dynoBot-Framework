@@ -13,4 +13,9 @@ export interface IClient {
 	 * @return The servers of the client
 	 */
 	getServers(): IServer[];
+
+	/**
+	 * Sets the presence text of the client
+	 */
+	setPresence(text: string): void;
 }

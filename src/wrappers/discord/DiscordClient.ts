@@ -3,6 +3,7 @@ import {IUser} from "../interfaces/IUser";
 import {DiscordUser} from "./DiscordUser";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
+import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordClient implements IClient {
 	private readonly _user: IUser;
@@ -25,5 +26,14 @@ export class DiscordClient implements IClient {
 		});
 
 		return wrappedServers;
+	}
+
+	setPresence(text: string): void {
+		this._client.user.setPresence({
+			activity: {name: text},
+			status: "online"
+		}).catch(err => {
+			ErrorHandler.log(`Unable to set presence: ${err}`);
+		});
 	}
 }
