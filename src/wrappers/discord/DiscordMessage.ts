@@ -40,8 +40,8 @@ export class DiscordMessage implements IMessage {
 		}
 	}
 
-	getRegexGroups(RegexPattern: RegExp): string[] {
-		return RegexPattern.exec(this._message.content);
+	getRegexGroups(RegexPattern: RegExp, excludeFirstWord?: boolean): string[] {
+		return RegexPattern.exec(this.getContent(excludeFirstWord));
 	}
 
 	getAuthor(): IUser {

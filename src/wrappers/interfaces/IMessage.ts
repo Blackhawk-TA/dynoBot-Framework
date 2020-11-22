@@ -29,8 +29,9 @@ export interface IMessage {
 	/**
 	 * Get the regex groups of a message
 	 * @param regexPattern - The pattern which shall be applied on the message.
+	 * @param [excludeFirstWord] - Excludes the first word of the content if set to true
 	 */
-	getRegexGroups(regexPattern: RegExp): string[];
+	getRegexGroups(regexPattern: RegExp, excludeFirstWord: boolean): string[];
 
 	/**
 	 * Get the author of the message
