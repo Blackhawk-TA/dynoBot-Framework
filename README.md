@@ -57,7 +57,7 @@ Bot.onEvent("ready", () => {
 
 	Bot.onEvent("message", (msg) => {
 		if (msg.isMentioned(Bot.getClient().getUser())) {
-			msg.getChannel().send("OK");
+			msg.getTextChannel().send("OK");
 		}
 	});
 });
