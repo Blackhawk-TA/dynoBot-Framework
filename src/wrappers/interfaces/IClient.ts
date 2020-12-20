@@ -16,6 +16,7 @@ export interface IClient {
 
 	/**
 	 * Sets the presence text of the client
+	 * @return A promise with an error if it fails
 	 */
-	setPresence(text: string): void;
+	setPresence(text: string): Promise<void|Error>;
 }
