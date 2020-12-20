@@ -1,10 +1,8 @@
 import {DiscordUser} from "../../src/wrappers/discord/DiscordUser";
 import {DiscordTextChannel} from "../../src/wrappers/discord/DiscordTextChannel";
 import {DiscordServer} from "../../src/wrappers/discord/DiscordServer";
-import {ErrorHandler} from "../../src/utils/ErrorHandler";
 
 const assert = require("assert");
-const sinon = require("sinon");
 
 describe("The class DiscordUser", function() {
 	beforeEach(function() {
@@ -65,17 +63,14 @@ describe("The class DiscordUser", function() {
 		it("Returns null because the user is not acting on a server", function() {
 			//Arrange
 			this._member.user.guild = null;
-			let oErrorHandlerStub = sinon.stub(ErrorHandler, "log");
 
 			//Act
 			let Server: any = this.User.getServer();
 
 			//Assert
-			assert.strictEqual(oErrorHandlerStub.callCount, 1, "The error handler was called.");
 			assert.strictEqual(Server, null, "There is no server, so null was returned.");
 
 			//Cleanup
-			oErrorHandlerStub.restore();
 		});
 	});
 

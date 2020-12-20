@@ -91,7 +91,7 @@ export class DiscordVoiceConnection implements IVoiceConnection {
 
 			this._eventEmitter.on(name, listener);
 		} else {
-			ErrorHandler.log(`The event '${name}' could not be attached. The play method must be run first`);
+			ErrorHandler.throwErrorMessage(`The event '${name}' could not be attached. The play method must be run first`);
 		}
 	}
 

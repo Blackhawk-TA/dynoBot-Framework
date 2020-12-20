@@ -2,7 +2,6 @@ import {IUser} from "../interfaces/IUser";
 import {DiscordTextChannel} from "./DiscordTextChannel";
 import {IServer} from "../interfaces/IServer";
 import {DiscordServer} from "./DiscordServer";
-import {ErrorHandler} from "../../utils/ErrorHandler";
 import {IVoiceChannel} from "../interfaces/IVoiceChannel";
 
 export class DiscordUser implements IUser {
@@ -32,7 +31,6 @@ export class DiscordUser implements IUser {
 		} else if (this._member.guild) {
 			return new DiscordServer(this._member.guild);
 		} else {
-			ErrorHandler.log("The user is currently not acting on a server.");
 			return null;
 		}
 	}
@@ -49,7 +47,6 @@ export class DiscordUser implements IUser {
 				i++;
 			}
 		} else {
-			ErrorHandler.log("The user is currently not active on a voice channel.");
 			return null;
 		}
 	}

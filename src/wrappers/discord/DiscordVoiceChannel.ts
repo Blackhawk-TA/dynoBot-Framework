@@ -5,7 +5,6 @@ import {DiscordServer} from "./DiscordServer";
 import {DiscordUser} from "./DiscordUser";
 import {DiscordVoiceConnection} from "./DiscordVoiceConnection";
 import {IVoiceConnection} from "../interfaces/IVoiceConnection";
-import {ErrorHandler} from "../../utils/ErrorHandler";
 
 export class DiscordVoiceChannel implements IVoiceChannel {
 	private _channel: any;
@@ -46,7 +45,6 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 		if (this._connection) {
 			return this._connection;
 		} else {
-			ErrorHandler.log("There is no active voice connection. The bot has to join a channel first.");
 			return null;
 		}
 	}
@@ -68,14 +66,14 @@ export class DiscordVoiceChannel implements IVoiceChannel {
 	}
 
 	join(): Promise<DiscordVoiceConnection> {
-		return new Promise<any>(((resolve, reject) => {
+		return new Promise<any>((resolve, reject) => {
 			this._channel.join().then(connection => {
 				this._connection = new DiscordVoiceConnection(connection);
 				resolve(this._connection);
 			}).catch(error => {
 				reject(error);
 			});
-		}));
+		});
 	}
 
 	leave(): void {
