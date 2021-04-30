@@ -28,7 +28,7 @@ describe("The class DiscordBot", function () {
 			let Bot: IBot = new DiscordBot(token);
 
 			//Act
-			let EventPromise = new Promise(resolve => {
+			let EventPromise = new Promise<void>(resolve => {
 				Bot.onEvent("ready", () => {
 					resolve();
 				});
