@@ -10,9 +10,3 @@ bot.js
 .env
 .nyc_output
 coverage
-
-# Compiled TypeScript
-build/
-
-# Documentation
-doc/
