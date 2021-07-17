@@ -24,6 +24,10 @@ export class DiscordServer implements IServer {
 	}
 
 	getMembers(): IUser[] {
+		return this.getOnlineMembers();
+	}
+
+	getOnlineMembers(): IUser[] {
 		let members = this._server.members.cache.array(),
 			Members: IUser[] = [];
 
@@ -32,6 +36,16 @@ export class DiscordServer implements IServer {
 		});
 
 		return Members;
+	}
+
+	getMemberById(id: string): Promise<IUser> {
+		return new Promise<IUser>((resolve, reject) => {
+			this._server.members.fetch(id).then(member => {
+				resolve(new DiscordUser((member)));
+			}).catch(error => {
+				reject(error);
+			});
+		});
 	}
 
 	getTextChannels(): ITextChannel[] {

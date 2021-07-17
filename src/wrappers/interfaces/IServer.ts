@@ -17,10 +17,23 @@ export interface IServer {
 	getName(): string;
 
 	/**
-	 * Get the members of the server.
+	 * Get the members of the server which are online.
+	 * @deprecated Will be removed in v1.5.0.
 	 * @return The members of the server
 	 */
 	getMembers(): IUser[];
+
+	/**
+	 * Get a member by its ID
+	 * @param id
+	 */
+	getMemberById(id: string): Promise<IUser>;
+
+	/**
+	 * Get the members of the server which are online.
+	 * @return The members of the server
+	 */
+	getOnlineMembers(): IUser[];
 
 	/**
 	 * Get the text channels of the server.
