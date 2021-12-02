@@ -4,6 +4,13 @@
 [![npm](https://img.shields.io/npm/v/dynobot-framework.svg?color=brightgreen)](https://www.npmjs.com/package/dynobot-framework)
 [![github](https://img.shields.io/github/release/Blackhawk-TA/dynoBot-Framework.svg?color=brightgreen)](https://github.com/Blackhawk-TA/dynoBot-Framework/releases)
 
+## End of life
+Due to discord's decision to enforce [slash commands](#https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ) for bots,
+I will stop developing this project. This means that I won't fix any issues or bugs nor add new features.
+The project will remain on GitHub, but it will be achieved.
+
+This also applies for the [dynoBot](#https://github.com/Blackhawk-TA/dynoBot) project.
+
 ### Overview
 1. [dynoBot-Framework](#dynobot-framework)
 2. [Documentation](#documentation)
